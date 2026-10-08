@@ -68,7 +68,7 @@ groq-pro:
   - "groq-minimax-m2.7"
 zai-pro:
   name: "Zai Subscription"
-  opus_model: "zai/glm-5.3-flashx (sub)"
+  opus_model: "zai/glm-5.3-flash (sub)"
   sonnet_model: "zai/glm-5.3-flash (sub)"
   haiku_model: "zai/glm-5.3-flash (sub)"
   fable_model: "zai/glm-5.3 (sub)"
@@ -93,7 +93,7 @@ zai-pro:
   - "zai-oa/glm-4.7"
 zai-alt: &zai-alt-profile
   name: "Zai Subscription (Alt)"
-  opus_model: "zai-alt/glm-5.3-flashx"
+  opus_model: "zai-alt/glm-5.3-flash"
   sonnet_model: "zai-alt/glm-5.3-flash"
   haiku_model: "zai-alt/glm-5.3-flash"
   fable_model: "zai-alt/glm-5.3"
@@ -114,51 +114,51 @@ zai-pro-alt: *zai-alt-profile
 
 # Z.AI Subscription - FlashX (faster variant of glm-5.3-flash)
 #   fable  = glm-5.3
-#   opus   = glm-5.3-flashx
+#   opus   = glm-5.3-flash
 #   sonnet = glm-5.3-flash
 #   haiku  = glm-5.3-flash
 # Requires: ZAI_SUB_KEY; Tyna copies also need ZAI_SUB_KEY_TYNA
 zai-pro-x:
   name: "Zai Subscription (FlashX)"
-  opus_model: "zai/glm-5.3-flashx (sub)"
+  opus_model: "zai/glm-5.3-flash (sub)"
   sonnet_model: "zai/glm-5.3-flash (sub)"
   haiku_model: "zai/glm-5.3-flash (sub)"
   fable_model: "zai/glm-5.3 (sub)"
   extended:
   - "zai/glm-5-turbo[1m]"
-  - "zai/glm-5.3-flashx[1m]"
+  - "zai/glm-5.3-flash[1m]"
   - "zai/glm-5.3[1m]"
-  - "zai-alt/glm-5.3-flashx"
-  - "zai-alt/glm-5.3-flashx[1m]"
+  - "zai-alt/glm-5.3-flash"
+  - "zai-alt/glm-5.3-flash[1m]"
   - "zai-alt/glm-5-turbo"
   - "zai-alt/glm-5-turbo[1m]"
   - "zai-alt/glm-5.3"
   - "zai-alt/glm-5.3[1m]"
   - "zai/glm-5.3"
-  - "zai/glm-5.3-flashx"
+  - "zai/glm-5.3-flash"
   - "zai/glm-5.2"
   - "zai-oa/glm-5.3"
-  - "zai-oa/glm-5.3-flashx"
-  - "zai-oa/glm-5.3-flashx[1m]"
+  - "zai-oa/glm-5.3-flash"
+  - "zai-oa/glm-5.3-flash[1m]"
   - "zai-oa/glm-5.2"
   - "zai-oa/glm-5-turbo"
   - "zai-oa/glm-4.7"
 zai-alt-x:
   name: "Zai Subscription (Alt, FlashX)"
-  opus_model: "zai-alt/glm-5.3-flashx"
+  opus_model: "zai-alt/glm-5.3-flash"
   sonnet_model: "zai-alt/glm-5.3-flash"
   haiku_model: "zai-alt/glm-5.3-flash"
   fable_model: "zai-alt/glm-5.3"
   extended:
   - "zai-alt/glm-5-turbo[1m]"
   - "zai-alt/glm-5.3[1m]"
-  - "zai-alt/glm-5.3-flashx[1m]"
+  - "zai-alt/glm-5.3-flash[1m]"
   - "zai-alt/glm-5.3"
-  - "zai-alt/glm-5.3-flashx"
+  - "zai-alt/glm-5.3-flash"
   - "zai-alt/glm-5.2"
   - "zai-oa-alt/glm-5.3"
-  - "zai-oa-alt/glm-5.3-flashx"
-  - "zai-oa-alt/glm-5.3-flashx[1m]"
+  - "zai-oa-alt/glm-5.3-flash"
+  - "zai-oa-alt/glm-5.3-flash[1m]"
   - "zai-oa-alt/glm-5.2"
   - "zai-oa-alt/glm-5-turbo"
   - "zai-oa-alt/glm-4.7"
@@ -178,7 +178,7 @@ zai-oa:
 zai-max:
   name: "Zai Subscription (Max Thinking)"
   opus_model: "zai/glm-5.3 (sub, max)"
-  sonnet_model: "zai/glm-5.3-flashx (sub)"
+  sonnet_model: "zai/glm-5.3-flash (sub)"
   haiku_model: "zai/glm-5.3-flash (sub, low)"
   fable_model: "zai/glm-5.3 (sub, max)"
 

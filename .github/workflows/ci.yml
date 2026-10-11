@@ -53,6 +53,18 @@ jobs:
       HOLOGRAM_START: "1"
     steps:
       - uses: actions/checkout@v4
+      # Runs on the checkout, BEFORE mix compile regenerates the maps: the
+      # committed .map artifacts are public repo content, and hologram's
+      # bundler hardcodes --sources-content=true, so any local rebuild embeds
+      # the builder's absolute paths. Strip sourcesContent + relativize
+      # sources before committing regenerated maps.
+      - name: Committed source maps must not embed sourcesContent or local paths
+        run: |
+          ls priv/static/hologram/*.map >/dev/null
+          if grep -nE 'sourcesContent|/Users/' priv/static/hologram/*.map; then
+            echo "::error::strip sourcesContent and absolute paths from hologram .map artifacts before committing"
+            exit 1
+          fi
       - uses: erlef/setup-beam@v1
         id: beam
         with:

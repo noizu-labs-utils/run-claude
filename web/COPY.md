@@ -123,11 +123,17 @@ OpenRouter, and local Ollama/vLLM ship too — or write your own.`
 Section heading: **Install** · sub-line: `run-claude installs from source. Packaged installs are
 planned — for now, clone and make.`
 
+**Single source for the install preamble:** the three command blocks (hero quick start, Install
+section, closing CTA) share their first lines character-for-character; the Install section block
+is canonical — change it there first, then mirror in the hero and CTA blocks.
+
 **Prerequisites (stated up front, as a list):**
 
 - Python 3 + [uv](https://docs.astral.sh/uv/) — the CLI is installed with `uv tool install .`
-- Go 1.22+ — `make install` builds the default `go-litellm` gateway binary (skipped with a warning if absent)
-- Docker — runs the gateway database container
+- Go 1.22+ — `make install` builds the default `go-litellm` gateway binary (skipped with a warning if absent —
+  without Go there is no default gateway until you install it and run `make install-go-litellm`)
+- Docker — only for the legacy Python proxy chain's database; the default `go-litellm` gateway is a static
+  binary with no DB (verified: `start_proxy` returns before the DB auto-start block in unified-gateway mode)
 - [direnv](https://direnv.net/) — per-directory activation
 - Claude Code and/or the OpenCode CLI — the agents being routed
 

@@ -42,10 +42,10 @@
     `)]),t.tuple([t.atom("element"),t.bitstring("meta"),t.list([t.tuple([t.bitstring("charset"),t.list([t.tuple([t.atom("text"),t.bitstring("utf-8")])])])]),t.list([])]),t.tuple([t.atom("text"),t.bitstring(`
     `)]),t.tuple([t.atom("element"),t.bitstring("meta"),t.list([t.tuple([t.bitstring("name"),t.list([t.tuple([t.atom("text"),t.bitstring("viewport")])])]),t.tuple([t.bitstring("content"),t.list([t.tuple([t.atom("text"),t.bitstring("width=device-width, initial-scale=1")])])])]),t.list([])]),t.tuple([t.atom("text"),t.bitstring(`
     `)]),t.tuple([t.atom("element"),t.bitstring("title"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("run-claude \u2014 Claude Code. Your models.")])])]),t.tuple([t.atom("text"),t.bitstring(`
-    `)]),t.tuple([t.atom("element"),t.bitstring("meta"),t.list([t.tuple([t.bitstring("name"),t.list([t.tuple([t.atom("text"),t.bitstring("description")])])]),t.tuple([t.bitstring("content"),t.list([t.tuple([t.atom("text"),t.bitstring("run-claude routes Claude Code and OpenCode through a local, self-healing model gateway: map opus/sonnet/haiku/fable tiers to 211 models across 35 provider profiles. Your keys, your machine, OAuth passthrough for your Claude subscription.")])])])]),t.list([])]),t.tuple([t.atom("text"),t.bitstring(`
+    `)]),t.tuple([t.atom("element"),t.bitstring("meta"),t.list([t.tuple([t.bitstring("name"),t.list([t.tuple([t.atom("text"),t.bitstring("description")])])]),t.tuple([t.bitstring("content"),t.list([t.tuple([t.atom("text"),t.bitstring("run-claude routes Claude Code and OpenCode through a local, self-healing model gateway: map opus/sonnet/haiku/fable tiers to a 211-model catalog across 35 provider profiles. Your keys, your machine, OAuth passthrough for your Claude subscription.")])])])]),t.list([])]),t.tuple([t.atom("text"),t.bitstring(`
     `)]),t.tuple([t.atom("element"),t.bitstring("meta"),t.list([t.tuple([t.bitstring("property"),t.list([t.tuple([t.atom("text"),t.bitstring("og:type")])])]),t.tuple([t.bitstring("content"),t.list([t.tuple([t.atom("text"),t.bitstring("website")])])])]),t.list([])]),t.tuple([t.atom("text"),t.bitstring(`
     `)]),t.tuple([t.atom("element"),t.bitstring("meta"),t.list([t.tuple([t.bitstring("property"),t.list([t.tuple([t.atom("text"),t.bitstring("og:title")])])]),t.tuple([t.bitstring("content"),t.list([t.tuple([t.atom("text"),t.bitstring("run-claude \u2014 Claude Code. Your models.")])])])]),t.list([])]),t.tuple([t.atom("text"),t.bitstring(`
-    `)]),t.tuple([t.atom("element"),t.bitstring("meta"),t.list([t.tuple([t.bitstring("property"),t.list([t.tuple([t.atom("text"),t.bitstring("og:description")])])]),t.tuple([t.bitstring("content"),t.list([t.tuple([t.atom("text"),t.bitstring("Keep the Claude Code UX, swap the economics: per-directory model routing through a localhost gateway. 211 models, 35 profiles, your keys, no cloud middleman.")])])])]),t.list([])]),t.tuple([t.atom("text"),t.bitstring(`
+    `)]),t.tuple([t.atom("element"),t.bitstring("meta"),t.list([t.tuple([t.bitstring("property"),t.list([t.tuple([t.atom("text"),t.bitstring("og:description")])])]),t.tuple([t.bitstring("content"),t.list([t.tuple([t.atom("text"),t.bitstring("Keep the Claude Code UX, swap the economics: per-directory model routing through a localhost gateway. a 211-model catalog, 35 profiles, your keys, no cloud middleman.")])])])]),t.list([])]),t.tuple([t.atom("text"),t.bitstring(`
     `)]),t.tuple([t.atom("element"),t.bitstring("meta"),t.list([t.tuple([t.bitstring("property"),t.list([t.tuple([t.atom("text"),t.bitstring("og:url")])])]),t.tuple([t.bitstring("content"),t.list([t.tuple([t.atom("text"),t.bitstring("https://run-claude.therobotlives.com/")])])])]),t.list([])]),t.tuple([t.atom("text"),t.bitstring(`
     `)]),t.tuple([t.atom("element"),t.bitstring("meta"),t.list([t.tuple([t.bitstring("name"),t.list([t.tuple([t.atom("text"),t.bitstring("twitter:card")])])]),t.tuple([t.bitstring("content"),t.list([t.tuple([t.atom("text"),t.bitstring("summary")])])])]),t.list([])]),t.tuple([t.atom("text"),t.bitstring(`
     `)]),t.tuple([t.atom("element"),t.bitstring("link"),t.list([t.tuple([t.bitstring("rel"),t.list([t.tuple([t.atom("text"),t.bitstring("icon")])])]),t.tuple([t.bitstring("href"),t.list([t.tuple([t.atom("text"),t.bitstring("/assets/favicon.svg")])])]),t.tuple([t.bitstring("type"),t.list([t.tuple([t.atom("text"),t.bitstring("image/svg+xml")])])])]),t.list([])]),t.tuple([t.atom("text"),t.bitstring(`
@@ -115,7 +115,7 @@
     `)]),t.tuple([t.atom("element"),t.bitstring("figure"),t.list([t.tuple([t.bitstring("class"),t.list([t.tuple([t.atom("text"),t.bitstring("install-block")])])]),t.tuple([t.bitstring("aria-label"),t.list([t.tuple([t.atom("text"),t.bitstring("Quick start commands")])])])]),t.list([t.tuple([t.atom("text"),t.bitstring(`
       `)]),t.tuple([t.atom("element"),t.bitstring("figcaption"),t.list([t.tuple([t.bitstring("class"),t.list([t.tuple([t.atom("text"),t.bitstring("install-title")])])])]),t.list([t.tuple([t.atom("text"),t.bitstring("Quick start")])])]),t.tuple([t.atom("text"),t.bitstring(`
       `)]),t.tuple([t.atom("element"),t.bitstring("pre"),t.list([]),t.list([t.tuple([t.atom("element"),t.bitstring("code"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring(`git clone https://github.com/noizu/run-claude && cd run-claude
-make install
+make install                        # builds go-litellm gateway, then uv tool install .
 run-claude secrets init --generate
 
 cd /path/to/my/project
@@ -280,8 +280,10 @@ claude`)])])])])]),t.tuple([t.atom("text"),t.bitstring(`
     `)]),t.tuple([t.atom("element"),t.bitstring("ul"),t.list([t.tuple([t.bitstring("class"),t.list([t.tuple([t.atom("text"),t.bitstring("prereq-list")])])])]),t.list([t.tuple([t.atom("text"),t.bitstring(`
       `)]),t.tuple([t.atom("element"),t.bitstring("li"),t.list([]),t.list([t.tuple([t.atom("element"),t.bitstring("strong"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("Python 3 + uv")])])]),t.tuple([t.atom("text"),t.bitstring(" \u2014 the CLI installs as a uv tool")])])]),t.tuple([t.atom("text"),t.bitstring(`
       `)]),t.tuple([t.atom("element"),t.bitstring("li"),t.list([]),t.list([t.tuple([t.atom("element"),t.bitstring("strong"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("Go 1.22+")])])]),t.tuple([t.atom("text"),t.bitstring(" \u2014 builds the default ")]),t.tuple([t.atom("element"),t.bitstring("code"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("go-litellm")])])]),t.tuple([t.atom("text"),t.bitstring(` gateway binary
-        (skipped with a warning if absent)`)])])]),t.tuple([t.atom("text"),t.bitstring(`
-      `)]),t.tuple([t.atom("element"),t.bitstring("li"),t.list([]),t.list([t.tuple([t.atom("element"),t.bitstring("strong"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("Docker")])])]),t.tuple([t.atom("text"),t.bitstring(" \u2014 runs the gateway database container")])])]),t.tuple([t.atom("text"),t.bitstring(`
+        (skipped with a warning if absent \u2014 without Go there is no default gateway
+        until you install it and run `)]),t.tuple([t.atom("element"),t.bitstring("code"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("make install-go-litellm")])])]),t.tuple([t.atom("text"),t.bitstring(")")])])]),t.tuple([t.atom("text"),t.bitstring(`
+      `)]),t.tuple([t.atom("element"),t.bitstring("li"),t.list([]),t.list([t.tuple([t.atom("element"),t.bitstring("strong"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("Docker")])])]),t.tuple([t.atom("text"),t.bitstring(` \u2014 only for the legacy Python proxy chain's database;
+        the default `)]),t.tuple([t.atom("element"),t.bitstring("code"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("go-litellm")])])]),t.tuple([t.atom("text"),t.bitstring(" gateway is a static binary with no DB")])])]),t.tuple([t.atom("text"),t.bitstring(`
       `)]),t.tuple([t.atom("element"),t.bitstring("li"),t.list([]),t.list([t.tuple([t.atom("element"),t.bitstring("strong"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("direnv")])])]),t.tuple([t.atom("text"),t.bitstring(" \u2014 per-directory activation")])])]),t.tuple([t.atom("text"),t.bitstring(`
       `)]),t.tuple([t.atom("element"),t.bitstring("li"),t.list([]),t.list([t.tuple([t.atom("element"),t.bitstring("strong"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("Claude Code and/or the OpenCode CLI")])])]),t.tuple([t.atom("text"),t.bitstring(" \u2014 the agents being routed")])])]),t.tuple([t.atom("text"),t.bitstring(`
     `)])])]),t.tuple([t.atom("text"),t.bitstring(`
@@ -322,7 +324,7 @@ run-claude status --health          # verify: proxies, DB, refcounts as JSON`)])
       `)]),t.tuple([t.atom("element"),t.bitstring("details"),t.list([t.tuple([t.bitstring("class"),t.list([t.tuple([t.atom("text"),t.bitstring("faq-item")])])])]),t.list([t.tuple([t.atom("text"),t.bitstring(`
         `)]),t.tuple([t.atom("element"),t.bitstring("summary"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("Does it break Claude Code features?")])])]),t.tuple([t.atom("text"),t.bitstring(`
         `)]),t.tuple([t.atom("element"),t.bitstring("p"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring(`
-          No. Code still speaks the Anthropic API it already speaks: the front proxy serves the
+          No. Code still speaks the Anthropic API it already speaks: the local gateway serves the
           CLI's bootstrap endpoint, pre-registers `)]),t.tuple([t.atom("element"),t.bitstring("code"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("[1m]")])])]),t.tuple([t.atom("text"),t.bitstring(` 1M-context aliases (39 of
           them) so big-context requests route instead of 404, and a provider-compat callback
           strips fields strict providers reject. Tools, MCP, sessions \u2014 unchanged.
@@ -368,7 +370,7 @@ run-claude status --health          # verify: proxies, DB, refcounts as JSON`)])
     `)]),t.tuple([t.atom("element"),t.bitstring("h2"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("Claude Code. Your models.")])])]),t.tuple([t.atom("text"),t.bitstring(`
     `)]),t.tuple([t.atom("element"),t.bitstring("figure"),t.list([t.tuple([t.bitstring("class"),t.list([t.tuple([t.atom("text"),t.bitstring("install-block")])])]),t.tuple([t.bitstring("aria-label"),t.list([t.tuple([t.atom("text"),t.bitstring("Install commands")])])])]),t.list([t.tuple([t.atom("text"),t.bitstring(`
       `)]),t.tuple([t.atom("element"),t.bitstring("pre"),t.list([]),t.list([t.tuple([t.atom("element"),t.bitstring("code"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring(`git clone https://github.com/noizu/run-claude && cd run-claude
-make install
+make install                        # builds go-litellm gateway, then uv tool install .
 run-claude secrets init --generate`)])])])])]),t.tuple([t.atom("text"),t.bitstring(`
     `)])])]),t.tuple([t.atom("text"),t.bitstring(`
     `)]),t.tuple([t.atom("element"),t.bitstring("div"),t.list([t.tuple([t.bitstring("class"),t.list([t.tuple([t.atom("text"),t.bitstring("cta-row")])])])]),t.list([t.tuple([t.atom("text"),t.bitstring(`
@@ -376,4 +378,4 @@ run-claude secrets init --generate`)])])])])]),t.tuple([t.atom("text"),t.bitstri
     `)])])]),t.tuple([t.atom("text"),t.bitstring(`
   `)])])]),t.tuple([t.atom("text"),t.bitstring(`
 `)])])])]))}],s),e.updateVarsToMatchedValues(s),globalThis.Hologram.return)}])};globalThis.Hologram.pageScriptLoaded=!0;document.dispatchEvent(new CustomEvent("hologram:pageScriptLoaded"));console.debug("Hologram: page script executed in",r.diff(p));})();
-//# sourceMappingURL=page-d7965046d3f86c0d63e9f9ae150505b8.js.map
+//# sourceMappingURL=page-dd2648dfb84e9504c1c8308b72027784.js.map

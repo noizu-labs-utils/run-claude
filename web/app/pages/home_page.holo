@@ -18,7 +18,7 @@
     <figure class="install-block" aria-label="Quick start commands">
       <figcaption class="install-title">Quick start</figcaption>
       <pre><code>git clone https://github.com/noizu/run-claude &amp;&amp; cd run-claude
-make install
+make install                        # builds go-litellm gateway, then uv tool install .
 run-claude secrets init --generate
 
 cd /path/to/my/project
@@ -183,8 +183,10 @@ claude</code></pre>
     <ul class="prereq-list">
       <li><strong>Python 3 + uv</strong> — the CLI installs as a uv tool</li>
       <li><strong>Go 1.22+</strong> — builds the default <code>go-litellm</code> gateway binary
-        (skipped with a warning if absent)</li>
-      <li><strong>Docker</strong> — runs the gateway database container</li>
+        (skipped with a warning if absent — without Go there is no default gateway
+        until you install it and run <code>make install-go-litellm</code>)</li>
+      <li><strong>Docker</strong> — only for the legacy Python proxy chain's database;
+        the default <code>go-litellm</code> gateway is a static binary with no DB</li>
       <li><strong>direnv</strong> — per-directory activation</li>
       <li><strong>Claude Code and/or the OpenCode CLI</strong> — the agents being routed</li>
     </ul>
@@ -225,7 +227,7 @@ run-claude status --health          # verify: proxies, DB, refcounts as JSON</co
       <details class="faq-item">
         <summary>Does it break Claude Code features?</summary>
         <p>
-          No. Code still speaks the Anthropic API it already speaks: the front proxy serves the
+          No. Code still speaks the Anthropic API it already speaks: the local gateway serves the
           CLI's bootstrap endpoint, pre-registers <code>[1m]</code> 1M-context aliases (39 of
           them) so big-context requests route instead of 404, and a provider-compat callback
           strips fields strict providers reject. Tools, MCP, sessions — unchanged.
@@ -271,7 +273,7 @@ run-claude status --health          # verify: proxies, DB, refcounts as JSON</co
     <h2>Claude Code. Your models.</h2>
     <figure class="install-block" aria-label="Install commands">
       <pre><code>git clone https://github.com/noizu/run-claude &amp;&amp; cd run-claude
-make install
+make install                        # builds go-litellm gateway, then uv tool install .
 run-claude secrets init --generate</code></pre>
     </figure>
     <div class="cta-row">

@@ -14,7 +14,7 @@ Different projects want different LLM providers (cost, capability, rate limits),
 
 ## Getting Started
 
-Prerequisites: Python 3 + `uv`, Go 1.22+ (builds the default go-litellm gateway), Docker (gateway DB), direnv, and the Claude Code and/or OpenCode CLI. Install by cloning this repo and running `make install` from the checkout.
+Prerequisites: Python 3 + `uv`, Go 1.22+ (builds the default go-litellm gateway), Docker (only the legacy Python proxy chain's DB — the default go-litellm gateway is a static binary with no database), direnv, and the Claude Code and/or OpenCode CLI. Install by cloning this repo and running `make install` from the checkout.
 
 ```bash
 git clone https://github.com/noizu/run-claude.git && cd run-claude

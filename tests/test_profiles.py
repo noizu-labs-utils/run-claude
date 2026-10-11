@@ -291,6 +291,21 @@ def test_format_profile_view_headers():
 
 def test_inspect_zai_pro_key_sets(monkeypatch, tmp_path):
     monkeypatch.setenv("XDG_STATE_HOME", str(tmp_path))
+    # Hermetic: ignore any real ~/.config/run-claude overrides so key-set
+    # families reflect the repo profiles only (CI has no user config).
+    monkeypatch.setattr(
+        "run_claude.profiles.get_user_models_file",
+        lambda: tmp_path / "no-user-models.yaml",
+    )
+    monkeypatch.setattr(
+        "run_claude.profiles.get_user_profiles_file",
+        lambda: tmp_path / "no-user-profiles.yaml",
+    )
+    monkeypatch.setattr(
+        "run_claude.profiles.get_user_profiles_override_file",
+        lambda: tmp_path / "no-user-profile-override.yaml",
+    )
+    clear_caches()
     inspection = inspect_profile("zai-pro")
     assert inspection is not None
     families = {ks.family: ks for ks in inspection.key_sets}
@@ -301,10 +316,26 @@ def test_inspect_zai_pro_key_sets(monkeypatch, tmp_path):
     # zai-tyna tier aliases were removed (its SKUs live under zai-alt clones);
     # zai-pro binds zai/* slots plus zai-alt/zai-oa SKUs via its extended list.
     assert "zai-tyna" not in families
+    clear_caches()
 
 
 def test_inspect_zai_pro_alt_key_sets(monkeypatch, tmp_path):
     monkeypatch.setenv("XDG_STATE_HOME", str(tmp_path))
+    # Hermetic: ignore any real ~/.config/run-claude overrides so key-set
+    # families reflect the repo profiles only (CI has no user config).
+    monkeypatch.setattr(
+        "run_claude.profiles.get_user_models_file",
+        lambda: tmp_path / "no-user-models.yaml",
+    )
+    monkeypatch.setattr(
+        "run_claude.profiles.get_user_profiles_file",
+        lambda: tmp_path / "no-user-profiles.yaml",
+    )
+    monkeypatch.setattr(
+        "run_claude.profiles.get_user_profiles_override_file",
+        lambda: tmp_path / "no-user-profile-override.yaml",
+    )
+    clear_caches()
     inspection = inspect_profile("zai-pro-alt")
     assert inspection is not None
     families = {ks.family: ks for ks in inspection.key_sets}
@@ -312,6 +343,7 @@ def test_inspect_zai_pro_alt_key_sets(monkeypatch, tmp_path):
     assert families["zai-alt"].key_env == "ZAI_SUB_KEY_TYNA"
     assert families["zai-alt"].instance == "tyna"
     assert "zai" not in families
+    clear_caches()
 
 
 def test_inspect_key_set_family_override(monkeypatch, tmp_path):

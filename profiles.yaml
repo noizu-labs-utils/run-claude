@@ -192,20 +192,8 @@ zai-alt: &zai-alt-profile
   - "zai-oa-alt/glm-5.2"
   - "zai-oa-alt/glm-5-turbo"
   - "zai-oa-alt/glm-4.7"
-  # zai / zai-alt / zai-oa / zai-oa-alt families
-  - "zai/glm-5.3"
-  - "zai/glm-5.3[1m]"
-  - "zai/glm-5.3-flash"
-  - "zai/glm-5.3-flash[1m]"
-  - "zai/glm-5.2"
-  - "zai/glm-5-turbo[1m]"
+  # zai-alt / zai-oa-alt families (alt key only - keep this profile keyed to ZAI_SUB_KEY_TYNA)
   - "zai-alt/glm-5-turbo"
-  - "zai-oa/glm-5.3"
-  - "zai-oa/glm-5.3-flash"
-  - "zai-oa/glm-5.3-flash[1m]"
-  - "zai-oa/glm-5.2"
-  - "zai-oa/glm-5-turbo"
-  - "zai-oa/glm-4.7"
   # alibaba (QWEN_SUB_KEY)
   - "alibaba/qwen3.8-max"
   - "alibaba/qwen3.8-max[1m]"

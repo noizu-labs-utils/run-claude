@@ -53,16 +53,22 @@ jobs:
       HOLOGRAM_START: "1"
     steps:
       - uses: actions/checkout@v4
-      # Runs on the checkout, BEFORE mix compile regenerates the maps: the
-      # committed .map artifacts are public repo content, and hologram's
-      # bundler hardcodes --sources-content=true, so any local rebuild embeds
-      # the builder's absolute paths. Strip sourcesContent + relativize
-      # sources before committing regenerated maps.
-      - name: Committed source maps must not embed sourcesContent or local paths
+      # Runs on the checkout, BEFORE mix compile regenerates the maps.
+      # Gate is structural: NO .js.map may be committed, at all. Hologram's
+      # bundler hardcodes --sourcemap --sources-content=true, so every build
+      # machine (macOS /Users/..., Linux CI /home/runner/..., container
+      # /app/...) emits maps whose sourcesContent embeds builder-absolute
+      # paths — a filesystem-layout disclosure on a public repo. A "stripped"
+      # map is still one rebuild away from regressing, and a content grep
+      # only catches the path prefixes it knows. web/.gitignore carries
+      # *.js.map; this fails the build if one lands anyway (e.g. git add -f),
+      # anywhere under priv/static, regardless of builder OS.
+      - name: No committed hologram source maps (builder-path leak surface)
         run: |
-          ls priv/static/hologram/*.map >/dev/null
-          if grep -nE 'sourcesContent|/Users/' priv/static/hologram/*.map; then
-            echo "::error::strip sourcesContent and absolute paths from hologram .map artifacts before committing"
+          maps=$(find priv/static -name '*.js.map' -print)
+          if [ -n "$maps" ]; then
+            echo "$maps"
+            echo "::error::.js.map artifacts must not be committed (gitignored in web/); they are regenerated at build time and embed builder-absolute paths"
             exit 1
           fi
       - uses: erlef/setup-beam@v1

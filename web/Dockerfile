@@ -56,17 +56,23 @@ COPY lib lib
 COPY app app
 COPY priv priv
 
+# hologram hardcodes --sourcemap: the in-container rebuild regenerates
+# .js.map files whose sourcesContent carries builder-absolute paths.
+# Source maps are dev-tooling only; strip them from every shipped layer
+# (also stripped again from the release copy below).
 RUN --mount=type=cache,id=rcweb-mix-hex,target=/root/.hex,sharing=locked \
     --mount=type=cache,id=rcweb-mix-rebar,target=/root/.cache/rebar3,sharing=locked \
     --mount=type=cache,id=rcweb-mix-deps,target=/app/deps,sharing=locked \
     mix deps.get --only $MIX_ENV && \
-    mix compile
+    mix compile && \
+    find priv/static -name '*.js.map' -delete
 
 RUN --mount=type=cache,id=rcweb-mix-hex,target=/root/.hex,sharing=locked \
     --mount=type=cache,id=rcweb-mix-rebar,target=/root/.cache/rebar3,sharing=locked \
     --mount=type=cache,id=rcweb-mix-deps,target=/app/deps,sharing=locked \
     mix deps.get --only $MIX_ENV && \
-    mix release && cp -a /app/_build/${MIX_ENV}/rel/run_claude_web /app/release
+    mix release && cp -a /app/_build/${MIX_ENV}/rel/run_claude_web /app/release && \
+    find /app/release -name '*.js.map' -delete
 
 FROM ${BASE_IMAGE} AS production
 

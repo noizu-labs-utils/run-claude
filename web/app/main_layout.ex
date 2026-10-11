@@ -22,7 +22,7 @@ defmodule RunClaudeWeb.MainLayout do
         <meta property="og:title" content="run-claude — Claude Code. Your models." />
         <meta
           property="og:description"
-          content="Keep the Claude Code UX, swap the economics: per-directory model routing through a localhost gateway. a 211-model catalog, 35 profiles, your keys, no cloud middleman."
+          content="Keep the Claude Code UX, swap the economics: per-directory model routing through a localhost gateway — a 211-model catalog, 35 profiles, your keys, no cloud middleman."
         />
         <meta property="og:url" content="https://run-claude.therobotlives.com/" />
         <meta name="twitter:card" content="summary" />

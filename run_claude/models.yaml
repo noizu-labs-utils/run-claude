@@ -1323,7 +1323,9 @@ model_list:
       default_level:
     tokens_per_second: 80
     notes: images tokenized at text rate; subscription plan; list price shown
-      for reference
+      for reference; flat rate per 2026-10 docs, no >100K-input tier documented
+      (haiku-5-5 is tiered; if Anthropic tiers 1M-context requests the flat
+      estimate will understate spend)
     context_window: 1000000
     modalities:
       input: [text, image]
@@ -1405,7 +1407,9 @@ model_list:
       default_level:
     tokens_per_second: 50
     notes: images tokenized at text rate; subscription plan; list price shown
-      for reference
+      for reference; flat rate per 2026-10 docs, no >100K-input tier documented
+      (haiku-5-5 is tiered; if Anthropic tiers 1M-context requests the flat
+      estimate will understate spend)
     context_window: 1000000
     modalities:
       input: [text, image]

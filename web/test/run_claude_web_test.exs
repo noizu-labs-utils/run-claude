@@ -34,21 +34,26 @@ defmodule RunClaudeWeb.RequestTest do
     assert body =~ "Local gateway, no middleman"
     assert body =~ "Tier mappings are one YAML stanza"
     assert body =~ "claude-opus-5"
-    assert body =~ "glm-5.3-flash (low)"
+    assert body =~ "wafer/deepseek-v4-flash-0731-fast[1m]"
+    assert body =~ "cerebras/llama-3.3-70b"
     assert body =~ "How it works"
     assert body =~ "Do my API keys leave my machine?"
     assert body =~ "the license?"
     assert body =~ "run-claude secrets init --generate"
-    assert body =~ "Install in one command"
+    assert body =~ "Install from source"
+    assert body =~ "Prerequisites"
+    assert body =~ "Not on PyPI"
   end
 
-  test "GET / includes footer attribution" do
+  test "GET / includes footer attribution and disclaimer" do
     conn = get(build_conn(), "/")
     body = conn.resp_body
 
-    assert body =~ "a noizu.com project"
+    assert body =~ "open source, MIT"
     assert body =~ "https://github.com/noizu/run-claude"
     assert body =~ "This site is Elixir Hologram."
+    assert body =~ "independent open-source tool"
+    assert body =~ "trademarks of their respective owners"
   end
 
   test "static assets are served" do

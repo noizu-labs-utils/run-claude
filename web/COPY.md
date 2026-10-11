@@ -1,12 +1,17 @@
 # run-claude — Landing Copy Deck
 
 Page: single route `/` at **run-claude.therobotlives.com** · implemented in `web/` (Elixir Hologram)
-Sources of truth: repo `README.md`, `profiles.yaml`, `CLAUDE.md`, `LICENSE` (MIT) — every claim below is
-repo-verifiable as of commit `afec577` (2026-09-01).
+Sources of truth: repo `README.md`, `profiles.yaml`, `run_claude/models.yaml`, `CLAUDE.md`, `LICENSE`
+(MIT) — every claim below is repo-verifiable as of commit `b27c1d5` (2026-10-12).
 
 **Design note (bypass):** no hero art / media-generation mockup loop. Example-led typography IS the
 design — dark-first, monospace-forward. The hero's visual is a real install command and the real
 tier table, not an illustration.
+
+**Verified counts at `b27c1d5`** (parsed from `profiles.yaml` / `run_claude/models.yaml`):
+**35 built-in profiles · 211 catalogued model definitions · 39 `[1m]` 1M-context aliases.**
+These are catalogue numbers (`run-claude models list`); the live proxy serves only the models the
+active profile registers (`run-claude models enabled`) — never conflate the two on the page.
 
 ---
 
@@ -43,23 +48,23 @@ tier table, not an illustration.
 |---|---|
 | **Tagline** (≤7 words) | Claude Code. Your models. Your keys. |
 | **One-liner** | run-claude routes Claude Code — and OpenCode — through a local gateway that maps the opus/sonnet/haiku/fable tiers onto any provider you bring. |
-| **Paragraph** | run-claude is a self-healing, localhost-only LLM gateway for Claude Code and OpenCode. Declare a profile per project directory; entering it hot-registers that profile's models on the running gateway and routes the agent through it. 145+ models across ~26 profiles, OAuth passthrough for your Claude subscription, provider keys that never leave your machine. |
+| **Paragraph** | run-claude is a self-healing, localhost-only LLM gateway for Claude Code and OpenCode. Declare a profile per project directory; entering it hot-registers that profile's models on the running gateway and routes the agent through it. 211 catalogued models across 35 profiles, OAuth passthrough for your Claude subscription, provider keys that never leave your machine. |
 | **Benefit pillars** | Claude Code, your models · Your subscription, where it makes sense · Local gateway, no middleman |
-| **Proof points** | 145+ cataloged models · ~26 built-in profiles · OAuth passthrough (claude-plan) · watchdog auto-restart (~5s poll) · this page itself is Elixir Hologram |
+| **Proof points** | 211 catalogued models · 35 built-in profiles · OAuth passthrough (claude-plan) · watchdog auto-restart (~5s poll) · this page itself is Elixir Hologram |
 
 ## 5. Landing-page copy block (final copy, implemented verbatim)
 
 ### SEO head
 
 - **title:** `run-claude — Claude Code. Your models.`
-- **meta description:** `run-claude routes Claude Code and OpenCode through a local, self-healing model gateway: map opus/sonnet/haiku/fable tiers to 145+ models across ~26 provider profiles. Your keys, your machine, OAuth passthrough for your Claude subscription.`
+- **meta description:** `run-claude routes Claude Code and OpenCode through a local, self-healing model gateway: map opus/sonnet/haiku/fable tiers to 211 models across 35 provider profiles. Your keys, your machine, OAuth passthrough for your Claude subscription.`
 
 ### Hero
 
 - **Eyebrow:** `Per-directory model routing · Claude Code + OpenCode · MIT`
 - **Headline:** `Claude Code. Your models.`
 - **Subhead:** `run-claude routes Claude Code — and OpenCode — through a local, self-healing model gateway. Map the opus / sonnet / haiku / fable tiers onto any provider you bring, per project directory. Your keys, your machine, your economics.`
-- **Primary CTA:** button `Install in one command` → `#install`; adjacent copy-paste block:
+- **Primary CTA:** button `Install from source` → `#install`; adjacent copy-paste block:
 
   ```bash
   git clone https://github.com/noizu/run-claude && cd run-claude
@@ -73,8 +78,8 @@ tier table, not an illustration.
 ### Benefit blocks ×3
 
 1. **Claude Code, your models.** Keep the Code UX, swap the economics. Directory-scoped profiles
-   map the opus / sonnet / haiku / fable tiers onto 145+ models across ~26 provider profiles.
-   `cd` into a project and that project's models come with it — no flags, no restarts.
+   map the opus / sonnet / haiku / fable tiers onto 211 catalogued models across 35 provider
+   profiles. `cd` into a project and that project's models come with it — no flags, no restarts.
 2. **Your subscription, where it makes sense.** The `claude-plan` profile forwards Anthropic
    requests with your original OAuth token — Pro/Max billing, not API billing — while other
    providers in the same profile use their own keys. Blend all of it in one profile.
@@ -83,7 +88,7 @@ tier table, not an illustration.
    janitor expires idle models after a 15-minute lease, and the default gateway is a single
    static Go binary.
 
-### Tier table (REAL mappings from `profiles.yaml`)
+### Tier table (REAL mappings from `profiles.yaml` at `b27c1d5`)
 
 Section heading: **Tier mappings are one YAML stanza** · sub-line: `Every profile maps Claude Code's
 model tiers. User overrides in ~/.config/run-claude/profiles/ win over built-ins; model: null
@@ -91,15 +96,16 @@ disables an entry.`
 
 | Profile | fable | opus | sonnet | haiku |
 |---|---|---|---|---|
-| `anthropic` | claude-fable-5-1 | claude-opus-5 | claude-sonnet-5 | claude-haiku-4-5 |
-| `claude-plan` (OAuth) | claude-fable-5-1 | claude-opus-5 | claude-sonnet-5 | claude-haiku-4-5 |
-| `wafer` | kimi-k3 | glm-5.3-flash (max) | glm-5.3-flash (high) | glm-5.3-flash (low) |
-| `zai-pro` | glm-5.3 | glm-5.3-flash | glm-5.3-flash | glm-5-turbo |
-| `cerebras` | zai-glm-4.7 | gemma-4-31b | gpt-oss-120b | gpt-oss-120b |
-| `alibaba` | kimi-k3 | qwen3.8-max | glm-5.2 | qwen3.6-flash |
+| `anthropic` | claude-fable-5-1 | claude-opus-5 | claude-sonnet-5 | claude-haiku-4-5-20251001 |
+| `claude-plan` (OAuth) | claude-fable-5-1 | claude-opus-5 | claude-sonnet-5 | claude-haiku-4-5-20251001 |
+| `wafer` | wafer/kimi-k3[1m] | wafer/glm-5.3-flash (max)[1m] | wafer/qwen3.5-397b-a17b (high)[1m] | wafer/deepseek-v4-flash-0731-fast[1m] |
+| `zai-pro` | zai/glm-5.3 (sub) | zai/glm-5.3-flash (sub) | zai/glm-5.3-flash (sub) | zai/glm-5.3-flash (sub) |
+| `cerebras` | cerebras/zai-glm-4.7 | cerebras/qwen-3-235b-a22b-instruct-2507 | cerebras/gpt-oss-120b | cerebras/llama-3.3-70b |
+| `alibaba` | alibaba/deepseek-v4-pro-0813 | alibaba/qwen3.8-max | alibaba/glm-5.2 | alibaba/qwen3.6-flash |
 
-Caption under table: `Six of ~26 built-in profiles. Groq, DeepSeek, OpenAI, Gemini, Grok, Azure,
-Mistral, Perplexity, OpenRouter, and local Ollama/vLLM ship too — or write your own.`
+Caption under table: `Six of 35 built-in profiles. [1m] marks a 1M-context alias; (sub) marks a
+subscription-key binding. Groq, DeepSeek, OpenAI, Gemini, Grok, Azure, Mistral, Perplexity,
+OpenRouter, and local Ollama/vLLM ship too — or write your own.`
 
 ### How it works (3 steps)
 
@@ -112,6 +118,37 @@ Mistral, Perplexity, OpenRouter, and local Ollama/vLLM ship too — or write you
    the CLI sees the live catalog via its bootstrap endpoint. `run-claude with groq` does the same
    in a one-shot without pinning the directory.
 
+### Install (honest, prerequisites first)
+
+Section heading: **Install** · sub-line: `run-claude installs from source. Packaged installs are
+planned — for now, clone and make.`
+
+**Prerequisites (stated up front, as a list):**
+
+- Python 3 + [uv](https://docs.astral.sh/uv/) — the CLI is installed with `uv tool install .`
+- Go 1.22+ — `make install` builds the default `go-litellm` gateway binary (skipped with a warning if absent)
+- Docker — runs the gateway database container
+- [direnv](https://direnv.net/) — per-directory activation
+- Claude Code and/or the OpenCode CLI — the agents being routed
+
+**Steps:**
+
+```bash
+git clone https://github.com/noizu/run-claude && cd run-claude
+make install                        # builds go-litellm gateway, then uv tool install .
+run-claude secrets init --generate  # provider API keys + auto-generated DB password
+
+cd /path/to/my/project
+run-claude set-folder cerebras      # writes .envrc; prints your stable directory token
+direnv allow
+
+claude                              # models registered on entry; just works
+run-claude status --health          # verify: proxies, DB, refcounts as JSON
+```
+
+Fine print: `run-claude is not on PyPI — install from source as above. Provider keys live in
+~/.config/run-claude/.secrets; never commit that file.`
+
 ### FAQ (objection row)
 
 1. **Do my API keys leave my machine?** No. Keys live in `~/.config/run-claude/.secrets` and are
@@ -119,11 +156,11 @@ Mistral, Perplexity, OpenRouter, and local Ollama/vLLM ship too — or write you
    there is no hosted relay, no account, and nothing to opt out of.
 2. **Does it break Claude Code features?** No. Code still speaks the Anthropic API it already
    speaks: the front proxy serves the CLI's bootstrap endpoint, pre-registers `[1m]` 1M-context
-   aliases (27 of them) so big-context requests route instead of 404, and a provider-compat
+   aliases (39 of them) so big-context requests route instead of 404, and a provider-compat
    callback strips fields strict providers reject. Tools, MCP, sessions — unchanged.
 3. **Which providers are supported?** Anthropic, OpenAI, Z.AI, Groq, Cerebras, Wafer, Alibaba
    (Qwen Token Plan), DeepSeek, Gemini, Azure, Grok, Mistral, Perplexity, OpenRouter — plus local
-   Ollama / vLLM / LM Studio. ~26 built-in profiles, 145+ model definitions.
+   Ollama / vLLM / LM Studio. 35 built-in profiles, 211 catalogued model definitions.
 4. **Where does the configuration live?** Built-ins ship with the tool. Your overrides in
    `~/.config/run-claude/profiles/` and `~/.config/run-claude/models.yaml` take priority — same
    name wins, `model: null` disables and falls through. Per-directory routing is a `.envrc`.
@@ -134,12 +171,14 @@ Mistral, Perplexity, OpenRouter, and local Ollama/vLLM ship too — or write you
 
 ### Final CTA
 
-`Claude Code. Your models.` · button `Install in one command` → `#install` (same code block).
+`Claude Code. Your models.` · button `Install from source` → `#install` (same code block).
 
 ### Footer
 
-`run-claude — a noizu.com project` · GitHub: `github.com/noizu/run-claude` · `MIT licensed` ·
-`This site is Elixir Hologram.`
+`run-claude — open source, MIT` · GitHub: `github.com/noizu/run-claude` · `This site is Elixir
+Hologram.` · disclaimer line: `run-claude is an independent open-source tool, not affiliated with
+or endorsed by Anthropic. Claude Code is a product of Anthropic; provider and model names are
+trademarks of their respective owners.`
 
 ---
 
@@ -151,3 +190,9 @@ Mistral, Perplexity, OpenRouter, and local Ollama/vLLM ship too — or write you
 - Honesty edge: run-claude DOES run a local proxy — say so plainly and sell the localhost/no-cloud
   property instead of pretending there's no proxy at all. The trade-off (two local processes, small
   first-registration latency) is acknowledged in the repo README; keep the page consistent with it.
+- Install honesty (REQUIRED): clone + `make install` only. Never advertise pip/PyPI, a one-liner,
+  `curl | sh`, or homebrew. Packaged installs may be described as *planned* — never as available.
+- Catalogue vs live: `211 models / 35 profiles` are catalogue numbers; the running proxy serves
+  only what the active profile registers. Quote catalogue numbers as catalogue numbers.
+- No internal hostnames, cluster names, secret names, or company email addresses in page copy.
+  Neutral placeholders only. run-claude is not affiliated with Anthropic — say so once, plainly.

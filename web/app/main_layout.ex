@@ -16,13 +16,13 @@ defmodule RunClaudeWeb.MainLayout do
         <title>run-claude — Claude Code. Your models.</title>
         <meta
           name="description"
-          content="run-claude routes Claude Code and OpenCode through a local, self-healing model gateway: map opus/sonnet/haiku/fable tiers to 145+ models across ~26 provider profiles. Your keys, your machine, OAuth passthrough for your Claude subscription."
+          content="run-claude routes Claude Code and OpenCode through a local, self-healing model gateway: map opus/sonnet/haiku/fable tiers to 211 models across 35 provider profiles. Your keys, your machine, OAuth passthrough for your Claude subscription."
         />
         <meta property="og:type" content="website" />
         <meta property="og:title" content="run-claude — Claude Code. Your models." />
         <meta
           property="og:description"
-          content="Keep the Claude Code UX, swap the economics: per-directory model routing through a localhost gateway. 145+ models, ~26 profiles, your keys, no cloud middleman."
+          content="Keep the Claude Code UX, swap the economics: per-directory model routing through a localhost gateway. 211 models, 35 profiles, your keys, no cloud middleman."
         />
         <meta property="og:url" content="https://run-claude.therobotlives.com/" />
         <meta name="twitter:card" content="summary" />
@@ -60,11 +60,18 @@ defmodule RunClaudeWeb.MainLayout do
 
         <footer class="site-footer">
           <div class="container footer-inner">
-            <p class="footer-brand">run-claude — a noizu.com project</p>
+            <p class="footer-brand">run-claude — open source, MIT</p>
             <p class="footer-line">
               <a href="https://github.com/noizu/run-claude">GitHub</a> ·
               <a href="https://github.com/noizu/run-claude/blob/main/LICENSE">MIT licensed</a> ·
               This site is Elixir Hologram. · © 2026
+            </p>
+          </div>
+          <div class="container">
+            <p class="footer-disclaimer">
+              run-claude is an independent open-source tool, not affiliated with or endorsed by
+              Anthropic. Claude Code is a product of Anthropic; provider and model names are
+              trademarks of their respective owners.
             </p>
           </div>
         </footer>

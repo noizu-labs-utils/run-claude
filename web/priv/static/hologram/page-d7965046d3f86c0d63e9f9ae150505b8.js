@@ -42,10 +42,10 @@
     `)]),t.tuple([t.atom("element"),t.bitstring("meta"),t.list([t.tuple([t.bitstring("charset"),t.list([t.tuple([t.atom("text"),t.bitstring("utf-8")])])])]),t.list([])]),t.tuple([t.atom("text"),t.bitstring(`
     `)]),t.tuple([t.atom("element"),t.bitstring("meta"),t.list([t.tuple([t.bitstring("name"),t.list([t.tuple([t.atom("text"),t.bitstring("viewport")])])]),t.tuple([t.bitstring("content"),t.list([t.tuple([t.atom("text"),t.bitstring("width=device-width, initial-scale=1")])])])]),t.list([])]),t.tuple([t.atom("text"),t.bitstring(`
     `)]),t.tuple([t.atom("element"),t.bitstring("title"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("run-claude \u2014 Claude Code. Your models.")])])]),t.tuple([t.atom("text"),t.bitstring(`
-    `)]),t.tuple([t.atom("element"),t.bitstring("meta"),t.list([t.tuple([t.bitstring("name"),t.list([t.tuple([t.atom("text"),t.bitstring("description")])])]),t.tuple([t.bitstring("content"),t.list([t.tuple([t.atom("text"),t.bitstring("run-claude routes Claude Code and OpenCode through a local, self-healing model gateway: map opus/sonnet/haiku/fable tiers to 145+ models across ~26 provider profiles. Your keys, your machine, OAuth passthrough for your Claude subscription.")])])])]),t.list([])]),t.tuple([t.atom("text"),t.bitstring(`
+    `)]),t.tuple([t.atom("element"),t.bitstring("meta"),t.list([t.tuple([t.bitstring("name"),t.list([t.tuple([t.atom("text"),t.bitstring("description")])])]),t.tuple([t.bitstring("content"),t.list([t.tuple([t.atom("text"),t.bitstring("run-claude routes Claude Code and OpenCode through a local, self-healing model gateway: map opus/sonnet/haiku/fable tiers to 211 models across 35 provider profiles. Your keys, your machine, OAuth passthrough for your Claude subscription.")])])])]),t.list([])]),t.tuple([t.atom("text"),t.bitstring(`
     `)]),t.tuple([t.atom("element"),t.bitstring("meta"),t.list([t.tuple([t.bitstring("property"),t.list([t.tuple([t.atom("text"),t.bitstring("og:type")])])]),t.tuple([t.bitstring("content"),t.list([t.tuple([t.atom("text"),t.bitstring("website")])])])]),t.list([])]),t.tuple([t.atom("text"),t.bitstring(`
     `)]),t.tuple([t.atom("element"),t.bitstring("meta"),t.list([t.tuple([t.bitstring("property"),t.list([t.tuple([t.atom("text"),t.bitstring("og:title")])])]),t.tuple([t.bitstring("content"),t.list([t.tuple([t.atom("text"),t.bitstring("run-claude \u2014 Claude Code. Your models.")])])])]),t.list([])]),t.tuple([t.atom("text"),t.bitstring(`
-    `)]),t.tuple([t.atom("element"),t.bitstring("meta"),t.list([t.tuple([t.bitstring("property"),t.list([t.tuple([t.atom("text"),t.bitstring("og:description")])])]),t.tuple([t.bitstring("content"),t.list([t.tuple([t.atom("text"),t.bitstring("Keep the Claude Code UX, swap the economics: per-directory model routing through a localhost gateway. 145+ models, ~26 profiles, your keys, no cloud middleman.")])])])]),t.list([])]),t.tuple([t.atom("text"),t.bitstring(`
+    `)]),t.tuple([t.atom("element"),t.bitstring("meta"),t.list([t.tuple([t.bitstring("property"),t.list([t.tuple([t.atom("text"),t.bitstring("og:description")])])]),t.tuple([t.bitstring("content"),t.list([t.tuple([t.atom("text"),t.bitstring("Keep the Claude Code UX, swap the economics: per-directory model routing through a localhost gateway. 211 models, 35 profiles, your keys, no cloud middleman.")])])])]),t.list([])]),t.tuple([t.atom("text"),t.bitstring(`
     `)]),t.tuple([t.atom("element"),t.bitstring("meta"),t.list([t.tuple([t.bitstring("property"),t.list([t.tuple([t.atom("text"),t.bitstring("og:url")])])]),t.tuple([t.bitstring("content"),t.list([t.tuple([t.atom("text"),t.bitstring("https://run-claude.therobotlives.com/")])])])]),t.list([])]),t.tuple([t.atom("text"),t.bitstring(`
     `)]),t.tuple([t.atom("element"),t.bitstring("meta"),t.list([t.tuple([t.bitstring("name"),t.list([t.tuple([t.atom("text"),t.bitstring("twitter:card")])])]),t.tuple([t.bitstring("content"),t.list([t.tuple([t.atom("text"),t.bitstring("summary")])])])]),t.list([])]),t.tuple([t.atom("text"),t.bitstring(`
     `)]),t.tuple([t.atom("element"),t.bitstring("link"),t.list([t.tuple([t.bitstring("rel"),t.list([t.tuple([t.atom("text"),t.bitstring("icon")])])]),t.tuple([t.bitstring("href"),t.list([t.tuple([t.atom("text"),t.bitstring("/assets/favicon.svg")])])]),t.tuple([t.bitstring("type"),t.list([t.tuple([t.atom("text"),t.bitstring("image/svg+xml")])])])]),t.list([])]),t.tuple([t.atom("text"),t.bitstring(`
@@ -79,11 +79,18 @@
 
     `)]),t.tuple([t.atom("element"),t.bitstring("footer"),t.list([t.tuple([t.bitstring("class"),t.list([t.tuple([t.atom("text"),t.bitstring("site-footer")])])])]),t.list([t.tuple([t.atom("text"),t.bitstring(`
       `)]),t.tuple([t.atom("element"),t.bitstring("div"),t.list([t.tuple([t.bitstring("class"),t.list([t.tuple([t.atom("text"),t.bitstring("container footer-inner")])])])]),t.list([t.tuple([t.atom("text"),t.bitstring(`
-        `)]),t.tuple([t.atom("element"),t.bitstring("p"),t.list([t.tuple([t.bitstring("class"),t.list([t.tuple([t.atom("text"),t.bitstring("footer-brand")])])])]),t.list([t.tuple([t.atom("text"),t.bitstring("run-claude \u2014 a noizu.com project")])])]),t.tuple([t.atom("text"),t.bitstring(`
+        `)]),t.tuple([t.atom("element"),t.bitstring("p"),t.list([t.tuple([t.bitstring("class"),t.list([t.tuple([t.atom("text"),t.bitstring("footer-brand")])])])]),t.list([t.tuple([t.atom("text"),t.bitstring("run-claude \u2014 open source, MIT")])])]),t.tuple([t.atom("text"),t.bitstring(`
         `)]),t.tuple([t.atom("element"),t.bitstring("p"),t.list([t.tuple([t.bitstring("class"),t.list([t.tuple([t.atom("text"),t.bitstring("footer-line")])])])]),t.list([t.tuple([t.atom("text"),t.bitstring(`
           `)]),t.tuple([t.atom("element"),t.bitstring("a"),t.list([t.tuple([t.bitstring("href"),t.list([t.tuple([t.atom("text"),t.bitstring("https://github.com/noizu/run-claude")])])])]),t.list([t.tuple([t.atom("text"),t.bitstring("GitHub")])])]),t.tuple([t.atom("text"),t.bitstring(` \xB7
           `)]),t.tuple([t.atom("element"),t.bitstring("a"),t.list([t.tuple([t.bitstring("href"),t.list([t.tuple([t.atom("text"),t.bitstring("https://github.com/noizu/run-claude/blob/main/LICENSE")])])])]),t.list([t.tuple([t.atom("text"),t.bitstring("MIT licensed")])])]),t.tuple([t.atom("text"),t.bitstring(` \xB7
           This site is Elixir Hologram. \xB7 \xA9 2026
+        `)])])]),t.tuple([t.atom("text"),t.bitstring(`
+      `)])])]),t.tuple([t.atom("text"),t.bitstring(`
+      `)]),t.tuple([t.atom("element"),t.bitstring("div"),t.list([t.tuple([t.bitstring("class"),t.list([t.tuple([t.atom("text"),t.bitstring("container")])])])]),t.list([t.tuple([t.atom("text"),t.bitstring(`
+        `)]),t.tuple([t.atom("element"),t.bitstring("p"),t.list([t.tuple([t.bitstring("class"),t.list([t.tuple([t.atom("text"),t.bitstring("footer-disclaimer")])])])]),t.list([t.tuple([t.atom("text"),t.bitstring(`
+          run-claude is an independent open-source tool, not affiliated with or endorsed by
+          Anthropic. Claude Code is a product of Anthropic; provider and model names are
+          trademarks of their respective owners.
         `)])])]),t.tuple([t.atom("text"),t.bitstring(`
       `)])])]),t.tuple([t.atom("text"),t.bitstring(`
     `)])])]),t.tuple([t.atom("text"),t.bitstring(`
@@ -100,12 +107,12 @@
       your economics.
     `)])])]),t.tuple([t.atom("text"),t.bitstring(`
     `)]),t.tuple([t.atom("element"),t.bitstring("div"),t.list([t.tuple([t.bitstring("class"),t.list([t.tuple([t.atom("text"),t.bitstring("cta-row")])])])]),t.list([t.tuple([t.atom("text"),t.bitstring(`
-      `)]),t.tuple([t.atom("element"),t.bitstring("a"),t.list([t.tuple([t.bitstring("class"),t.list([t.tuple([t.atom("text"),t.bitstring("btn btn-primary btn-lg")])])]),t.tuple([t.bitstring("href"),t.list([t.tuple([t.atom("text"),t.bitstring("#install")])])])]),t.list([t.tuple([t.atom("text"),t.bitstring("Install in one command")])])]),t.tuple([t.atom("text"),t.bitstring(`
+      `)]),t.tuple([t.atom("element"),t.bitstring("a"),t.list([t.tuple([t.bitstring("class"),t.list([t.tuple([t.atom("text"),t.bitstring("btn btn-primary btn-lg")])])]),t.tuple([t.bitstring("href"),t.list([t.tuple([t.atom("text"),t.bitstring("#install")])])])]),t.list([t.tuple([t.atom("text"),t.bitstring("Install from source")])])]),t.tuple([t.atom("text"),t.bitstring(`
       `)]),t.tuple([t.atom("element"),t.bitstring("a"),t.list([t.tuple([t.bitstring("class"),t.list([t.tuple([t.atom("text"),t.bitstring("btn btn-ghost btn-lg")])])]),t.tuple([t.bitstring("href"),t.list([t.tuple([t.atom("text"),t.bitstring("#tiers")])])])]),t.list([t.tuple([t.atom("text"),t.bitstring("See the tier mappings")])])]),t.tuple([t.atom("text"),t.bitstring(`
     `)])])]),t.tuple([t.atom("text"),t.bitstring(`
     `)]),t.tuple([t.atom("element"),t.bitstring("p"),t.list([t.tuple([t.bitstring("class"),t.list([t.tuple([t.atom("text"),t.bitstring("cta-fine")])])])]),t.list([t.tuple([t.atom("element"),t.bitstring("em"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("Local-only gateway (127.0.0.1) \xB7 BYO API keys \xB7 MIT licensed")])])])])]),t.tuple([t.atom("text"),t.bitstring(`
 
-    `)]),t.tuple([t.atom("element"),t.bitstring("figure"),t.list([t.tuple([t.bitstring("class"),t.list([t.tuple([t.atom("text"),t.bitstring("install-block")])])]),t.tuple([t.bitstring("id"),t.list([t.tuple([t.atom("text"),t.bitstring("install")])])]),t.tuple([t.bitstring("aria-label"),t.list([t.tuple([t.atom("text"),t.bitstring("Install commands")])])])]),t.list([t.tuple([t.atom("text"),t.bitstring(`
+    `)]),t.tuple([t.atom("element"),t.bitstring("figure"),t.list([t.tuple([t.bitstring("class"),t.list([t.tuple([t.atom("text"),t.bitstring("install-block")])])]),t.tuple([t.bitstring("aria-label"),t.list([t.tuple([t.atom("text"),t.bitstring("Quick start commands")])])])]),t.list([t.tuple([t.atom("text"),t.bitstring(`
       `)]),t.tuple([t.atom("element"),t.bitstring("figcaption"),t.list([t.tuple([t.bitstring("class"),t.list([t.tuple([t.atom("text"),t.bitstring("install-title")])])])]),t.list([t.tuple([t.atom("text"),t.bitstring("Quick start")])])]),t.tuple([t.atom("text"),t.bitstring(`
       `)]),t.tuple([t.atom("element"),t.bitstring("pre"),t.list([]),t.list([t.tuple([t.atom("element"),t.bitstring("code"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring(`git clone https://github.com/noizu/run-claude && cd run-claude
 make install
@@ -128,8 +135,8 @@ claude`)])])])])]),t.tuple([t.atom("text"),t.bitstring(`
         `)]),t.tuple([t.atom("element"),t.bitstring("p"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring(`
           Keep the Code UX, swap the economics. Directory-scoped profiles map the
           `)]),t.tuple([t.atom("element"),t.bitstring("code"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("opus")])])]),t.tuple([t.atom("text"),t.bitstring(" / ")]),t.tuple([t.atom("element"),t.bitstring("code"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("sonnet")])])]),t.tuple([t.atom("text"),t.bitstring(" / ")]),t.tuple([t.atom("element"),t.bitstring("code"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("haiku")])])]),t.tuple([t.atom("text"),t.bitstring(" / ")]),t.tuple([t.atom("element"),t.bitstring("code"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("fable")])])]),t.tuple([t.atom("text"),t.bitstring(` tiers
-          onto 145+ models across ~26 provider profiles. `)]),t.tuple([t.atom("element"),t.bitstring("code"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("cd")])])]),t.tuple([t.atom("text"),t.bitstring(` into a project and that
-          project's models come with it \u2014 no flags, no restarts.
+          onto 211 catalogued models across 35 provider profiles. `)]),t.tuple([t.atom("element"),t.bitstring("code"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("cd")])])]),t.tuple([t.atom("text"),t.bitstring(` into a project
+          and that project's models come with it \u2014 no flags, no restarts.
         `)])])]),t.tuple([t.atom("text"),t.bitstring(`
       `)])])]),t.tuple([t.atom("text"),t.bitstring(`
       `)]),t.tuple([t.atom("element"),t.bitstring("article"),t.list([t.tuple([t.bitstring("class"),t.list([t.tuple([t.atom("text"),t.bitstring("card")])])])]),t.list([t.tuple([t.atom("text"),t.bitstring(`
@@ -176,51 +183,52 @@ claude`)])])])])]),t.tuple([t.atom("text"),t.bitstring(`
         `)]),t.tuple([t.atom("element"),t.bitstring("tbody"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring(`
           `)]),t.tuple([t.atom("element"),t.bitstring("tr"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring(`
             `)]),t.tuple([t.atom("element"),t.bitstring("td"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("anthropic")])])]),t.tuple([t.atom("text"),t.bitstring(`
-            `)]),t.tuple([t.atom("element"),t.bitstring("td"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("\u2014")])])]),t.tuple([t.atom("text"),t.bitstring(`
-            `)]),t.tuple([t.atom("element"),t.bitstring("td"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("claude-opus-4")])])]),t.tuple([t.atom("text"),t.bitstring(`
-            `)]),t.tuple([t.atom("element"),t.bitstring("td"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("claude-sonnet-4")])])]),t.tuple([t.atom("text"),t.bitstring(`
-            `)]),t.tuple([t.atom("element"),t.bitstring("td"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("claude-3-5-haiku")])])]),t.tuple([t.atom("text"),t.bitstring(`
+            `)]),t.tuple([t.atom("element"),t.bitstring("td"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("claude-fable-5-1")])])]),t.tuple([t.atom("text"),t.bitstring(`
+            `)]),t.tuple([t.atom("element"),t.bitstring("td"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("claude-opus-5")])])]),t.tuple([t.atom("text"),t.bitstring(`
+            `)]),t.tuple([t.atom("element"),t.bitstring("td"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("claude-sonnet-5")])])]),t.tuple([t.atom("text"),t.bitstring(`
+            `)]),t.tuple([t.atom("element"),t.bitstring("td"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("claude-haiku-4-5-20251001")])])]),t.tuple([t.atom("text"),t.bitstring(`
           `)])])]),t.tuple([t.atom("text"),t.bitstring(`
           `)]),t.tuple([t.atom("element"),t.bitstring("tr"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring(`
             `)]),t.tuple([t.atom("element"),t.bitstring("td"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("claude-plan ")]),t.tuple([t.atom("element"),t.bitstring("span"),t.list([t.tuple([t.bitstring("class"),t.list([t.tuple([t.atom("text"),t.bitstring("tag")])])])]),t.list([t.tuple([t.atom("text"),t.bitstring("OAuth")])])])])]),t.tuple([t.atom("text"),t.bitstring(`
-            `)]),t.tuple([t.atom("element"),t.bitstring("td"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("opus tier")])])]),t.tuple([t.atom("text"),t.bitstring(`
-            `)]),t.tuple([t.atom("element"),t.bitstring("td"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("claude-opus-4-8")])])]),t.tuple([t.atom("text"),t.bitstring(`
+            `)]),t.tuple([t.atom("element"),t.bitstring("td"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("claude-fable-5-1")])])]),t.tuple([t.atom("text"),t.bitstring(`
+            `)]),t.tuple([t.atom("element"),t.bitstring("td"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("claude-opus-5")])])]),t.tuple([t.atom("text"),t.bitstring(`
             `)]),t.tuple([t.atom("element"),t.bitstring("td"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("claude-sonnet-5")])])]),t.tuple([t.atom("text"),t.bitstring(`
-            `)]),t.tuple([t.atom("element"),t.bitstring("td"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("claude-haiku-4-5")])])]),t.tuple([t.atom("text"),t.bitstring(`
+            `)]),t.tuple([t.atom("element"),t.bitstring("td"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("claude-haiku-4-5-20251001")])])]),t.tuple([t.atom("text"),t.bitstring(`
           `)])])]),t.tuple([t.atom("text"),t.bitstring(`
           `)]),t.tuple([t.atom("element"),t.bitstring("tr"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring(`
             `)]),t.tuple([t.atom("element"),t.bitstring("td"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("wafer")])])]),t.tuple([t.atom("text"),t.bitstring(`
-            `)]),t.tuple([t.atom("element"),t.bitstring("td"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("kimi-k3")])])]),t.tuple([t.atom("text"),t.bitstring(`
-            `)]),t.tuple([t.atom("element"),t.bitstring("td"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("glm-5.3-flash (max)")])])]),t.tuple([t.atom("text"),t.bitstring(`
-            `)]),t.tuple([t.atom("element"),t.bitstring("td"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("glm-5.3-flash (high)")])])]),t.tuple([t.atom("text"),t.bitstring(`
-            `)]),t.tuple([t.atom("element"),t.bitstring("td"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("glm-5.3-flash (low)")])])]),t.tuple([t.atom("text"),t.bitstring(`
+            `)]),t.tuple([t.atom("element"),t.bitstring("td"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("wafer/kimi-k3[1m]")])])]),t.tuple([t.atom("text"),t.bitstring(`
+            `)]),t.tuple([t.atom("element"),t.bitstring("td"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("wafer/glm-5.3-flash (max)[1m]")])])]),t.tuple([t.atom("text"),t.bitstring(`
+            `)]),t.tuple([t.atom("element"),t.bitstring("td"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("wafer/qwen3.5-397b-a17b (high)[1m]")])])]),t.tuple([t.atom("text"),t.bitstring(`
+            `)]),t.tuple([t.atom("element"),t.bitstring("td"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("wafer/deepseek-v4-flash-0731-fast[1m]")])])]),t.tuple([t.atom("text"),t.bitstring(`
           `)])])]),t.tuple([t.atom("text"),t.bitstring(`
           `)]),t.tuple([t.atom("element"),t.bitstring("tr"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring(`
             `)]),t.tuple([t.atom("element"),t.bitstring("td"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("zai-pro")])])]),t.tuple([t.atom("text"),t.bitstring(`
-            `)]),t.tuple([t.atom("element"),t.bitstring("td"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("glm-5.3")])])]),t.tuple([t.atom("text"),t.bitstring(`
-            `)]),t.tuple([t.atom("element"),t.bitstring("td"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("glm-5.3-flash")])])]),t.tuple([t.atom("text"),t.bitstring(`
-            `)]),t.tuple([t.atom("element"),t.bitstring("td"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("glm-5.3-flash")])])]),t.tuple([t.atom("text"),t.bitstring(`
-            `)]),t.tuple([t.atom("element"),t.bitstring("td"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("glm-5-turbo")])])]),t.tuple([t.atom("text"),t.bitstring(`
+            `)]),t.tuple([t.atom("element"),t.bitstring("td"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("zai/glm-5.3 (sub)")])])]),t.tuple([t.atom("text"),t.bitstring(`
+            `)]),t.tuple([t.atom("element"),t.bitstring("td"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("zai/glm-5.3-flash (sub)")])])]),t.tuple([t.atom("text"),t.bitstring(`
+            `)]),t.tuple([t.atom("element"),t.bitstring("td"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("zai/glm-5.3-flash (sub)")])])]),t.tuple([t.atom("text"),t.bitstring(`
+            `)]),t.tuple([t.atom("element"),t.bitstring("td"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("zai/glm-5.3-flash (sub)")])])]),t.tuple([t.atom("text"),t.bitstring(`
           `)])])]),t.tuple([t.atom("text"),t.bitstring(`
           `)]),t.tuple([t.atom("element"),t.bitstring("tr"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring(`
             `)]),t.tuple([t.atom("element"),t.bitstring("td"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("cerebras")])])]),t.tuple([t.atom("text"),t.bitstring(`
-            `)]),t.tuple([t.atom("element"),t.bitstring("td"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("zai-glm-4.7")])])]),t.tuple([t.atom("text"),t.bitstring(`
-            `)]),t.tuple([t.atom("element"),t.bitstring("td"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("gemma-4-31b")])])]),t.tuple([t.atom("text"),t.bitstring(`
-            `)]),t.tuple([t.atom("element"),t.bitstring("td"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("gpt-oss-120b")])])]),t.tuple([t.atom("text"),t.bitstring(`
-            `)]),t.tuple([t.atom("element"),t.bitstring("td"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("gpt-oss-120b")])])]),t.tuple([t.atom("text"),t.bitstring(`
+            `)]),t.tuple([t.atom("element"),t.bitstring("td"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("cerebras/zai-glm-4.7")])])]),t.tuple([t.atom("text"),t.bitstring(`
+            `)]),t.tuple([t.atom("element"),t.bitstring("td"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("cerebras/qwen-3-235b-a22b-instruct-2507")])])]),t.tuple([t.atom("text"),t.bitstring(`
+            `)]),t.tuple([t.atom("element"),t.bitstring("td"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("cerebras/gpt-oss-120b")])])]),t.tuple([t.atom("text"),t.bitstring(`
+            `)]),t.tuple([t.atom("element"),t.bitstring("td"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("cerebras/llama-3.3-70b")])])]),t.tuple([t.atom("text"),t.bitstring(`
           `)])])]),t.tuple([t.atom("text"),t.bitstring(`
           `)]),t.tuple([t.atom("element"),t.bitstring("tr"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring(`
             `)]),t.tuple([t.atom("element"),t.bitstring("td"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("alibaba")])])]),t.tuple([t.atom("text"),t.bitstring(`
-            `)]),t.tuple([t.atom("element"),t.bitstring("td"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("kimi-k3")])])]),t.tuple([t.atom("text"),t.bitstring(`
-            `)]),t.tuple([t.atom("element"),t.bitstring("td"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("qwen3.8-max")])])]),t.tuple([t.atom("text"),t.bitstring(`
-            `)]),t.tuple([t.atom("element"),t.bitstring("td"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("glm-5.2")])])]),t.tuple([t.atom("text"),t.bitstring(`
-            `)]),t.tuple([t.atom("element"),t.bitstring("td"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("qwen3.6-flash")])])]),t.tuple([t.atom("text"),t.bitstring(`
+            `)]),t.tuple([t.atom("element"),t.bitstring("td"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("alibaba/deepseek-v4-pro-0813")])])]),t.tuple([t.atom("text"),t.bitstring(`
+            `)]),t.tuple([t.atom("element"),t.bitstring("td"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("alibaba/qwen3.8-max")])])]),t.tuple([t.atom("text"),t.bitstring(`
+            `)]),t.tuple([t.atom("element"),t.bitstring("td"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("alibaba/glm-5.2")])])]),t.tuple([t.atom("text"),t.bitstring(`
+            `)]),t.tuple([t.atom("element"),t.bitstring("td"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("alibaba/qwen3.6-flash")])])]),t.tuple([t.atom("text"),t.bitstring(`
           `)])])]),t.tuple([t.atom("text"),t.bitstring(`
         `)])])]),t.tuple([t.atom("text"),t.bitstring(`
       `)])])]),t.tuple([t.atom("text"),t.bitstring(`
     `)])])]),t.tuple([t.atom("text"),t.bitstring(`
     `)]),t.tuple([t.atom("element"),t.bitstring("p"),t.list([t.tuple([t.bitstring("class"),t.list([t.tuple([t.atom("text"),t.bitstring("table-caption")])])])]),t.list([t.tuple([t.atom("text"),t.bitstring(`
-      Six of ~26 built-in profiles. Groq, DeepSeek, OpenAI, Gemini, Grok, Azure, Mistral,
+      Six of 35 built-in profiles. `)]),t.tuple([t.atom("element"),t.bitstring("code"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("[1m]")])])]),t.tuple([t.atom("text"),t.bitstring(" marks a 1M-context alias; ")]),t.tuple([t.atom("element"),t.bitstring("code"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("(sub)")])])]),t.tuple([t.atom("text"),t.bitstring(`
+      marks a subscription-key binding. Groq, DeepSeek, OpenAI, Gemini, Grok, Azure, Mistral,
       Perplexity, OpenRouter, and local Ollama/vLLM ship too \u2014 or write your own.
     `)])])]),t.tuple([t.atom("text"),t.bitstring(`
   `)])])]),t.tuple([t.atom("text"),t.bitstring(`
@@ -258,6 +266,46 @@ claude`)])])])])]),t.tuple([t.atom("text"),t.bitstring(`
   `)])])]),t.tuple([t.atom("text"),t.bitstring(`
 `)])])]),t.tuple([t.atom("text"),t.bitstring(`
 
+`)]),t.tuple([t.atom("public_comment"),t.list([t.tuple([t.atom("text"),t.bitstring(" INSTALL ")])])]),t.tuple([t.atom("text"),t.bitstring(`
+`)]),t.tuple([t.atom("element"),t.bitstring("section"),t.list([t.tuple([t.bitstring("class"),t.list([t.tuple([t.atom("text"),t.bitstring("section section-install")])])]),t.tuple([t.bitstring("id"),t.list([t.tuple([t.atom("text"),t.bitstring("install")])])])]),t.list([t.tuple([t.atom("text"),t.bitstring(`
+  `)]),t.tuple([t.atom("element"),t.bitstring("div"),t.list([t.tuple([t.bitstring("class"),t.list([t.tuple([t.atom("text"),t.bitstring("container")])])])]),t.list([t.tuple([t.atom("text"),t.bitstring(`
+    `)]),t.tuple([t.atom("element"),t.bitstring("h2"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("Install")])])]),t.tuple([t.atom("text"),t.bitstring(`
+    `)]),t.tuple([t.atom("element"),t.bitstring("p"),t.list([t.tuple([t.bitstring("class"),t.list([t.tuple([t.atom("text"),t.bitstring("section-lede")])])])]),t.list([t.tuple([t.atom("text"),t.bitstring(`
+      run-claude installs from source \u2014 clone the repo and `)]),t.tuple([t.atom("element"),t.bitstring("code"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("make install")])])]),t.tuple([t.atom("text"),t.bitstring(`, which builds
+      the `)]),t.tuple([t.atom("element"),t.bitstring("code"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("go-litellm")])])]),t.tuple([t.atom("text"),t.bitstring(` gateway and then installs the CLI with
+      `)]),t.tuple([t.atom("element"),t.bitstring("code"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("uv tool install .")])])]),t.tuple([t.atom("text"),t.bitstring(`. Packaged installs are planned; for now, this is the way.
+    `)])])]),t.tuple([t.atom("text"),t.bitstring(`
+
+    `)]),t.tuple([t.atom("element"),t.bitstring("h3"),t.list([t.tuple([t.bitstring("class"),t.list([t.tuple([t.atom("text"),t.bitstring("install-sub")])])])]),t.list([t.tuple([t.atom("text"),t.bitstring("Prerequisites")])])]),t.tuple([t.atom("text"),t.bitstring(`
+    `)]),t.tuple([t.atom("element"),t.bitstring("ul"),t.list([t.tuple([t.bitstring("class"),t.list([t.tuple([t.atom("text"),t.bitstring("prereq-list")])])])]),t.list([t.tuple([t.atom("text"),t.bitstring(`
+      `)]),t.tuple([t.atom("element"),t.bitstring("li"),t.list([]),t.list([t.tuple([t.atom("element"),t.bitstring("strong"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("Python 3 + uv")])])]),t.tuple([t.atom("text"),t.bitstring(" \u2014 the CLI installs as a uv tool")])])]),t.tuple([t.atom("text"),t.bitstring(`
+      `)]),t.tuple([t.atom("element"),t.bitstring("li"),t.list([]),t.list([t.tuple([t.atom("element"),t.bitstring("strong"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("Go 1.22+")])])]),t.tuple([t.atom("text"),t.bitstring(" \u2014 builds the default ")]),t.tuple([t.atom("element"),t.bitstring("code"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("go-litellm")])])]),t.tuple([t.atom("text"),t.bitstring(` gateway binary
+        (skipped with a warning if absent)`)])])]),t.tuple([t.atom("text"),t.bitstring(`
+      `)]),t.tuple([t.atom("element"),t.bitstring("li"),t.list([]),t.list([t.tuple([t.atom("element"),t.bitstring("strong"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("Docker")])])]),t.tuple([t.atom("text"),t.bitstring(" \u2014 runs the gateway database container")])])]),t.tuple([t.atom("text"),t.bitstring(`
+      `)]),t.tuple([t.atom("element"),t.bitstring("li"),t.list([]),t.list([t.tuple([t.atom("element"),t.bitstring("strong"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("direnv")])])]),t.tuple([t.atom("text"),t.bitstring(" \u2014 per-directory activation")])])]),t.tuple([t.atom("text"),t.bitstring(`
+      `)]),t.tuple([t.atom("element"),t.bitstring("li"),t.list([]),t.list([t.tuple([t.atom("element"),t.bitstring("strong"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("Claude Code and/or the OpenCode CLI")])])]),t.tuple([t.atom("text"),t.bitstring(" \u2014 the agents being routed")])])]),t.tuple([t.atom("text"),t.bitstring(`
+    `)])])]),t.tuple([t.atom("text"),t.bitstring(`
+
+    `)]),t.tuple([t.atom("element"),t.bitstring("figure"),t.list([t.tuple([t.bitstring("class"),t.list([t.tuple([t.atom("text"),t.bitstring("install-block")])])]),t.tuple([t.bitstring("aria-label"),t.list([t.tuple([t.atom("text"),t.bitstring("Install commands")])])])]),t.list([t.tuple([t.atom("text"),t.bitstring(`
+      `)]),t.tuple([t.atom("element"),t.bitstring("figcaption"),t.list([t.tuple([t.bitstring("class"),t.list([t.tuple([t.atom("text"),t.bitstring("install-title")])])])]),t.list([t.tuple([t.atom("text"),t.bitstring("From source")])])]),t.tuple([t.atom("text"),t.bitstring(`
+      `)]),t.tuple([t.atom("element"),t.bitstring("pre"),t.list([]),t.list([t.tuple([t.atom("element"),t.bitstring("code"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring(`git clone https://github.com/noizu/run-claude && cd run-claude
+make install                        # builds go-litellm gateway, then uv tool install .
+run-claude secrets init --generate  # provider API keys + auto-generated DB password
+
+cd /path/to/my/project
+run-claude set-folder cerebras      # writes .envrc; prints your stable directory token
+direnv allow
+
+claude                              # models registered on entry; just works
+run-claude status --health          # verify: proxies, DB, refcounts as JSON`)])])])])]),t.tuple([t.atom("text"),t.bitstring(`
+    `)])])]),t.tuple([t.atom("text"),t.bitstring(`
+    `)]),t.tuple([t.atom("element"),t.bitstring("p"),t.list([t.tuple([t.bitstring("class"),t.list([t.tuple([t.atom("text"),t.bitstring("table-caption")])])])]),t.list([t.tuple([t.atom("text"),t.bitstring(`
+      Not on PyPI \u2014 install from source as above. Provider keys live in
+      `)]),t.tuple([t.atom("element"),t.bitstring("code"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("~/.config/run-claude/.secrets")])])]),t.tuple([t.atom("text"),t.bitstring(`; never commit that file.
+    `)])])]),t.tuple([t.atom("text"),t.bitstring(`
+  `)])])]),t.tuple([t.atom("text"),t.bitstring(`
+`)])])]),t.tuple([t.atom("text"),t.bitstring(`
+
 `)]),t.tuple([t.atom("public_comment"),t.list([t.tuple([t.atom("text"),t.bitstring(" FAQ ")])])]),t.tuple([t.atom("text"),t.bitstring(`
 `)]),t.tuple([t.atom("element"),t.bitstring("section"),t.list([t.tuple([t.bitstring("class"),t.list([t.tuple([t.atom("text"),t.bitstring("section section-faq")])])]),t.tuple([t.bitstring("id"),t.list([t.tuple([t.atom("text"),t.bitstring("faq")])])])]),t.list([t.tuple([t.atom("text"),t.bitstring(`
   `)]),t.tuple([t.atom("element"),t.bitstring("div"),t.list([t.tuple([t.bitstring("class"),t.list([t.tuple([t.atom("text"),t.bitstring("container container-narrow")])])])]),t.list([t.tuple([t.atom("text"),t.bitstring(`
@@ -275,7 +323,7 @@ claude`)])])])])]),t.tuple([t.atom("text"),t.bitstring(`
         `)]),t.tuple([t.atom("element"),t.bitstring("summary"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("Does it break Claude Code features?")])])]),t.tuple([t.atom("text"),t.bitstring(`
         `)]),t.tuple([t.atom("element"),t.bitstring("p"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring(`
           No. Code still speaks the Anthropic API it already speaks: the front proxy serves the
-          CLI's bootstrap endpoint, pre-registers `)]),t.tuple([t.atom("element"),t.bitstring("code"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("[1m]")])])]),t.tuple([t.atom("text"),t.bitstring(` 1M-context aliases (27 of
+          CLI's bootstrap endpoint, pre-registers `)]),t.tuple([t.atom("element"),t.bitstring("code"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("[1m]")])])]),t.tuple([t.atom("text"),t.bitstring(` 1M-context aliases (39 of
           them) so big-context requests route instead of 404, and a provider-compat callback
           strips fields strict providers reject. Tools, MCP, sessions \u2014 unchanged.
         `)])])]),t.tuple([t.atom("text"),t.bitstring(`
@@ -285,7 +333,7 @@ claude`)])])])])]),t.tuple([t.atom("text"),t.bitstring(`
         `)]),t.tuple([t.atom("element"),t.bitstring("p"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring(`
           Anthropic, OpenAI, Z.AI, Groq, Cerebras, Wafer, Alibaba (Qwen Token Plan), DeepSeek,
           Gemini, Azure, Grok, Mistral, Perplexity, OpenRouter \u2014 plus local Ollama / vLLM /
-          LM Studio. ~26 built-in profiles, 145+ model definitions.
+          LM Studio. 35 built-in profiles, 211 catalogued model definitions.
         `)])])]),t.tuple([t.atom("text"),t.bitstring(`
       `)])])]),t.tuple([t.atom("text"),t.bitstring(`
       `)]),t.tuple([t.atom("element"),t.bitstring("details"),t.list([t.tuple([t.bitstring("class"),t.list([t.tuple([t.atom("text"),t.bitstring("faq-item")])])])]),t.list([t.tuple([t.atom("text"),t.bitstring(`
@@ -324,8 +372,8 @@ make install
 run-claude secrets init --generate`)])])])])]),t.tuple([t.atom("text"),t.bitstring(`
     `)])])]),t.tuple([t.atom("text"),t.bitstring(`
     `)]),t.tuple([t.atom("element"),t.bitstring("div"),t.list([t.tuple([t.bitstring("class"),t.list([t.tuple([t.atom("text"),t.bitstring("cta-row")])])])]),t.list([t.tuple([t.atom("text"),t.bitstring(`
-      `)]),t.tuple([t.atom("element"),t.bitstring("a"),t.list([t.tuple([t.bitstring("class"),t.list([t.tuple([t.atom("text"),t.bitstring("btn btn-primary btn-lg")])])]),t.tuple([t.bitstring("href"),t.list([t.tuple([t.atom("text"),t.bitstring("#install")])])])]),t.list([t.tuple([t.atom("text"),t.bitstring("Install in one command")])])]),t.tuple([t.atom("text"),t.bitstring(`
+      `)]),t.tuple([t.atom("element"),t.bitstring("a"),t.list([t.tuple([t.bitstring("class"),t.list([t.tuple([t.atom("text"),t.bitstring("btn btn-primary btn-lg")])])]),t.tuple([t.bitstring("href"),t.list([t.tuple([t.atom("text"),t.bitstring("#install")])])])]),t.list([t.tuple([t.atom("text"),t.bitstring("Install from source")])])]),t.tuple([t.atom("text"),t.bitstring(`
     `)])])]),t.tuple([t.atom("text"),t.bitstring(`
   `)])])]),t.tuple([t.atom("text"),t.bitstring(`
 `)])])])]))}],s),e.updateVarsToMatchedValues(s),globalThis.Hologram.return)}])};globalThis.Hologram.pageScriptLoaded=!0;document.dispatchEvent(new CustomEvent("hologram:pageScriptLoaded"));console.debug("Hologram: page script executed in",r.diff(p));})();
-//# sourceMappingURL=page-049460da6e327e867656d6467fcb28f6.js.map
+//# sourceMappingURL=page-d7965046d3f86c0d63e9f9ae150505b8.js.map

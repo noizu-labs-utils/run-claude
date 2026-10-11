@@ -402,6 +402,13 @@ def _assert_no_flashx_refs(profile_name):
 
 def test_zai_pro_x_profile_exists_without_flashx():
     # The -x profiles are kept for compatibility but no longer bind FlashX.
+    #
+    # KNOWN STALE NAME: display_name still says "(FlashX)" while every bound
+    # model is plain glm-5.3-flash, so zai-pro-x is now functionally identical
+    # to zai-pro. Asserted as-is because renaming or retiring these profiles is
+    # a breaking change for anything referencing them by name and was
+    # deliberately deferred. The contract that actually matters -- no flashx
+    # bindings anywhere -- is enforced by _assert_no_flashx_refs below.
     assert "zai-pro-x" in list_profiles()
     inspection = inspect_profile("zai-pro-x")
     assert inspection is not None

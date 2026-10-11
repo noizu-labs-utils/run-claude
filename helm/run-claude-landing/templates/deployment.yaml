@@ -34,16 +34,30 @@ spec:
           value: "1"
         resources:
           {{- toYaml .Values.resources | nindent 10 }}
+        # Probes must hit a real Hologram route ("/", home_page.ex), not /healthz.
+        # The endpoint mounts plug Hologram.Router BEFORE the Phoenix router and
+        # Hologram.Router.call/2 returns the conn untouched (no halt, no response)
+        # when Hologram is disabled — requests fall through to Phoenix, where only
+        # /healthz exists. A /healthz probe therefore answers 200 even while every
+        # page 404s: blind. A routed probe fails when the router is dark.
         livenessProbe:
           httpGet:
-            path: /healthz
+            path: /
             port: {{ .Values.port }}
+            httpHeaders:
+            - name: Host
+              value: {{ .Values.domain | quote }}
           initialDelaySeconds: 15
           periodSeconds: 30
+          timeoutSeconds: 3
         readinessProbe:
           httpGet:
-            path: /healthz
+            path: /
             port: {{ .Values.port }}
+            httpHeaders:
+            - name: Host
+              value: {{ .Values.domain | quote }}
           initialDelaySeconds: 5
           periodSeconds: 10
+          timeoutSeconds: 3
       restartPolicy: Always

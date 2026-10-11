@@ -6,3 +6,5 @@ test
 .git
 .claude
 *.ez
+# regenerated at build time; embed builder-local paths if committed
+*.js.map

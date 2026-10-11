@@ -1,18 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "run-claude-landing.fullname" . }}
+  name: {{ include "run-claude-site.fullname" . }}
   labels:
-    {{- include "run-claude-landing.labels" . | nindent 4 }}
+    {{- include "run-claude-site.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.replicas }}
   selector:
     matchLabels:
-      {{- include "run-claude-landing.selectorLabels" . | nindent 6 }}
+      {{- include "run-claude-site.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
-        {{- include "run-claude-landing.selectorLabels" . | nindent 8 }}
+        {{- include "run-claude-site.selectorLabels" . | nindent 8 }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
@@ -32,6 +32,14 @@ spec:
           value: {{ .Values.domain | quote }}
         - name: HOLOGRAM_START
           value: "1"
+        # Pin the runtime env explicitly. Hologram.env/0 reads
+        # HOLOGRAM_ENV || MIX_ENV and falls back to :dev when neither is set
+        # (true in a mix release), which disables the Hologram router and
+        # 404s every page — never rely on the image's default alone.
+        - name: MIX_ENV
+          value: prod
+        - name: HOLOGRAM_ENV
+          value: prod
         resources:
           {{- toYaml .Values.resources | nindent 10 }}
         # Probes must hit a real Hologram route ("/", home_page.ex), not /healthz.

@@ -114,6 +114,10 @@ code {
   padding: 2px 8px;
 }
 
+.brand-name {
+  font-weight: 700;
+}
+
 .site-nav {
   display: flex;
   align-items: center;
@@ -208,7 +212,9 @@ h1 {
 .card code,
 .section-lede code,
 .steps code,
-.faq-item code {
+.faq-item code,
+.prereq-list code,
+.table-caption code {
   color: var(--accent);
 }
 
@@ -269,6 +275,14 @@ h1 {
 
 .section-tiers {
   background: var(--bg-raised);
+}
+
+.section-install {
+  background: var(--bg-raised);
+}
+
+.section-faq {
+  background: var(--bg);
 }
 
 h2 {
@@ -413,6 +427,40 @@ h2 {
   font-size: 15px;
 }
 
+/* Install section */
+.install-sub {
+  font-size: 17px;
+  font-weight: 600;
+  margin: 8px 0 16px;
+}
+
+.prereq-list {
+  list-style: none;
+  display: grid;
+  gap: 10px;
+  margin-bottom: 32px;
+  max-width: 720px;
+}
+
+.prereq-list li {
+  position: relative;
+  padding-left: 28px;
+  color: var(--text-muted);
+  font-size: 15px;
+}
+
+.prereq-list li::before {
+  content: "$";
+  position: absolute;
+  left: 0;
+  font-family: var(--mono);
+  color: var(--accent);
+}
+
+.section-install .install-block {
+  margin-top: 0;
+}
+
 /* FAQ */
 .faq-list {
   display: grid;
@@ -505,6 +553,13 @@ h2 {
 
 .footer-line a:hover {
   color: var(--accent);
+}
+
+.footer-disclaimer {
+  margin-top: 14px;
+  font-size: 12.5px;
+  color: var(--text-muted);
+  max-width: 760px;
 }
 
 /* Responsive */

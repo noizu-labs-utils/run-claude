@@ -2,13 +2,13 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ include "run-claude-landing.fullname" . }}
+  name: {{ include "run-claude-site.fullname" . }}
   labels:
-    {{- include "run-claude-landing.labels" . | nindent 4 }}
+    {{- include "run-claude-site.labels" . | nindent 4 }}
   annotations:
     {{- toYaml .Values.ingress.annotations | nindent 4 }}
     {{- if .Values.ingress.cloudflareOnly }}
-    nginx.ingress.kubernetes.io/whitelist-source-range: {{ include "run-claude-landing.cloudflareWhitelist" . | quote }}
+    nginx.ingress.kubernetes.io/whitelist-source-range: {{ include "run-claude-site.cloudflareWhitelist" . | quote }}
     {{- end }}
 spec:
   ingressClassName: {{ .Values.ingress.className }}
@@ -26,7 +26,7 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: {{ include "run-claude-landing.fullname" . }}
+            name: {{ include "run-claude-site.fullname" . }}
             port:
               number: {{ .Values.port }}
 {{- end }}

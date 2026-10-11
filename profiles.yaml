@@ -223,18 +223,18 @@ zai-pro-alt: *zai-alt-profile
 # Z.AI Subscription - formerly the FlashX variant.
 # FlashX (glm-5.3-flashx) is NOT included in the subscription, so these
 # profiles bind plain glm-5.3-flash and are therefore equivalent to
-# zai-pro / zai-alt. The "(FlashX)" display names are retained only for
-# backwards compatibility: renaming or retiring zai-pro-x / zai-alt-x
-# would break shell aliases, saved directory bindings and anything else
-# referencing them by name. Enforced by _assert_no_flashx_refs in
-# tests/test_profiles.py: no profile may bind a flashx id.
+# zai-pro / zai-alt. The display names no longer claim FlashX, but the
+# profile KEYS (zai-pro-x / zai-alt-x) are kept so existing shell aliases,
+# saved directory bindings and agent stubs keep resolving. Enforced by
+# _assert_no_flashx_refs in tests/test_profiles.py: no profile may bind a
+# flashx id.
 #   fable  = glm-5.3
 #   opus   = glm-5.3-flash
 #   sonnet = glm-5.3-flash
 #   haiku  = glm-5.3-flash
 # Requires: ZAI_SUB_KEY; Tyna copies also need ZAI_SUB_KEY_TYNA
 zai-pro-x:
-  name: "Zai Subscription (FlashX)"
+  name: "Zai Subscription (legacy -x alias)"
   opus_model: "zai/glm-5.3-flash (sub)"
   sonnet_model: "zai/glm-5.3-flash (sub)"
   haiku_model: "zai/glm-5.3-flash (sub)"
@@ -259,7 +259,7 @@ zai-pro-x:
   - "zai-oa/glm-5-turbo"
   - "zai-oa/glm-4.7"
 zai-alt-x:
-  name: "Zai Subscription (Alt, FlashX)"
+  name: "Zai Subscription (Alt, legacy -x alias)"
   opus_model: "zai-alt/glm-5.3-flash"
   sonnet_model: "zai-alt/glm-5.3-flash"
   haiku_model: "zai-alt/glm-5.3-flash"

@@ -403,17 +403,16 @@ def _assert_no_flashx_refs(profile_name):
 def test_zai_pro_x_profile_exists_without_flashx():
     # The -x profiles are kept for compatibility but no longer bind FlashX.
     #
-    # KNOWN STALE NAME: display_name still says "(FlashX)" while every bound
-    # model is plain glm-5.3-flash, so zai-pro-x is now functionally identical
-    # to zai-pro. Asserted as-is because renaming or retiring these profiles is
-    # a breaking change for anything referencing them by name and was
-    # deliberately deferred. The contract that actually matters -- no flashx
-    # bindings anywhere -- is enforced by _assert_no_flashx_refs below.
+    # The display name no longer claims FlashX (it is not in the subscription),
+    # but the profile key zai-pro-x is kept so existing aliases and saved
+    # bindings keep resolving. zai-pro-x is now equivalent to zai-pro. The
+    # contract that matters -- no flashx bindings anywhere -- is enforced by
+    # _assert_no_flashx_refs below.
     assert "zai-pro-x" in list_profiles()
     inspection = inspect_profile("zai-pro-x")
     assert inspection is not None
     assert inspection.name == "zai-pro-x"
-    assert inspection.display_name == "Zai Subscription (FlashX)"
+    assert inspection.display_name == "Zai Subscription (legacy -x alias)"
     assert inspection.tiers["opus"].internal_name == "anthropic/glm-5.3-flash"
     assert inspection.tiers["sonnet"].internal_name == "anthropic/glm-5.3-flash"
     assert inspection.tiers["opus"].instance == "zai"
@@ -430,7 +429,7 @@ def test_zai_alt_x_profile_exists_without_flashx():
     inspection = inspect_profile("zai-alt-x")
     assert inspection is not None
     assert inspection.name == "zai-alt-x"
-    assert inspection.display_name == "Zai Subscription (Alt, FlashX)"
+    assert inspection.display_name == "Zai Subscription (Alt, legacy -x alias)"
     assert inspection.tiers["opus"].model_name == "zai-alt/glm-5.3-flash"
     assert inspection.tiers["sonnet"].model_name == "zai-alt/glm-5.3-flash"
     assert inspection.tiers["opus"].internal_name == "anthropic/glm-5.3-flash"

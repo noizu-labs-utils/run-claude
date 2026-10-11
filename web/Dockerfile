@@ -92,7 +92,9 @@ USER nobody
 
 EXPOSE 8150
 
+# Probe the routed page, not /healthz — the Phoenix /healthz route stays 200
+# even when the Hologram router is dark (see helm deployment probe comment).
 HEALTHCHECK --interval=15s --timeout=3s --start-period=15s --retries=3 \
-  CMD wget -qO- http://localhost:8150/healthz || exit 1
+  CMD wget -qO- http://localhost:8150/ || exit 1
 
 CMD ["bin/run_claude_web", "start"]

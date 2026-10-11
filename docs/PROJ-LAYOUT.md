@@ -20,6 +20,11 @@ run-claude/
 ├── docs/                    # Documentation → [layout/docs.md](layout/docs.md)
 ├── helm/                    # Helm charts → [layout/web.md](layout/web.md)
 │   └── run-claude-landing/  #   Landing-site chart (web/ image)
+├── model-explorer/          # Standalone Next.js model/profile catalog app
+│   ├── app/                 #   App-router pages (server component loads YAML)
+│   ├── components/          #   Explorer, model/profile modal cards
+│   ├── lib/                 #   Loader mirroring profiles.py merge logic
+│   └── README.md            #   Run instructions + provenance legend
 ├── hooks/                   # Shell integration (bash/zsh hooks, installer)
 │   ├── bash_hook.sh         #   Bash PROMPT_COMMAND hook
 │   ├── zsh_hook.zsh         #   Zsh precmd hook
@@ -36,7 +41,7 @@ run-claude/
 │   └── go-litellm/          #   Go gateway (active release target, git submodule)
 ├── run_claude/              # Main Python package → [layout/run-claude-package.md](layout/run-claude-package.md)
 │   ├── callbacks/           #   Provider compatibility layer (runs in proxy venv)
-│   ├── defaults/            #   Built-in configs (models, profiles, hooks)
+│   ├── explorer.py          #   Model explorer launcher (serve app + open browser)
 │   ├── hooks/               #   Lifecycle hook system
 │   ├── cli.py               #   CLI entry point
 │   ├── chat.py              #   Interactive chat client for the local proxy
@@ -74,9 +79,11 @@ run-claude/
 │                            #   out locally), repos/go-litellm
 ├── .python-version          # Python version pin
 ├── .tool-versions           # asdf/mise tool versions
+├── AGENT.md                 # Generic agent instructions (mirror of CLAUDE.md)
+├── AGENTS.md                # Multi-agent/Grok Build rules (kept aligned w/ CLAUDE.md)
 ├── CLAUDE.md                # Claude Code project instructions
 ├── Makefile                 # Build automation (test, install, coverage)
-├── profiles.yaml            # Profile definitions (14+ built-in profiles)
+├── profiles.yaml            # Profile definitions (35 built-in profiles: zai, alibaba, wafer, groq, …)
 ├── pyproject.toml           # Python project config (hatchling)
 ├── merge-notes.md           # Notes from branch merges (working notes)
 ├── uv.lock                  # Dependency lockfile

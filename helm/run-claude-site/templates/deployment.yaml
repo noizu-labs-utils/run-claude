@@ -1,0 +1,71 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "run-claude-site.fullname" . }}
+  labels:
+    {{- include "run-claude-site.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicas }}
+  selector:
+    matchLabels:
+      {{- include "run-claude-site.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "run-claude-site.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+      - name: web
+        image: {{ .Values.image }}
+        imagePullPolicy: Always
+        ports:
+        - containerPort: {{ .Values.port }}
+          protocol: TCP
+        env:
+        - name: PORT
+          value: {{ .Values.port | quote }}
+        - name: PHX_HOST
+          value: {{ .Values.domain | quote }}
+        - name: HOLOGRAM_START
+          value: "1"
+        # Pin the runtime env explicitly. Hologram.env/0 reads
+        # HOLOGRAM_ENV || MIX_ENV and falls back to :dev when neither is set
+        # (true in a mix release), which disables the Hologram router and
+        # 404s every page — never rely on the image's default alone.
+        - name: MIX_ENV
+          value: prod
+        - name: HOLOGRAM_ENV
+          value: prod
+        resources:
+          {{- toYaml .Values.resources | nindent 10 }}
+        # Probes must hit a real Hologram route ("/", home_page.ex), not /healthz.
+        # The endpoint mounts plug Hologram.Router BEFORE the Phoenix router and
+        # Hologram.Router.call/2 returns the conn untouched (no halt, no response)
+        # when Hologram is disabled — requests fall through to Phoenix, where only
+        # /healthz exists. A /healthz probe therefore answers 200 even while every
+        # page 404s: blind. A routed probe fails when the router is dark.
+        livenessProbe:
+          httpGet:
+            path: /
+            port: {{ .Values.port }}
+            httpHeaders:
+            - name: Host
+              value: {{ .Values.domain | quote }}
+          initialDelaySeconds: 15
+          periodSeconds: 30
+          timeoutSeconds: 3
+        readinessProbe:
+          httpGet:
+            path: /
+            port: {{ .Values.port }}
+            httpHeaders:
+            - name: Host
+              value: {{ .Values.domain | quote }}
+          initialDelaySeconds: 5
+          periodSeconds: 10
+          timeoutSeconds: 3
+      restartPolicy: Always

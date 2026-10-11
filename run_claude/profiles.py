@@ -268,6 +268,16 @@ def _find_models_files(debug: bool = False) -> list[Path]:
     return files
 
 
+def _optional_int(value: Any) -> int | None:
+    """Coerce a metadata scalar to int; None for anything malformed."""
+    if isinstance(value, bool) or value is None:
+        return None
+    try:
+        return int(value)
+    except (TypeError, ValueError):
+        return None
+
+
 @dataclass
 class ModelMetadata:
     """Human-readable model metadata for catalog display."""
@@ -275,6 +285,15 @@ class ModelMetadata:
     strengths: str = ""
     weaknesses: str = ""
     provider: str = ""
+    pricing: dict[str, Any] | None = None
+    limits: dict[str, Any] | None = None
+    thinking: dict[str, Any] | None = None
+    tokens_per_second: int | None = None
+    notes: str = ""
+    context_window: int | None = None
+    modalities: dict[str, Any] | None = None
+    supports_tools: bool | None = None
+    behaves_as: str = ""
 
     @classmethod
     def from_dict(cls, data: dict[str, Any]) -> ModelMetadata:
@@ -283,6 +302,15 @@ class ModelMetadata:
             strengths=data.get("strengths", ""),
             weaknesses=data.get("weaknesses", ""),
             provider=data.get("provider", ""),
+            pricing=data.get("pricing"),
+            limits=data.get("limits"),
+            thinking=data.get("thinking"),
+            tokens_per_second=_optional_int(data.get("tokens_per_second")),
+            notes=data.get("notes", ""),
+            context_window=_optional_int(data.get("context_window")),
+            modalities=data.get("modalities") if isinstance(data.get("modalities"), dict) else None,
+            supports_tools=data.get("supports_tools") if isinstance(data.get("supports_tools"), bool) else None,
+            behaves_as=str(data.get("behavesAs") or data.get("behaves_as") or ""),
         )
 
 
@@ -342,6 +370,12 @@ class ProfileMeta:
     def effective_fable_model(self) -> str:
         """Claude Code fable alias; falls back to opus when fable_model is omitted."""
         return self.fable_model or self.opus_model
+
+    def slot_model(self, slot: str) -> str:
+        """Model for a Claude tier slot ('fable'|'opus'|'sonnet'|'haiku'); '' if unset."""
+        if slot == "fable":
+            return self.effective_fable_model()
+        return {"opus": self.opus_model, "sonnet": self.sonnet_model, "haiku": self.haiku_model}.get(slot, "")
 
 
 def _profile_meta_from_data(name: str, data: dict[str, Any]) -> ProfileMeta:

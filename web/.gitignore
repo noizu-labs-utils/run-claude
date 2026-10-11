@@ -2,3 +2,7 @@
 /deps/
 .elixir_ls/
 *.ez
+/cover/
+# hologram emits *.js.map on every compile with --sources-content=true;
+# never commit them: they embed the build machine absolute paths
+*.js.map

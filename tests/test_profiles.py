@@ -1,5 +1,7 @@
 """Tests for run_claude.profiles inspection helpers."""
 
+import pytest
+
 from run_claude.profiles import (
     clear_caches,
     format_profile_list,
@@ -50,14 +52,14 @@ def _assert_alibaba_inspection():
     assert inspection.fable_fallback is False
 
     opus = inspection.tiers["opus"]
-    assert opus.model_name == "alibaba/opus"
+    assert opus.model_name == "alibaba/qwen3.8-max"
     assert opus.internal_name == "anthropic/qwen3.8-max"
     assert opus.key_env == "QWEN_SUB_KEY"
     assert opus.instance == "qwen"
     assert "token-plan.ap-southeast-1.maas.aliyuncs.com" in opus.api_base
 
     fable = inspection.tiers["fable"]
-    assert fable.model_name == "alibaba/fable"
+    assert fable.model_name == "alibaba/deepseek-v4-pro-0813"
     assert fable.internal_name == "anthropic/deepseek-v4-pro-0813"
 
     sonnet = inspection.tiers["sonnet"]
@@ -70,8 +72,8 @@ def _assert_alibaba_inspection():
     assert "alibaba/kimi-k2.7-code" in extra_names
     assert "alibaba/deepseek-v4-pro" in extra_names
     assert "alibaba/minimax-m2.5" in extra_names
-    # Tier aliases themselves are not repeated as additional models.
-    assert "alibaba/opus" not in extra_names
+    # Tier models themselves are not repeated as additional models.
+    assert "alibaba/qwen3.8-max" not in extra_names
 
 
 def test_inspect_wafer_tiers(monkeypatch, tmp_path):
@@ -104,7 +106,7 @@ def _assert_wafer_inspection():
     assert inspection.display_name == "Wafer Serverless"
 
     fable = inspection.tiers["fable"]
-    assert fable.model_name == "wafer/fable[1m]"
+    assert fable.model_name == "wafer/kimi-k3[1m]"
     assert fable.internal_name == "anthropic/Kimi-K3"
     assert fable.key_env == "WAFER_AI_API_KEY"
     assert "pass.wafer.ai" in fable.api_base
@@ -147,13 +149,14 @@ def test_inspect_zai_pro_instances(monkeypatch, tmp_path):
         inspection = inspect_profile("zai-pro")
         assert inspection is not None
         assert inspection.tiers["fable"].internal_name == "anthropic/glm-5.3"
+        # Tier variance (2026-10): opus = glm-5.3-flash (FlashX is not subscribed).
         assert inspection.tiers["opus"].internal_name == "anthropic/glm-5.3-flash"
         assert inspection.tiers["opus"].key_env == "ZAI_SUB_KEY"
         assert inspection.tiers["opus"].instance == "zai"
         assert inspection.tiers["haiku"].model_name == "zai/glm-5.3-flash (sub)"
         assert inspection.tiers["haiku"].internal_name == "anthropic/glm-5.3-flash"
 
-        tyna = next(item for item in inspection.extended if item.model_name == "zai-tyna/opus")
+        tyna = next(item for item in inspection.extended if item.model_name == "zai-alt/glm-5.3-flash")
         assert tyna.key_env == "ZAI_SUB_KEY_TYNA"
         assert tyna.instance == "tyna"
         assert tyna.internal_name == "anthropic/glm-5.3-flash"
@@ -180,19 +183,20 @@ def test_inspect_zai_pro_alt_defaults_to_tyna(monkeypatch, tmp_path):
         inspection = inspect_profile("zai-pro-alt")
         assert inspection is not None
         assert inspection.display_name == "Zai Subscription (Alt)"
-        assert inspection.tiers["opus"].model_name == "zai-alt/opus"
-        assert inspection.tiers["sonnet"].model_name == "zai-alt/sonnet"
+        assert inspection.tiers["opus"].model_name == "zai-alt/glm-5.3-flash"
+        assert inspection.tiers["sonnet"].model_name == "zai-alt/glm-5.3-flash"
         assert inspection.tiers["haiku"].model_name == "zai-alt/glm-5.3-flash"
-        assert inspection.tiers["fable"].model_name == "zai-alt/fable"
+        assert inspection.tiers["fable"].model_name == "zai-alt/glm-5.3"
         assert inspection.tiers["opus"].internal_name == "anthropic/glm-5.3-flash"
+        assert inspection.tiers["sonnet"].internal_name == "anthropic/glm-5.3-flash"
         assert inspection.tiers["haiku"].internal_name == "anthropic/glm-5.3-flash"
         assert inspection.tiers["fable"].internal_name == "anthropic/glm-5.3"
         assert inspection.tiers["opus"].key_env == "ZAI_SUB_KEY_TYNA"
         assert inspection.tiers["opus"].instance == "tyna"
 
         extra_names = {item.model_name for item in inspection.extended}
-        assert "zai-alt/opus[1m]" in extra_names
-        assert "zai-alt/glm-5.3" in extra_names
+        assert "zai-alt/glm-5.3-flash[1m]" in extra_names
+        assert "zai-alt/glm-5.3[1m]" in extra_names
         assert "zai-oa-alt/glm-5.3" in extra_names
         assert "zai-alt/opus" not in extra_names
         assert "zai/opus" not in extra_names
@@ -212,29 +216,49 @@ def test_zai_alt_catalog_clone_mirrors_zai_skus():
     from run_claude.profiles import load_model_definitions
 
     models = load_model_definitions(force_reload=True, quiet=True)
-    assert "zai-alt/opus" in models
-    src = models["zai/opus"]
-    dst = models["zai-alt/opus"]
+    assert "zai-alt/glm-5.3-flash" in models
+    src = models["zai/glm-5.3-flash"]
+    dst = models["zai-alt/glm-5.3-flash"]
     assert dst.litellm_params["model"] == src.litellm_params["model"]
     assert dst.litellm_params["api_base"] == src.litellm_params["api_base"]
     assert src.litellm_params["api_key"] == "os.environ/ZAI_SUB_KEY"
     assert dst.litellm_params["api_key"] == "os.environ/ZAI_SUB_KEY_TYNA"
-    assert "zai-alt/opus[1m]" in models
+    assert "zai-alt/glm-5.3-flash[1m]" in models
     assert "zai-oa-alt/glm-5.3" in models
     assert models["zai-oa-alt/glm-5.3"].litellm_params["model"] == (
         models["zai-oa/glm-5.3"].litellm_params["model"]
     )
 
 
-def test_inspect_cerebras_explicit_fable_tier():
-    inspection = inspect_profile("cerebras")
-    assert inspection is not None
-    assert inspection.fable_fallback is False
-    assert inspection.tiers["fable"].model_name == "cerebras/zai-glm-4.7"
-    assert inspection.tiers["opus"].model_name == "cerebras/gemma-4-31b"
-    assert inspection.tiers["sonnet"].model_name == "cerebras/gpt-oss-120b"
-    assert inspection.tiers["haiku"].model_name == "cerebras/gpt-oss-120b"
-    assert inspection.tiers["opus"].key_env == "CEREBRAS_API_KEY"
+def test_inspect_cerebras_explicit_fable_tier(monkeypatch, tmp_path):
+    # Hermetic: see test_inspect_zai_pro_instances. Without this a host
+    # ~/.config/run-claude/models.yaml masked the missing catalog entry.
+    monkeypatch.setattr(
+        "run_claude.profiles.get_user_models_file",
+        lambda: tmp_path / "no-user-models.yaml",
+    )
+    monkeypatch.setattr(
+        "run_claude.profiles.get_user_profiles_file",
+        lambda: tmp_path / "no-user-profiles.yaml",
+    )
+    monkeypatch.setattr(
+        "run_claude.profiles.get_user_profiles_override_file",
+        lambda: tmp_path / "no-user-profile-override.yaml",
+    )
+    clear_caches()
+    try:
+        inspection = inspect_profile("cerebras")
+        assert inspection is not None
+        assert inspection.fable_fallback is False
+        assert inspection.tiers["fable"].model_name == "cerebras/zai-glm-4.7"
+        # Tier variance (2026-10): gemma-4-31b dropped from the catalog;
+        # opus = qwen-3-235b, haiku = llama-3.3-70b (was gpt-oss-120b, dup of sonnet).
+        assert inspection.tiers["opus"].model_name == "cerebras/qwen-3-235b-a22b-instruct-2507"
+        assert inspection.tiers["sonnet"].model_name == "cerebras/gpt-oss-120b"
+        assert inspection.tiers["haiku"].model_name == "cerebras/llama-3.3-70b"
+        assert inspection.tiers["opus"].key_env == "CEREBRAS_API_KEY"
+    finally:
+        clear_caches()
 
 
 def test_inspect_missing_returns_none():
@@ -267,6 +291,21 @@ def test_format_profile_view_headers():
 
 def test_inspect_zai_pro_key_sets(monkeypatch, tmp_path):
     monkeypatch.setenv("XDG_STATE_HOME", str(tmp_path))
+    # Hermetic: ignore any real ~/.config/run-claude overrides so key-set
+    # families reflect the repo profiles only (CI has no user config).
+    monkeypatch.setattr(
+        "run_claude.profiles.get_user_models_file",
+        lambda: tmp_path / "no-user-models.yaml",
+    )
+    monkeypatch.setattr(
+        "run_claude.profiles.get_user_profiles_file",
+        lambda: tmp_path / "no-user-profiles.yaml",
+    )
+    monkeypatch.setattr(
+        "run_claude.profiles.get_user_profiles_override_file",
+        lambda: tmp_path / "no-user-profile-override.yaml",
+    )
+    clear_caches()
     inspection = inspect_profile("zai-pro")
     assert inspection is not None
     families = {ks.family: ks for ks in inspection.key_sets}
@@ -274,12 +313,29 @@ def test_inspect_zai_pro_key_sets(monkeypatch, tmp_path):
     assert families["zai"].key_env == "ZAI_SUB_KEY"
     assert families["zai"].instance == "zai"
     assert families["zai"].override == ""
-    assert "zai-tyna" in families
-    assert families["zai-tyna"].key_env == "ZAI_SUB_KEY_TYNA"
+    # zai-tyna tier aliases were removed (its SKUs live under zai-alt clones);
+    # zai-pro binds zai/* slots plus zai-alt/zai-oa SKUs via its extended list.
+    assert "zai-tyna" not in families
+    clear_caches()
 
 
 def test_inspect_zai_pro_alt_key_sets(monkeypatch, tmp_path):
     monkeypatch.setenv("XDG_STATE_HOME", str(tmp_path))
+    # Hermetic: ignore any real ~/.config/run-claude overrides so key-set
+    # families reflect the repo profiles only (CI has no user config).
+    monkeypatch.setattr(
+        "run_claude.profiles.get_user_models_file",
+        lambda: tmp_path / "no-user-models.yaml",
+    )
+    monkeypatch.setattr(
+        "run_claude.profiles.get_user_profiles_file",
+        lambda: tmp_path / "no-user-profiles.yaml",
+    )
+    monkeypatch.setattr(
+        "run_claude.profiles.get_user_profiles_override_file",
+        lambda: tmp_path / "no-user-profile-override.yaml",
+    )
+    clear_caches()
     inspection = inspect_profile("zai-pro-alt")
     assert inspection is not None
     families = {ks.family: ks for ks in inspection.key_sets}
@@ -287,6 +343,7 @@ def test_inspect_zai_pro_alt_key_sets(monkeypatch, tmp_path):
     assert families["zai-alt"].key_env == "ZAI_SUB_KEY_TYNA"
     assert families["zai-alt"].instance == "tyna"
     assert "zai" not in families
+    clear_caches()
 
 
 def test_inspect_key_set_family_override(monkeypatch, tmp_path):
@@ -322,56 +379,65 @@ def test_list_profile_infos_with_keys_includes_overrides(monkeypatch, tmp_path):
     assert "QWEN_SUB_KEY" in listing
 
 
-def _assert_all_flash_refs_are_flashx(profile_name):
-    """No raw model-name string on the profile may reference plain glm-5.3-flash."""
+def _assert_no_flashx_refs(profile_name):
+    """No profile may reference glm-5.3-flashx: FlashX is not in the z.ai subscription.
+
+    The glm-5.3-flashx model cards stay in models.yaml (the SKUs exist), but
+    profiles must bind the plain glm-5.3-flash equivalents instead. Checks tier
+    slots as well as the extended list.
+    """
     from run_claude.profiles import load_profile
 
     profile = load_profile(profile_name)
     assert profile is not None
     meta = profile.meta
-    names = [meta.opus_model, meta.sonnet_model, meta.haiku_model, meta.fable_model]
-    names += list(meta.extended or [])
+    names = list(meta.extended or [])
+    for slot in ("opus_model", "sonnet_model", "haiku_model", "fable_model"):
+        value = getattr(meta, slot, None)
+        if value:
+            names.append(value)
     for name in names:
-        if not name or "glm-5.3-flash" not in name:
-            continue
-        assert 'glm-5.3-flash"' not in f'{name}"', f"non-flashx glm-5.3-flash reference: {name!r}"
-        assert "glm-5.3-flash " not in f"{name} ", f"non-flashx glm-5.3-flash reference: {name!r}"
-        assert "glm-5.3-flashx" in name, f"non-flashx glm-5.3-flash reference: {name!r}"
+        assert "flashx" not in name, f"flashx is not subscribed: {name!r}"
 
 
-def test_zai_pro_x_profile_exists_and_uses_flashx():
+def test_zai_pro_x_profile_exists_without_flashx():
+    # The -x profiles are kept for compatibility but no longer bind FlashX.
+    #
+    # The display name no longer claims FlashX (it is not in the subscription),
+    # but the profile key zai-pro-x is kept so existing aliases and saved
+    # bindings keep resolving. zai-pro-x is now equivalent to zai-pro. The
+    # contract that matters -- no flashx bindings anywhere -- is enforced by
+    # _assert_no_flashx_refs below.
     assert "zai-pro-x" in list_profiles()
     inspection = inspect_profile("zai-pro-x")
     assert inspection is not None
     assert inspection.name == "zai-pro-x"
-    assert inspection.display_name == "Zai Subscription (FlashX)"
-    assert inspection.tiers["opus"].internal_name == "anthropic/glm-5.3-flashx"
-    assert inspection.tiers["sonnet"].internal_name == "anthropic/glm-5.3-flashx"
+    assert inspection.display_name == "Zai Subscription (legacy -x alias)"
+    assert inspection.tiers["opus"].internal_name == "anthropic/glm-5.3-flash"
+    assert inspection.tiers["sonnet"].internal_name == "anthropic/glm-5.3-flash"
     assert inspection.tiers["opus"].instance == "zai"
 
     extra_names = {item.model_name for item in inspection.extended}
-    assert "zai/glm-5.3-flashx" in extra_names
-    assert "zai/glm-5.3-flashx[1m]" in extra_names
-    assert "zai-oa/glm-5.3-flashx" in extra_names
-    assert "zai-oa/glm-5.3-flashx[1m]" in extra_names
+    assert "zai/glm-5.3-flash" in extra_names
+    assert "zai/glm-5.3-flash[1m]" in extra_names
 
-    _assert_all_flash_refs_are_flashx("zai-pro-x")
+    _assert_no_flashx_refs("zai-pro-x")
 
 
-def test_zai_alt_x_profile_exists_and_uses_flashx():
+def test_zai_alt_x_profile_exists_without_flashx():
     assert "zai-alt-x" in list_profiles()
     inspection = inspect_profile("zai-alt-x")
     assert inspection is not None
     assert inspection.name == "zai-alt-x"
-    assert inspection.display_name == "Zai Subscription (Alt, FlashX)"
-    assert inspection.tiers["opus"].model_name == "zai-alt/glm-5.3-flashx"
-    assert inspection.tiers["sonnet"].model_name == "zai-alt/glm-5.3-flashx"
-    assert inspection.tiers["opus"].internal_name == "anthropic/glm-5.3-flashx"
-    assert inspection.tiers["haiku"].model_name == "zai-alt/haiku"
-    assert inspection.tiers["fable"].model_name == "zai-alt/fable"
+    assert inspection.display_name == "Zai Subscription (Alt, legacy -x alias)"
+    assert inspection.tiers["opus"].model_name == "zai-alt/glm-5.3-flash"
+    assert inspection.tiers["sonnet"].model_name == "zai-alt/glm-5.3-flash"
+    assert inspection.tiers["opus"].internal_name == "anthropic/glm-5.3-flash"
+    assert inspection.tiers["haiku"].model_name == "zai-alt/glm-5.3-flash"
+    assert inspection.tiers["fable"].model_name == "zai-alt/glm-5.3"
 
     extra_names = {item.model_name for item in inspection.extended}
-    assert "zai-alt/glm-5.3-flashx[1m]" in extra_names
-    assert "zai-oa-alt/glm-5.3-flashx" in extra_names
+    assert "zai-alt/glm-5.3-flash[1m]" in extra_names
+    assert "zai-oa-alt/glm-5.3-flash" in extra_names
 
-    _assert_all_flash_refs_are_flashx("zai-alt-x")
+    _assert_no_flashx_refs("zai-alt-x")

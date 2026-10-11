@@ -56,17 +56,23 @@ COPY lib lib
 COPY app app
 COPY priv priv
 
+# hologram hardcodes --sourcemap: the in-container rebuild regenerates
+# .js.map files whose sourcesContent carries builder-absolute paths.
+# Source maps are dev-tooling only; strip them from every shipped layer
+# (also stripped again from the release copy below).
 RUN --mount=type=cache,id=rcweb-mix-hex,target=/root/.hex,sharing=locked \
     --mount=type=cache,id=rcweb-mix-rebar,target=/root/.cache/rebar3,sharing=locked \
     --mount=type=cache,id=rcweb-mix-deps,target=/app/deps,sharing=locked \
     mix deps.get --only $MIX_ENV && \
-    mix compile
+    mix compile && \
+    find priv/static -name '*.js.map' -delete
 
 RUN --mount=type=cache,id=rcweb-mix-hex,target=/root/.hex,sharing=locked \
     --mount=type=cache,id=rcweb-mix-rebar,target=/root/.cache/rebar3,sharing=locked \
     --mount=type=cache,id=rcweb-mix-deps,target=/app/deps,sharing=locked \
     mix deps.get --only $MIX_ENV && \
-    mix release && cp -a /app/_build/${MIX_ENV}/rel/run_claude_web /app/release
+    mix release && cp -a /app/_build/${MIX_ENV}/rel/run_claude_web /app/release && \
+    find /app/release -name '*.js.map' -delete
 
 FROM ${BASE_IMAGE} AS production
 
@@ -81,13 +87,20 @@ ENV MIX_ENV=prod \
     HOLOGRAM_START=1 \
     PHX_HOST=run-claude.therobotlives.com
 
+# Hologram.env/0 reads HOLOGRAM_ENV || MIX_ENV at RUNTIME and falls back to
+# :dev when neither is set (true in a mix release) — which disables the
+# Hologram router and 404s every page. Pin the env explicitly.
+ENV HOLOGRAM_ENV=prod
+
 COPY --from=build --chown=nobody:root /app/release ./
 
 USER nobody
 
 EXPOSE 8150
 
+# Probe the routed page, not /healthz — the Phoenix /healthz route stays 200
+# even when the Hologram router is dark (see helm deployment probe comment).
 HEALTHCHECK --interval=15s --timeout=3s --start-period=15s --retries=3 \
-  CMD wget -qO- http://localhost:8150/healthz || exit 1
+  CMD wget -qO- http://localhost:8150/ || exit 1
 
 CMD ["bin/run_claude_web", "start"]

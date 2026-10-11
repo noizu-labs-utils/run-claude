@@ -6,7 +6,7 @@ Per-directory model routing for Claude Code & OpenCode, backed by a self-healing
 
 ## What
 
-`cd` into a project, get the right models. `run-claude` hot-registers whichever provider models a directory declares (via direnv + a shell hook) on a running gateway, routes all traffic through a front proxy that swaps auth per provider — including Anthropic OAuth passthrough so a Claude Pro/Max subscription is used instead of API billing — and keeps itself alive with a watchdog daemon. 145+ cataloged models across ~25 profiles (see `profiles.yaml`) are one `set-folder` away.
+`cd` into a project, get the right models. `run-claude` hot-registers whichever provider models a directory declares (via direnv + a shell hook) on a running gateway, routes all traffic through a front proxy that swaps auth per provider — including Anthropic OAuth passthrough so a Claude Pro/Max subscription is used instead of API billing — and keeps itself alive with a watchdog daemon. 211 cataloged model definitions across 35 built-in profiles (see `run_claude/models.yaml` and `profiles.yaml`) are one `set-folder` away. That 211 is the catalog — everything `run-claude models list` knows about; the running proxy only serves the subset the active directory's profile registers (`run-claude models enabled`).
 
 ## Why
 
@@ -14,9 +14,10 @@ Different projects want different LLM providers (cost, capability, rate limits),
 
 ## Getting Started
 
-Prerequisites: Python 3 + `uv`, Docker (gateway DB), direnv, and the Claude Code and/or OpenCode CLI.
+Prerequisites: Python 3 + `uv`, Go 1.22+ (builds the default go-litellm gateway), Docker (only the legacy Python proxy chain's DB — the default go-litellm gateway is a static binary with no database), direnv, and the Claude Code and/or OpenCode CLI. Install by cloning this repo and running `make install` from the checkout.
 
 ```bash
+git clone https://github.com/noizu/run-claude.git && cd run-claude
 make install                      # CLI + go-litellm gateway + shell completions
 run-claude secrets init --generate   # provider API keys + auto-generated DB password
 
@@ -45,7 +46,8 @@ Provider keys live in `~/.config/run-claude/.secrets` — see `SECRETS_QUICKSTAR
 - `db start|stop|status|migrate` — gateway database container (Prisma migrations).
 - `profiles`, `models list|enabled|show|avail|wipe` — profile and model catalog management.
 - `keys list|add|delete|switch` — runtime provider key swap (go-litellm).
-- `chat` — multi-turn model tester; `with <profile>` — one-shot agent run; `run-open-code` fronts OpenCode.
+- `chat` — multi-turn model tester; `with <profile>` — one-shot agent run; the separate `run-open-code` entry point fronts OpenCode.
+- `explorer` — serve the model explorer web app (`model-explorer/`).
 - `secrets` — secrets configuration; `install` — user config templates.
 
 ## Docs

@@ -1,31 +1,107 @@
 name: CI
 
 # Landing image (context: web/ — server-rendered Phoenix/Hologram on Bandit).
-# PR: docker smoke (boot container, probe /healthz + hero content).
-# main: push sha-* to ops.noizu.com then bump helm [skip ci].
-# ArgoCD auto-syncs helm/run-claude-landing @ main.
+# PR: python-test (CLI pytest) + web-test (landing ExUnit) + docker smoke, in parallel.
+# develop push: same jobs — seeds develop-ref caches that feature PRs can restore.
+# main: push sha-* to ops.noizu.com (gated on all tests) then bump helm [skip ci].
+# ArgoCD auto-syncs helm/run-claude-site @ main.
 
 on:
   push:
-    branches: [main]
+    branches: [main, develop, stage]
   pull_request:
   workflow_dispatch:
 
 concurrency:
   group: ci-${{ github.ref }}
-  cancel-in-progress: true
+  # Never cancel release pushes.
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 env:
   REGISTRY: ops.noizu.com
   IMAGE: ops.noizu.com/run-claude.therobotlives.com/web
 
 jobs:
+  python-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+          cache-dependency-glob: uv.lock
+      - name: Install deps
+        run: uv sync --group dev --frozen
+      # Gate = floor(acceptance line %) - 5 (measured 40% on 2026-10-07).
+      - name: pytest + coverage gate
+        run: uv run pytest -q --cov --cov-report=term --cov-report=xml --cov-fail-under=35
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: python-coverage
+          path: coverage.xml
+          if-no-files-found: ignore
+
+  web-test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: web
+    env:
+      MIX_ENV: test
+      # Hologram routes 404 in :test unless this is set.
+      HOLOGRAM_START: "1"
+    steps:
+      - uses: actions/checkout@v4
+      # Runs on the checkout, BEFORE mix compile regenerates the maps.
+      # Gate is structural: NO .js.map may be committed, at all. Hologram's
+      # bundler hardcodes --sourcemap --sources-content=true, so every build
+      # machine (macOS /Users/..., Linux CI /home/runner/..., container
+      # /app/...) emits maps whose sourcesContent embeds builder-absolute
+      # paths — a filesystem-layout disclosure on a public repo. A "stripped"
+      # map is still one rebuild away from regressing, and a content grep
+      # only catches the path prefixes it knows. web/.gitignore carries
+      # *.js.map; this fails the build if one lands anyway (e.g. git add -f),
+      # anywhere under priv/static, regardless of builder OS.
+      - name: No committed hologram source maps (builder-path leak surface)
+        run: |
+          maps=$(find priv/static -name '*.js.map' -print)
+          if [ -n "$maps" ]; then
+            echo "$maps"
+            echo "::error::.js.map artifacts must not be committed (gitignored in web/); they are regenerated at build time and embed builder-absolute paths"
+            exit 1
+          fi
+      - uses: erlef/setup-beam@v1
+        id: beam
+        with:
+          version-file: web/.tool-versions
+          version-type: strict
+      - uses: actions/cache@v4
+        with:
+          path: |
+            web/deps
+            web/_build
+          key: ${{ runner.os }}-mix-${{ steps.beam.outputs.otp-version }}-${{ steps.beam.outputs.elixir-version }}-${{ hashFiles('web/mix.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-mix-${{ steps.beam.outputs.otp-version }}-${{ steps.beam.outputs.elixir-version }}-
+      - run: mix deps.get
+      - run: mix compile
+      # threshold lives in mix.exs test_coverage.
+      - run: mix test --cover
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: web-coverage
+          path: web/cover
+          if-no-files-found: ignore
+
   smoke:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: docker/setup-buildx-action@v3
-      # load:true cannot export type=gha cache; cache-from only.
+      # Exports the gha cache too: build-push never ran (missing registry
+      # secrets), so cache-from-only meant every build was cold.
       - name: Build landing image
         uses: docker/build-push-action@v6
         with:
@@ -33,11 +109,13 @@ jobs:
           platforms: linux/amd64
           load: true
           push: false
-          tags: run-claude-landing:ci
+          tags: run-claude-site:ci
           cache-from: type=gha,scope=web
+          # PRs restore only; develop/main pushes export (stops PR cache churn).
+          cache-to: ${{ github.event_name != 'pull_request' && 'type=gha,scope=web,mode=max' || '' }}
       - name: Probe /healthz and hero content
         run: |
-          docker run -d --name rc-landing -p 8150:8150 run-claude-landing:ci
+          docker run -d --name rc-landing -p 8150:8150 run-claude-site:ci
           trap 'docker rm -f rc-landing >/dev/null 2>&1 || true' EXIT
           for i in $(seq 1 45); do
             if curl -fsS http://127.0.0.1:8150/healthz | grep -q ok; then
@@ -55,7 +133,7 @@ jobs:
 
   build-push:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    needs: [smoke]
+    needs: [smoke, python-test, web-test]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -98,12 +176,73 @@ jobs:
       - name: Bump image tag
         run: |
           SHORT=${GITHUB_SHA::7}
-          sed -i -E "s|(image: ops\.noizu\.com/run-claude\.therobotlives\.com/web:).*|\1sha-${SHORT}|" helm/run-claude-landing/values.yaml
+          sed -i -E "s|(image: ops\.noizu\.com/run-claude\.therobotlives\.com/web:).*|\1sha-${SHORT}|" helm/run-claude-site/values.yaml
       - name: Commit & push
         run: |
           git config user.name "run-claude-ci"
           git config user.email "ci@noizu.com"
-          git add helm/run-claude-landing/values.yaml
+          git add helm/run-claude-site/values.yaml
           git diff --cached --quiet && exit 0
           git commit -m "ci: deploy sha-${GITHUB_SHA::7} [skip ci]"
           git push
+  ci-timing:
+    # PR-run timing tracker (fleet standard). Warn-only: never blocks.
+    # Thresholds are repo/org Variables PR_STEP_MAX_MINUTES / PR_RUN_MAX_MINUTES, defaults 4/7.
+    needs: [python-test, web-test, smoke]
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+    steps:
+      - name: Track timing thresholds
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          RUN_ID: ${{ github.run_id }}
+          RUN_STARTED_AT: ${{ github.run_started_at }}
+          STEP_MAX_MIN: ${{ vars.PR_STEP_MAX_MINUTES || '4' }}
+          RUN_MAX_MIN: ${{ vars.PR_RUN_MAX_MINUTES || '7' }}
+        run: |
+          set -euo pipefail
+          SUMMARY="$GITHUB_STEP_SUMMARY"
+          jobs_json=""
+          for i in 1 2 3; do
+            jobs_json=$(curl -sf -H "Authorization: Bearer $GH_TOKEN" \
+              -H "Accept: application/vnd.github+json" \
+              "https://api.github.com/repos/$REPO/actions/runs/$RUN_ID/jobs?per_page=100") && break
+            sleep 5
+          done
+          [ -n "$jobs_json" ] || { echo "::warning title=CI timing::could not fetch run jobs"; exit 0; }
+          {
+            echo "## CI timing (thresholds: step ${STEP_MAX_MIN}m / run ${RUN_MAX_MIN}m)"
+            echo
+            echo "| job | step | duration | status |"
+            echo "|---|---|---|---|"
+          } >> "$SUMMARY"
+          flagged=0
+          steps_sum=0
+          while IFS=$'\t' read -r job step start end; do
+            [ -n "$job" ] || continue
+            s=$(date -d "$start" +%s); e=$(date -d "$end" +%s)
+            dur=$((e - s)); thr=$((STEP_MAX_MIN * 60))
+            steps_sum=$((steps_sum + dur))
+            if [ "$dur" -gt "$thr" ]; then
+              flagged=$((flagged + 1))
+              echo "::warning title=CI timing::\"$step\" (job: $job) took $((dur / 60))m$((dur % 60))s — over the ${STEP_MAX_MIN}m step threshold"
+              echo "| \`$job\` | \`$step\` | $((dur / 60))m$((dur % 60))s | ⚠️ over ${STEP_MAX_MIN}m |" >> "$SUMMARY"
+            else
+              echo "| \`$job\` | \`$step\` | $((dur / 60))m$((dur % 60))s | ok |" >> "$SUMMARY"
+            fi
+          done < <(echo "$jobs_json" | jq -r '
+            .jobs[] | select(.name | test("^(python-test|web-test|smoke)$")) | .name as $job |
+            .steps[] | select(.status == "completed" and .conclusion != "skipped" and .conclusion != null) |
+            [$job, .name, .started_at, .completed_at] | @tsv')
+          start=$(date -d "$RUN_STARTED_AT" +%s); now=$(date +%s)
+          wall=$((now - start)); run_thr=$((RUN_MAX_MIN * 60))
+          echo
+          echo "| **steps sum** | test jobs, work only | $((steps_sum / 60))m$((steps_sum % 60))s | $( [ "$steps_sum" -gt "$run_thr" ] && echo "⚠️ over ${RUN_MAX_MIN}m" || echo ok) |" >> "$SUMMARY"
+          echo "| **wall clock** | queue + work | $((wall / 60))m$((wall % 60))s | info |" >> "$SUMMARY"
+          if [ "$steps_sum" -gt "$run_thr" ]; then
+            echo "::warning title=CI timing::acceptance steps sum to $((steps_sum / 60))m$((steps_sum % 60))s — over the ${RUN_MAX_MIN}m run threshold (wall clock: $((wall / 60))m)"
+          fi
+          echo; echo "_${flagged} step(s) over threshold._" >> "$SUMMARY"

@@ -214,6 +214,129 @@ model_list:
       input: [text, image]
       output: [text]
     supports_tools: true
+- model_name: "claude-opus-5-5"
+  litellm_params:
+    model: anthropic/claude-opus-5-5
+    api_key: os.environ/ANTHROPIC_API_KEY
+  metadata:
+    provider: anthropic
+    description: "Anthropic Opus 5.5 via API key"
+    strengths: "Deep reasoning, complex code, cheaper than Opus 5"
+    weaknesses: "Slower, expensive"
+
+    pricing:
+      text:
+        in: 4.0
+        out: 20.0
+        cached_in: 0.2
+      audio:
+        in:
+        out:
+      image:
+        in: 4.0
+        out:
+      source: docs
+    limits:
+      max_input_tokens: 200000
+      max_output_tokens: 65536
+      max_thinking_tokens: 65536
+    thinking:
+      supported: true
+      levels:
+      - low
+      - medium
+      - high
+      default_level:
+    tokens_per_second: 50
+    notes: images tokenized at text rate; upstream documents 128K max output,
+      registry keeps 64K for sibling parity
+    context_window: 200000
+    modalities:
+      input: [text, image]
+      output: [text]
+    supports_tools: true
+- model_name: "claude-sonnet-5-5"
+  litellm_params:
+    model: anthropic/claude-sonnet-5-5
+    api_key: os.environ/ANTHROPIC_API_KEY
+  metadata:
+    provider: anthropic
+    description: "Anthropic Sonnet 5.5 via API key"
+    strengths: "Balanced speed/quality, strong coding"
+    weaknesses: "Less depth than Opus/Fable"
+
+    pricing:
+      text:
+        in: 2.0
+        out: 10.0
+        cached_in: 0.2
+      audio:
+        in:
+        out:
+      image:
+        in: 2.0
+        out:
+      source: docs
+    limits:
+      max_input_tokens: 200000
+      max_output_tokens: 65536
+      max_thinking_tokens: 65536
+    thinking:
+      supported: true
+      levels:
+      - low
+      - medium
+      - high
+      default_level:
+    tokens_per_second: 80
+    notes: images tokenized at text rate; upstream documents 128K max output,
+      registry keeps 64K for sibling parity
+    context_window: 200000
+    modalities:
+      input: [text, image]
+      output: [text]
+    supports_tools: true
+- model_name: "claude-haiku-5-5"
+  litellm_params:
+    model: anthropic/claude-haiku-5-5
+    api_key: os.environ/ANTHROPIC_API_KEY
+  metadata:
+    provider: anthropic
+    description: "Anthropic Haiku 5.5 via API key"
+    strengths: "Very fast, cheapest Claude, good for simple tasks"
+    weaknesses: "Limited reasoning depth"
+
+    pricing:
+      text:
+        in: 0.1
+        out: 0.5
+        cached_in:
+      audio:
+        in:
+        out:
+      image:
+        in: 0.1
+        out:
+      source: docs
+    limits:
+      max_input_tokens: 200000
+      max_output_tokens: 32768
+      max_thinking_tokens: 32768
+    thinking:
+      supported: true
+      levels:
+      - low
+      - medium
+      - high
+      default_level:
+    tokens_per_second: 130
+    notes: images tokenized at text rate; $0.50/$2.50 per MTok beyond 100K input
+      tokens; upstream documents 128K max output, registry keeps 32K
+    context_window: 200000
+    modalities:
+      input: [text, image]
+      output: [text]
+    supports_tools: true
 - model_name: "claude-opus-5-oa"
   litellm_params:
     model: openai/claude-opus-5
@@ -322,6 +445,129 @@ model_list:
         out:
       image:
         in: 1.0
+        out:
+      source: docs
+    limits:
+      max_input_tokens: 200000
+      max_output_tokens: 32768
+      max_thinking_tokens: 32768
+    thinking:
+      supported: true
+      levels:
+      - low
+      - medium
+      - high
+      default_level:
+    tokens_per_second: 130
+    notes: images tokenized at text rate
+    context_window: 200000
+    modalities:
+      input: [text, image]
+      output: [text]
+    supports_tools: true
+- model_name: "claude-opus-5-5-oa"
+  litellm_params:
+    model: openai/claude-opus-5-5
+    api_key: os.environ/ANTHROPIC_API_KEY
+    api_base: https://api.anthropic.com/v1
+  metadata:
+    provider: anthropic
+    description: "Anthropic Opus 5.5 via OpenAI-compat endpoint"
+    strengths: "Deep reasoning, complex code, nuanced writing"
+    weaknesses: "Slower, expensive, API key billing"
+
+    pricing:
+      text:
+        in: 4.0
+        out: 20.0
+        cached_in: 0.2
+      audio:
+        in:
+        out:
+      image:
+        in: 4.0
+        out:
+      source: docs
+    limits:
+      max_input_tokens: 200000
+      max_output_tokens: 65536
+      max_thinking_tokens: 65536
+    thinking:
+      supported: true
+      levels:
+      - low
+      - medium
+      - high
+      default_level:
+    tokens_per_second: 50
+    notes: images tokenized at text rate
+    context_window: 200000
+    modalities:
+      input: [text, image]
+      output: [text]
+    supports_tools: true
+- model_name: "claude-sonnet-5-5-oa"
+  litellm_params:
+    model: openai/claude-sonnet-5-5
+    api_key: os.environ/ANTHROPIC_API_KEY
+    api_base: https://api.anthropic.com/v1
+  metadata:
+    provider: anthropic
+    description: "Anthropic Sonnet 5.5 via OpenAI-compat endpoint"
+    strengths: "Balanced speed/quality, strong coding"
+    weaknesses: "Less depth than Opus, API key billing"
+
+    pricing:
+      text:
+        in: 2.0
+        out: 10.0
+        cached_in: 0.2
+      audio:
+        in:
+        out:
+      image:
+        in: 2.0
+        out:
+      source: docs
+    limits:
+      max_input_tokens: 200000
+      max_output_tokens: 65536
+      max_thinking_tokens: 65536
+    thinking:
+      supported: true
+      levels:
+      - low
+      - medium
+      - high
+      default_level:
+    tokens_per_second: 80
+    notes: images tokenized at text rate
+    context_window: 200000
+    modalities:
+      input: [text, image]
+      output: [text]
+    supports_tools: true
+- model_name: "claude-haiku-5-5-oa"
+  litellm_params:
+    model: openai/claude-haiku-5-5
+    api_key: os.environ/ANTHROPIC_API_KEY
+    api_base: https://api.anthropic.com/v1
+  metadata:
+    provider: anthropic
+    description: "Anthropic Haiku 5.5 via OpenAI-compat endpoint"
+    strengths: "Very fast, cheap, good for simple tasks"
+    weaknesses: "Limited reasoning depth, API key billing"
+
+    pricing:
+      text:
+        in: 0.1
+        out: 0.5
+        cached_in:
+      audio:
+        in:
+        out:
+      image:
+        in: 0.1
         out:
       source: docs
     limits:
@@ -995,6 +1241,256 @@ model_list:
       default_level:
     tokens_per_second: 130
     notes: images tokenized at text rate; subscription plan; list price shown 
+      for reference
+    context_window: 1000000
+    modalities:
+      input: [text, image]
+      output: [text]
+    supports_tools: true
+- model_name: "claude-sonnet-5-5"
+  litellm_params:
+    model: anthropic/claude-sonnet-5-5
+    api_key: "unused-routed-by-front-proxy"
+  metadata:
+    provider: anthropic
+    description: "Claude Sonnet 5.5 via plan (OAuth passthrough)"
+    strengths: "Balanced speed/quality, strong coding"
+    weaknesses: "Less depth than Opus/Fable"
+
+    pricing:
+      text:
+        in: 2.0
+        out: 10.0
+        cached_in: 0.2
+      audio:
+        in:
+        out:
+      image:
+        in: 2.0
+        out:
+      source: subscription
+    limits:
+      max_input_tokens: 200000
+      max_output_tokens: 65536
+      max_thinking_tokens: 65536
+    thinking:
+      supported: true
+      levels:
+      - low
+      - medium
+      - high
+      default_level:
+    tokens_per_second: 80
+    notes: images tokenized at text rate; subscription plan; list price shown
+      for reference
+    context_window: 200000
+    modalities:
+      input: [text, image]
+      output: [text]
+    supports_tools: true
+- model_name: "claude-sonnet-5-5[1m]"
+  litellm_params:
+    model: anthropic/claude-sonnet-5-5
+    api_key: "unused-routed-by-front-proxy"
+  metadata:
+    provider: anthropic
+    description: "Claude Sonnet 5.5 1M context via plan"
+    strengths: "Huge context + strong coding"
+    weaknesses: "Slower, high token usage"
+
+    pricing:
+      text:
+        in: 2.0
+        out: 10.0
+        cached_in: 0.2
+      audio:
+        in:
+        out:
+      image:
+        in: 2.0
+        out:
+      source: subscription
+    limits:
+      max_input_tokens: 1000000
+      max_output_tokens: 65536
+      max_thinking_tokens: 65536
+    thinking:
+      supported: true
+      levels:
+      - low
+      - medium
+      - high
+      default_level:
+    tokens_per_second: 80
+    notes: images tokenized at text rate; subscription plan; list price shown
+      for reference; flat rate per 2026-10 docs, no >100K-input tier documented
+      (haiku-5-5 is tiered; if Anthropic tiers 1M-context requests the flat
+      estimate will understate spend)
+    context_window: 1000000
+    modalities:
+      input: [text, image]
+      output: [text]
+    supports_tools: true
+- model_name: "claude-opus-5-5"
+  litellm_params:
+    model: anthropic/claude-opus-5-5
+    api_key: "unused-routed-by-front-proxy"
+  metadata:
+    provider: anthropic
+    description: "Claude Opus 5.5 via plan (OAuth passthrough)"
+    strengths: "Latest Opus, strongest reasoning, cheaper than Opus 5"
+    weaknesses: "Slower output speed"
+
+    pricing:
+      text:
+        in: 4.0
+        out: 20.0
+        cached_in: 0.2
+      audio:
+        in:
+        out:
+      image:
+        in: 4.0
+        out:
+      source: subscription
+    limits:
+      max_input_tokens: 200000
+      max_output_tokens: 65536
+      max_thinking_tokens: 65536
+    thinking:
+      supported: true
+      levels:
+      - low
+      - medium
+      - high
+      default_level:
+    tokens_per_second: 50
+    notes: images tokenized at text rate; subscription plan; list price shown
+      for reference
+    context_window: 200000
+    modalities:
+      input: [text, image]
+      output: [text]
+    supports_tools: true
+- model_name: "claude-opus-5-5[1m]"
+  litellm_params:
+    model: anthropic/claude-opus-5-5
+    api_key: "unused-routed-by-front-proxy"
+  metadata:
+    provider: anthropic
+    description: "Claude Opus 5.5 1M context via plan"
+    strengths: "Huge context + strongest reasoning"
+    weaknesses: "Slow, high token usage"
+
+    pricing:
+      text:
+        in: 4.0
+        out: 20.0
+        cached_in: 0.2
+      audio:
+        in:
+        out:
+      image:
+        in: 4.0
+        out:
+      source: subscription
+    limits:
+      max_input_tokens: 1000000
+      max_output_tokens: 65536
+      max_thinking_tokens: 65536
+    thinking:
+      supported: true
+      levels:
+      - low
+      - medium
+      - high
+      default_level:
+    tokens_per_second: 50
+    notes: images tokenized at text rate; subscription plan; list price shown
+      for reference; flat rate per 2026-10 docs, no >100K-input tier documented
+      (haiku-5-5 is tiered; if Anthropic tiers 1M-context requests the flat
+      estimate will understate spend)
+    context_window: 1000000
+    modalities:
+      input: [text, image]
+      output: [text]
+    supports_tools: true
+- model_name: "claude-haiku-5-5"
+  litellm_params:
+    model: anthropic/claude-haiku-5-5
+    api_key: "unused-routed-by-front-proxy"
+  metadata:
+    provider: anthropic
+    description: "Claude Haiku 5.5 via plan (OAuth passthrough)"
+    strengths: "Fastest Claude, very cheap"
+    weaknesses: "Limited reasoning vs Sonnet/Opus"
+
+    pricing:
+      text:
+        in: 0.1
+        out: 0.5
+        cached_in:
+      audio:
+        in:
+        out:
+      image:
+        in: 0.1
+        out:
+      source: subscription
+    limits:
+      max_input_tokens: 200000
+      max_output_tokens: 32768
+      max_thinking_tokens: 32768
+    thinking:
+      supported: true
+      levels:
+      - low
+      - medium
+      - high
+      default_level:
+    tokens_per_second: 130
+    notes: images tokenized at text rate; subscription plan; list price shown
+      for reference
+    context_window: 200000
+    modalities:
+      input: [text, image]
+      output: [text]
+    supports_tools: true
+- model_name: "claude-haiku-5-5[1m]"
+  litellm_params:
+    model: anthropic/claude-haiku-5-5
+    api_key: "unused-routed-by-front-proxy"
+  metadata:
+    provider: anthropic
+    description: "Claude Haiku 5.5 1M context via plan"
+    strengths: "Fast, cheap, large context"
+    weaknesses: "Limited reasoning depth"
+
+    pricing:
+      text:
+        in: 0.1
+        out: 0.5
+        cached_in:
+      audio:
+        in:
+        out:
+      image:
+        in: 0.1
+        out:
+      source: subscription
+    limits:
+      max_input_tokens: 1000000
+      max_output_tokens: 32768
+      max_thinking_tokens: 32768
+    thinking:
+      supported: true
+      levels:
+      - low
+      - medium
+      - high
+      default_level:
+    tokens_per_second: 130
+    notes: images tokenized at text rate; subscription plan; list price shown
       for reference
     context_window: 1000000
     modalities:

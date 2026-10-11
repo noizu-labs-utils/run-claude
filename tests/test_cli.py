@@ -205,7 +205,7 @@ class TestProfilesCommand:
             clear_caches()
         assert result == 0
         output = capsys.readouterr().out
-        assert "opus:   zai/glm-5.3-flashx (sub)" in output
+        assert "opus:   zai/glm-5.3-flash (sub)" in output
         assert "fable:  zai/glm-5.3" in output
         assert "anthropic/glm-5.3-flash" in output
         assert "anthropic/glm-5.3" in output
@@ -233,7 +233,7 @@ class TestProfilesCommand:
             clear_caches()
         assert result == 0
         output = capsys.readouterr().out
-        assert "opus:   zai-alt/glm-5.3-flashx" in output
+        assert "opus:   zai-alt/glm-5.3-flash" in output
         assert "fable:  zai-alt/glm-5.3" in output
         assert "anthropic/glm-5.3-flash" in output
         assert "anthropic/glm-5.3" in output

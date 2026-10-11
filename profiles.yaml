@@ -220,7 +220,14 @@ zai-alt: &zai-alt-profile
   - "groq-minimax-m2.7"
 zai-pro-alt: *zai-alt-profile
 
-# Z.AI Subscription - FlashX (faster variant of glm-5.3-flash)
+# Z.AI Subscription - formerly the FlashX variant.
+# FlashX (glm-5.3-flashx) is NOT included in the subscription, so these
+# profiles bind plain glm-5.3-flash and are therefore equivalent to
+# zai-pro / zai-alt. The "(FlashX)" display names are retained only for
+# backwards compatibility: renaming or retiring zai-pro-x / zai-alt-x
+# would break shell aliases, saved directory bindings and anything else
+# referencing them by name. Enforced by _assert_no_flashx_refs in
+# tests/test_profiles.py: no profile may bind a flashx id.
 #   fable  = glm-5.3
 #   opus   = glm-5.3-flash
 #   sonnet = glm-5.3-flash

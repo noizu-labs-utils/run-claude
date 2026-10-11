@@ -4,7 +4,7 @@ name: CI
 # PR: python-test (CLI pytest) + web-test (landing ExUnit) + docker smoke, in parallel.
 # develop push: same jobs — seeds develop-ref caches that feature PRs can restore.
 # main: push sha-* to ops.noizu.com (gated on all tests) then bump helm [skip ci].
-# ArgoCD auto-syncs helm/run-claude-landing @ main.
+# ArgoCD auto-syncs helm/run-claude-site @ main.
 
 on:
   push:
@@ -91,13 +91,13 @@ jobs:
           platforms: linux/amd64
           load: true
           push: false
-          tags: run-claude-landing:ci
+          tags: run-claude-site:ci
           cache-from: type=gha,scope=web
           # PRs restore only; develop/main pushes export (stops PR cache churn).
           cache-to: ${{ github.event_name != 'pull_request' && 'type=gha,scope=web,mode=max' || '' }}
       - name: Probe /healthz and hero content
         run: |
-          docker run -d --name rc-landing -p 8150:8150 run-claude-landing:ci
+          docker run -d --name rc-landing -p 8150:8150 run-claude-site:ci
           trap 'docker rm -f rc-landing >/dev/null 2>&1 || true' EXIT
           for i in $(seq 1 45); do
             if curl -fsS http://127.0.0.1:8150/healthz | grep -q ok; then
@@ -158,12 +158,12 @@ jobs:
       - name: Bump image tag
         run: |
           SHORT=${GITHUB_SHA::7}
-          sed -i -E "s|(image: ops\.noizu\.com/run-claude\.therobotlives\.com/web:).*|\1sha-${SHORT}|" helm/run-claude-landing/values.yaml
+          sed -i -E "s|(image: ops\.noizu\.com/run-claude\.therobotlives\.com/web:).*|\1sha-${SHORT}|" helm/run-claude-site/values.yaml
       - name: Commit & push
         run: |
           git config user.name "run-claude-ci"
           git config user.email "ci@noizu.com"
-          git add helm/run-claude-landing/values.yaml
+          git add helm/run-claude-site/values.yaml
           git diff --cached --quiet && exit 0
           git commit -m "ci: deploy sha-${GITHUB_SHA::7} [skip ci]"
           git push

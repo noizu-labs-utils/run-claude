@@ -103,6 +103,32 @@ class TestEnvCommand:
         for line in output.strip().split("\n"):
             assert line.startswith("export "), f"Line missing export prefix: {line}"
 
+    def test_env_anthropic_passthrough_exports_endpoint_only(self, capsys):
+        """anthropic (env_passthrough) exports the endpoint but no model-pinning vars."""
+        with patch("sys.argv", ["run-claude", "env", "anthropic"]):
+            result = main()
+        assert result == 0
+        output = capsys.readouterr().out
+
+        assert "ANTHROPIC_BASE_URL=" in output
+        assert "API_TIMEOUT_MS=" in output
+        assert "ANTHROPIC_DEFAULT_" not in output
+        # Added nothing, removed nothing: no unset lines either.
+        assert "unset " not in output
+
+    def test_env_non_passthrough_profile_still_exports_model_vars(self, capsys):
+        """Regression guard: profiles without env_passthrough keep the model exports."""
+        with patch("sys.argv", ["run-claude", "env", "cerebras"]):
+            result = main()
+        assert result == 0
+        output = capsys.readouterr().out
+
+        assert "ANTHROPIC_DEFAULT_OPUS_MODEL=" in output
+        assert "ANTHROPIC_DEFAULT_SONNET_MODEL=" in output
+        assert "ANTHROPIC_DEFAULT_HAIKU_MODEL=" in output
+        assert "ANTHROPIC_DEFAULT_FABLE_MODEL=" in output
+        assert "unset " not in output
+
 
 class TestProfilesCommand:
     """Tests for the profiles command."""
@@ -419,14 +445,17 @@ class TestRunAgentEnv:
     """cmd_run_agent builds the child env for the launched agent."""
 
     @staticmethod
-    def _run(monkeypatch, agent_name):
+    def _run(monkeypatch, agent_name, env_passthrough=False):
         import argparse
         from types import SimpleNamespace
         from unittest.mock import MagicMock
         from run_claude import agent_runner, profiles, proxy, state
         from run_claude.profiles import ProfileMeta
 
-        profile = SimpleNamespace(meta=ProfileMeta(name="t", opus_model="x/opus"), model_list=[])
+        profile = SimpleNamespace(
+            meta=ProfileMeta(name="t", opus_model="x/opus", env_passthrough=env_passthrough),
+            model_list=[],
+        )
         monkeypatch.setattr(profiles, "load_profile", lambda *a, **k: profile)
         monkeypatch.setattr(proxy, "start_proxy", lambda *a, **k: True)
         monkeypatch.setattr(proxy, "get_proxy_url", lambda: "http://127.0.0.1:4000")
@@ -439,22 +468,73 @@ class TestRunAgentEnv:
         cfg = agent_runner.AgentConfig(agent_name, [agent_name], agent_runner.build_env_vars_anthropic)
         args = argparse.Namespace(profile="t", cmd=[])
         assert agent_runner.cmd_run_agent(args, cfg) == 0
-        return run.call_args.kwargs["env"]
+        return run.call_args.kwargs["env"], run.call_args.args[0]
 
     def test_claude_launch_unsets_inherited_anthropic_api_key(self, monkeypatch, capsys):
         monkeypatch.setenv("ANTHROPIC_API_KEY", "sk-stale-shell-key")
-        env = self._run(monkeypatch, "claude")
+        env, _cmd = self._run(monkeypatch, "claude")
         assert "ANTHROPIC_API_KEY" not in env
         assert env["ANTHROPIC_BASE_URL"].startswith("http://127.0.0.1:")
         assert "Unset inherited ANTHROPIC_API_KEY" in capsys.readouterr().err
 
     def test_claude_launch_without_key_is_quiet(self, monkeypatch, capsys):
         monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
-        env = self._run(monkeypatch, "claude")
+        env, _cmd = self._run(monkeypatch, "claude")
         assert "ANTHROPIC_API_KEY" not in env
         assert "Unset inherited" not in capsys.readouterr().err
 
     def test_other_agents_keep_anthropic_api_key(self, monkeypatch):
         monkeypatch.setenv("ANTHROPIC_API_KEY", "sk-kept")
-        env = self._run(monkeypatch, "opencode")
+        env, _cmd = self._run(monkeypatch, "opencode")
         assert env["ANTHROPIC_API_KEY"] == "sk-kept"
+
+    def test_claude_launch_passthrough_exports_endpoint_only(self, monkeypatch):
+        import os
+        monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+        # A dev shell running under the shim (or Claude Code itself) can inherit
+        # ANTHROPIC_DEFAULT_* vars; strip them so absence measures what
+        # run-claude exports, not what it passes through from the parent.
+        for key in [k for k in os.environ
+                    if k.startswith("ANTHROPIC_DEFAULT_") or k == "CLAUDE_CODE_MAX_CONTEXT_TOKENS"]:
+            monkeypatch.delenv(key, raising=False)
+        env, _cmd = self._run(monkeypatch, "claude", env_passthrough=True)
+        assert env["ANTHROPIC_BASE_URL"].startswith("http://127.0.0.1:")
+        assert "API_TIMEOUT_MS" in env
+        assert not [k for k in env if k.startswith("ANTHROPIC_DEFAULT_")]
+        assert "CLAUDE_CODE_MAX_CONTEXT_TOKENS" not in env
+
+    def test_claude_launch_non_passthrough_still_exports_model_vars(self, monkeypatch):
+        monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+        env, _cmd = self._run(monkeypatch, "claude")
+        assert env["ANTHROPIC_DEFAULT_OPUS_MODEL"] == "x/opus"
+        assert env["ANTHROPIC_DEFAULT_FABLE_MODEL"] == "x/opus"  # fable falls back to opus
+
+    def test_claude_launch_passthrough_skips_model_overrides_injection(self, monkeypatch):
+        monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+        monkeypatch.setenv("RUN_CLAUDE_MODEL_OVERRIDES", "1")
+        _env, cmd = self._run(monkeypatch, "claude", env_passthrough=True)
+        assert "--settings" not in cmd
+
+    def test_claude_launch_non_passthrough_keeps_model_overrides_injection(self, monkeypatch):
+        monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+        monkeypatch.setenv("RUN_CLAUDE_MODEL_OVERRIDES", "1")
+        _env, cmd = self._run(monkeypatch, "claude")
+        assert "--settings" in cmd
+
+    def test_claude_launch_passthrough_preserves_inherited_model_vars(self, monkeypatch, capsys):
+        """External model-var overrides pass through untouched: added nothing, removed nothing."""
+        # Set EXPLICITLY (not ambient inheritance) so the test measures real behaviour.
+        for var in ("ANTHROPIC_DEFAULT_OPUS_MODEL", "ANTHROPIC_DEFAULT_SONNET_MODEL",
+                    "ANTHROPIC_DEFAULT_HAIKU_MODEL", "ANTHROPIC_DEFAULT_FABLE_MODEL"):
+            monkeypatch.setenv(var, f"external/{var}")
+        env, _cmd = self._run(monkeypatch, "claude", env_passthrough=True)
+        for var in ("ANTHROPIC_DEFAULT_OPUS_MODEL", "ANTHROPIC_DEFAULT_SONNET_MODEL",
+                    "ANTHROPIC_DEFAULT_HAIKU_MODEL", "ANTHROPIC_DEFAULT_FABLE_MODEL"):
+            assert env[var] == f"external/{var}"
+        assert "Unset inherited ANTHROPIC_DEFAULT" not in capsys.readouterr().err
+
+    def test_claude_launch_passthrough_respects_deliberate_max_context_tokens(self, monkeypatch):
+        """CLAUDE_CODE_MAX_CONTEXT_TOKENS is never set nor cleared under passthrough."""
+        monkeypatch.setenv("CLAUDE_CODE_MAX_CONTEXT_TOKENS", "123456")
+        env, _cmd = self._run(monkeypatch, "claude", env_passthrough=True)
+        assert env["CLAUDE_CODE_MAX_CONTEXT_TOKENS"] == "123456"

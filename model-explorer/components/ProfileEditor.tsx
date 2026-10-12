@@ -35,7 +35,15 @@ export default function ProfileEditor({ models }: { models: string[] }) {
       setLoading(true);
       setError("");
       const res = await fetch("/api/profiles");
-      if (!res.ok) throw new Error("Failed to load profiles");
+      if (!res.ok) {
+        // Surface the server's message (e.g. an unparseable profiles.yaml)
+        // rather than a generic failure — an empty editor invites a save
+        // that would overwrite the real file.
+        const data = (await res.json().catch(() => ({}))) as {
+          error?: string;
+        };
+        throw new Error(data.error || "Failed to load profiles");
+      }
 
       const data = (await res.json()) as {
         profiles: EditableProfile[];
@@ -154,7 +162,12 @@ export default function ProfileEditor({ models }: { models: string[] }) {
         method: "DELETE",
       });
 
-      if (!res.ok) throw new Error("Failed to delete profile");
+      if (!res.ok) {
+        const data = (await res.json().catch(() => ({}))) as {
+          error?: string;
+        };
+        throw new Error(data.error || "Failed to delete profile");
+      }
 
       setProfiles((prev) => prev.filter((p) => p.name !== name));
       setExpandedProfiles((prev) => {
@@ -190,7 +203,14 @@ export default function ProfileEditor({ models }: { models: string[] }) {
         }),
       });
 
-      if (!res.ok) throw new Error("Failed to save profiles");
+      if (!res.ok) {
+        // Surface the server's message (e.g. refusal to overwrite an
+        // unparseable profiles.yaml, or a reserved profile name).
+        const data = (await res.json().catch(() => ({}))) as {
+          error?: string;
+        };
+        throw new Error(data.error || "Failed to save profiles");
+      }
 
       setProfiles((prev) =>
         prev.map((p) => ({ ...p, isDirty: false, isNew: false })),
@@ -241,7 +261,12 @@ export default function ProfileEditor({ models }: { models: string[] }) {
 
       <div className="profiles-list">
         {profiles.length === 0 ? (
-          <div className="empty">No profiles yet. Create one to get started.</div>
+          error ? null : (
+            // Suppressed while an error is showing (e.g. unparseable
+            // profiles.yaml) — "no profiles yet" beside an error would
+            // invite the very save the server just refused.
+            <div className="empty">No profiles yet. Create one to get started.</div>
+          )
         ) : (
           profiles.map((profile) => {
             const isExpanded = expandedProfiles.has(profile.name);

@@ -109,6 +109,11 @@ anthropic:
   - "groq-gpt-oss-20b"
   - "groq-safety-gpt-oss-20b"
   - "groq-minimax-m2.7"
+  # wafer (WAFER_AI_API_KEY)
+  - "wafer/kimi-k3[1m]"
+  - "wafer/glm-5.3-flash (max)[1m]"
+  - "wafer/qwen3.5-397b-a17b (high)[1m]"
+  - "wafer/deepseek-v4-flash-0731-fast[1m]"
 
 # OpenAI - GPT models
 openai:
@@ -235,6 +240,11 @@ zai-pro:
   - "groq-gpt-oss-20b"
   - "groq-safety-gpt-oss-20b"
   - "groq-minimax-m2.7"
+  # wafer (WAFER_AI_API_KEY)
+  - "wafer/kimi-k3[1m]"
+  - "wafer/glm-5.3-flash (max)[1m]"
+  - "wafer/qwen3.5-397b-a17b (high)[1m]"
+  - "wafer/deepseek-v4-flash-0731-fast[1m]"
 zai-alt: &zai-alt-profile
   name: "Zai Subscription (Alt)"
   opus_model: "zai-alt/glm-5.3-flash (sub, max)"
@@ -315,6 +325,11 @@ zai-alt: &zai-alt-profile
   - "groq-gpt-oss-20b"
   - "groq-safety-gpt-oss-20b"
   - "groq-minimax-m2.7"
+  # wafer (WAFER_AI_API_KEY)
+  - "wafer/kimi-k3[1m]"
+  - "wafer/glm-5.3-flash (max)[1m]"
+  - "wafer/qwen3.5-397b-a17b (high)[1m]"
+  - "wafer/deepseek-v4-flash-0731-fast[1m]"
 zai-pro-alt: *zai-alt-profile
 
 # Z.AI Subscription - formerly the FlashX variant.

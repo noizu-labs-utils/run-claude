@@ -112,7 +112,7 @@ anthropic:
   # wafer (WAFER_AI_API_KEY)
   - "wafer/kimi-k3[1m]"
   - "wafer/glm-5.3-flash (max)[1m]"
-  - "wafer/qwen3.5-397b-a17b (high)[1m]"
+  - "wafer/qwen3.8-27b (high)[1m]"
   - "wafer/deepseek-v4-flash-0731-fast[1m]"
 
 # OpenAI - GPT models
@@ -243,7 +243,7 @@ zai-pro:
   # wafer (WAFER_AI_API_KEY)
   - "wafer/kimi-k3[1m]"
   - "wafer/glm-5.3-flash (max)[1m]"
-  - "wafer/qwen3.5-397b-a17b (high)[1m]"
+  - "wafer/qwen3.8-27b (high)[1m]"
   - "wafer/deepseek-v4-flash-0731-fast[1m]"
 zai-alt: &zai-alt-profile
   name: "Zai Subscription (Alt)"
@@ -328,7 +328,7 @@ zai-alt: &zai-alt-profile
   # wafer (WAFER_AI_API_KEY)
   - "wafer/kimi-k3[1m]"
   - "wafer/glm-5.3-flash (max)[1m]"
-  - "wafer/qwen3.5-397b-a17b (high)[1m]"
+  - "wafer/qwen3.8-27b (high)[1m]"
   - "wafer/deepseek-v4-flash-0731-fast[1m]"
 zai-pro-alt: *zai-alt-profile
 
@@ -416,7 +416,7 @@ zai-fast:
   haiku_model: "zai/glm-5.3-flash (sub, low)"
   fable_model: "zai/glm-5.3 (sub, low)"
 
-# Wafer Serverless — fable=Kimi-K3, opus=GLM-5.3-Flash (max), sonnet=Qwen3.5-397B-A17B (high), haiku=DeepSeek-V4-Flash-0731-Fast (low)
+# Wafer Serverless — fable=Kimi-K3, opus=GLM-5.3-Flash (max), sonnet=Qwen3.8-27B (high), haiku=DeepSeek-V4-Flash-0731-Fast (low)
 # Slots use real model names; the parenthesized suffix is the pinned default effort.
 # (A user override may rebind sonnet, e.g. to "wafer/glm-5.3-flash (high)[1m]".)
 # Named aliases: wafer/kimi-k2.6, wafer/glm-5.2
@@ -425,7 +425,7 @@ wafer:
   name: "Wafer Serverless"
   fable_model: "wafer/kimi-k3[1m]"
   opus_model: "wafer/glm-5.3-flash (max)[1m]"
-  sonnet_model: "wafer/qwen3.5-397b-a17b (high)[1m]"
+  sonnet_model: "wafer/qwen3.8-27b (high)[1m]"
   haiku_model: "wafer/deepseek-v4-flash-0731-fast[1m]"
   extended:
   - "wafer/kimi-k3"
@@ -433,7 +433,7 @@ wafer:
   - "wafer/glm-5.3-flash (max)"
   - "wafer/glm-5.3-flash (max)[1m]"
   - "wafer/qwen3.5-397b-a17b (high)"
-  - "wafer/qwen3.5-397b-a17b (high)[1m]"
+  - "wafer/qwen3.8-27b (high)[1m]"
   - "wafer/deepseek-v4-flash-0731-fast"
   - "wafer/deepseek-v4-flash-0731-fast[1m]"
   - "wafer/kimi-k2.6"
@@ -618,7 +618,7 @@ claude-plan:
   - "wafer/glm-5.3-flash (max)"
   - "wafer/glm-5.3-flash (max)[1m]"
   - "wafer/qwen3.5-397b-a17b (high)"
-  - "wafer/qwen3.5-397b-a17b (high)[1m]"
+  - "wafer/qwen3.8-27b (high)[1m]"
   - "wafer/deepseek-v4-flash-0731-fast"
   - "wafer/deepseek-v4-flash-0731-fast[1m]"
   - "WAFER_GLM52"
@@ -696,7 +696,7 @@ all-sub:
   - "wafer/glm-5.3-flash (max)"
   - "wafer/glm-5.3-flash (max)[1m]"
   - "wafer/qwen3.5-397b-a17b (high)"
-  - "wafer/qwen3.5-397b-a17b (high)[1m]"
+  - "wafer/qwen3.8-27b (high)[1m]"
   - "wafer/deepseek-v4-flash-0731-fast"
   - "wafer/deepseek-v4-flash-0731-fast[1m]"
   - "WAFER_GLM52"
@@ -773,7 +773,7 @@ claude-enhanced:
   - "wafer/glm-5.3-flash (max)"
   - "wafer/glm-5.3-flash (max)[1m]"
   - "wafer/qwen3.5-397b-a17b (high)"
-  - "wafer/qwen3.5-397b-a17b (high)[1m]"
+  - "wafer/qwen3.8-27b (high)[1m]"
   - "wafer/deepseek-v4-flash-0731-fast"
   - "wafer/deepseek-v4-flash-0731-fast[1m]"
   - "WAFER_GLM52"
@@ -868,7 +868,7 @@ kitchen-sink:
   - "wafer/glm-5.3-flash (max)"
   - "wafer/glm-5.3-flash (max)[1m]"
   - "wafer/qwen3.5-397b-a17b (high)"
-  - "wafer/qwen3.5-397b-a17b (high)[1m]"
+  - "wafer/qwen3.8-27b (high)[1m]"
   - "wafer/deepseek-v4-flash-0731-fast"
   - "wafer/deepseek-v4-flash-0731-fast[1m]"
   - "WAFER_GLM52"

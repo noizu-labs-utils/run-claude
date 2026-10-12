@@ -9277,9 +9277,9 @@ model_list:
       input: [text, image]
       output: [text]
     supports_tools: true
-- model_name: "wafer/qwen3.5-397b-a17b (high)[1m]"
+- model_name: "wafer/qwen3.8-27b (high)[1m]"
   litellm_params:
-    model: anthropic/Qwen3.5-397B-A17B
+    model: anthropic/Qwen3.8-27B
     api_key: os.environ/WAFER_AI_API_KEY
     api_base: https://pass.wafer.ai
     drop_params: false
@@ -9289,7 +9289,7 @@ model_list:
   metadata:
     provider: wafer
     description: Real-name copy of wafer/sonnet[1m] — Wafer sonnet tier 1M alias
-      (Qwen3.5-397B-A17B, default high effort)
+      (Qwen3.8-27B, default high effort)
     strengths: Prevents [1m] suffix 404s; client effort overrides still honored
     weaknesses: Backend cap is 262K, not 1M; pay-as-you-go
 

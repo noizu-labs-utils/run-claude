@@ -127,8 +127,8 @@ zai-pro:
   name: "Zai Subscription"
   opus_model: "zai/glm-5.3-flash (sub)"
   sonnet_model: "zai/glm-5.3-flash (sub)"
-  haiku_model: "zai/glm-5.3-flash (sub)"
-  fable_model: "zai/glm-5.3 (sub)"
+  haiku_model: "zai/glm-5.3-flash (sub, low)"
+  fable_model: "zai/glm-5.3 (sub, max)"
   extended:
   - "zai/glm-5.3-flash[1m]"
   - "zai/glm-5-turbo[1m]"
@@ -181,10 +181,10 @@ zai-pro:
   - "groq-minimax-m2.7"
 zai-alt: &zai-alt-profile
   name: "Zai Subscription (Alt)"
-  opus_model: "zai-alt/glm-5.3-flash"
-  sonnet_model: "zai-alt/glm-5.3-flash"
-  haiku_model: "zai-alt/glm-5.3-flash"
-  fable_model: "zai-alt/glm-5.3"
+  opus_model: "zai-alt/glm-5.3-flash (sub)"
+  sonnet_model: "zai-alt/glm-5.3-flash (sub)"
+  haiku_model: "zai-alt/glm-5.3-flash (sub, low)"
+  fable_model: "zai-alt/glm-5.3 (sub, max)"
   extended:
   - "zai-alt/glm-5.3[1m]"
   - "zai-alt/glm-5.3-flash[1m]"

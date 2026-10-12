@@ -149,9 +149,10 @@ def test_inspect_zai_pro_instances(monkeypatch, tmp_path):
         inspection = inspect_profile("zai-pro")
         assert inspection is not None
         assert inspection.tiers["fable"].internal_name == "anthropic/glm-5.3"
-        # Effort ladder (2026-10): fable = glm-5.3 at max, opus/sonnet = glm-5.3-flash
-        # at high (FlashX is not subscribed), haiku = glm-5.3-flash at low.
+        # Effort ladder (2026-10): fable = glm-5.3 at max; opus = glm-5.3-flash at
+        # max, sonnet at high (FlashX is not subscribed); haiku = flash at low.
         assert inspection.tiers["fable"].model_name == "zai/glm-5.3 (sub, max)"
+        assert inspection.tiers["opus"].model_name == "zai/glm-5.3-flash (sub, max)"
         assert inspection.tiers["opus"].internal_name == "anthropic/glm-5.3-flash"
         assert inspection.tiers["opus"].key_env == "ZAI_SUB_KEY"
         assert inspection.tiers["opus"].instance == "zai"
@@ -185,7 +186,7 @@ def test_inspect_zai_pro_alt_defaults_to_tyna(monkeypatch, tmp_path):
         inspection = inspect_profile("zai-pro-alt")
         assert inspection is not None
         assert inspection.display_name == "Zai Subscription (Alt)"
-        assert inspection.tiers["opus"].model_name == "zai-alt/glm-5.3-flash (sub)"
+        assert inspection.tiers["opus"].model_name == "zai-alt/glm-5.3-flash (sub, max)"
         assert inspection.tiers["sonnet"].model_name == "zai-alt/glm-5.3-flash (sub)"
         assert inspection.tiers["haiku"].model_name == "zai-alt/glm-5.3-flash (sub, low)"
         assert inspection.tiers["fable"].model_name == "zai-alt/glm-5.3 (sub, max)"

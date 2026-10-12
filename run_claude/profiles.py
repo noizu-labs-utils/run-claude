@@ -346,6 +346,33 @@ class ModelDef:
         )
 
 
+_TRUE_STRINGS = {"true", "1", "yes", "on"}
+_FALSE_STRINGS = {"false", "0", "no", "off", ""}
+
+
+def _coerce_bool(value: Any, default: bool = False) -> bool:
+    """Strict-ish boolean coercion for YAML config flags.
+
+    Real booleans pass through; strings match a true/false set case-insensitively
+    (`true/1/yes/on` vs `false/0/no/off`/empty); None/absent -> default. Numeric
+    YAML values fall through to truthiness. Unrecognised values fall back to the
+    default rather than raising: profile loading is on every command's hot path
+    and a typo in an optional flag must not brick the CLI.
+    """
+    if value is None:
+        return default
+    if isinstance(value, bool):
+        return value
+    if isinstance(value, str):
+        lowered = value.strip().lower()
+        if lowered in _TRUE_STRINGS:
+            return True
+        if lowered in _FALSE_STRINGS:
+            return False
+        return default
+    return bool(value)
+
+
 @dataclass
 class ProfileMeta:
     """Profile metadata."""
@@ -371,7 +398,7 @@ class ProfileMeta:
             haiku_model=data.get("haiku_model", ""),
             fable_model=data.get("fable_model") or "",
             extended=extended,
-            env_passthrough=bool(data.get("env_passthrough", False)),
+            env_passthrough=_coerce_bool(data.get("env_passthrough"), False),
         )
 
     def effective_fable_model(self) -> str:

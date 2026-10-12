@@ -466,12 +466,32 @@ def test_profile_meta_env_passthrough_defaults_false():
     assert ProfileMeta.from_dict({"name": "x"}).env_passthrough is False
 
 
-def test_profile_meta_env_passthrough_read_when_present():
+def test_profile_meta_env_passthrough_coercion_matrix():
+    """Quoted "false" must not enable passthrough; unrecognised values stay False."""
     from run_claude.profiles import ProfileMeta
 
-    assert ProfileMeta.from_dict({"env_passthrough": True}).env_passthrough is True
-    assert ProfileMeta.from_dict({"env_passthrough": "true"}).env_passthrough is True
-    assert ProfileMeta.from_dict({"env_passthrough": False}).env_passthrough is False
+    def parse(value):
+        return ProfileMeta.from_dict({"env_passthrough": value}).env_passthrough
+
+    # Real booleans
+    assert parse(True) is True
+    assert parse(False) is False
+    # Strings, both cases (the quoted-"false" footgun from review)
+    assert parse("true") is True
+    assert parse("false") is False
+    assert parse("TRUE") is True
+    assert parse("False") is False
+    assert parse("yes") is True
+    assert parse("off") is False
+    assert parse("") is False
+    # Null / absent
+    assert parse(None) is False
+    # Numeric YAML scalars
+    assert parse(1) is True
+    assert parse(0) is False
+    # Unrecognised -> default False, never a raise (hot path on every command)
+    assert parse("maybe") is False
+    assert parse("2") is False
 
 
 def test_profile_to_dict_round_trips_env_passthrough():

@@ -517,3 +517,23 @@ class TestRunAgentEnv:
         monkeypatch.setenv("RUN_CLAUDE_MODEL_OVERRIDES", "1")
         _env, cmd = self._run(monkeypatch, "claude")
         assert "--settings" in cmd
+
+    def test_claude_launch_passthrough_clears_inherited_model_vars(self, monkeypatch, capsys):
+        """Stale ANTHROPIC_DEFAULT_* from a shell that sourced another profile must not pin models."""
+        monkeypatch.setenv("ANTHROPIC_API_KEY", "sk-stale")
+        for var in ("ANTHROPIC_DEFAULT_OPUS_MODEL", "ANTHROPIC_DEFAULT_SONNET_MODEL",
+                    "ANTHROPIC_DEFAULT_HAIKU_MODEL", "ANTHROPIC_DEFAULT_FABLE_MODEL"):
+            monkeypatch.setenv(var, f"stale/{var}")
+        env, _cmd = self._run(monkeypatch, "claude", env_passthrough=True)
+        for var in ("ANTHROPIC_DEFAULT_OPUS_MODEL", "ANTHROPIC_DEFAULT_SONNET_MODEL",
+                    "ANTHROPIC_DEFAULT_HAIKU_MODEL", "ANTHROPIC_DEFAULT_FABLE_MODEL"):
+            assert var not in env
+        err = capsys.readouterr().err
+        assert "[ENV] Unset inherited ANTHROPIC_DEFAULT_OPUS_MODEL" in err
+        assert "[ENV] Unset inherited ANTHROPIC_API_KEY" in err
+
+    def test_claude_launch_passthrough_respects_deliberate_max_context_tokens(self, monkeypatch):
+        """CLAUDE_CODE_MAX_CONTEXT_TOKENS is a user setting — never cleared under passthrough."""
+        monkeypatch.setenv("CLAUDE_CODE_MAX_CONTEXT_TOKENS", "123456")
+        env, _cmd = self._run(monkeypatch, "claude", env_passthrough=True)
+        assert env["CLAUDE_CODE_MAX_CONTEXT_TOKENS"] == "123456"

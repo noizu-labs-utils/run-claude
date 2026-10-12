@@ -80,7 +80,7 @@ a profile at that priority and falls through.
 | `name` | string | Display name |
 | `opus_model` / `sonnet_model` / `haiku_model` / `fable_model` | string | LiteLLM model_name per Claude tier |
 | `extended` | list[string] | Extra model names registered with the proxy (incl. `[1m]` aliases) |
-| `env_passthrough` | bool | `true` = endpoint-only override: export `ANTHROPIC_BASE_URL` / `API_TIMEOUT_MS` but no `ANTHROPIC_DEFAULT_*_MODEL`, so Claude Code picks its own models (default `false`). Agent launches (`run-claude claude` / `run`) also clear inherited `ANTHROPIC_DEFAULT_*_MODEL` values, so a shell that sourced a different profile can't keep models pinned; `CLAUDE_CODE_MAX_CONTEXT_TOKENS` is never cleared. A shell that already sourced an older profile needs a fresh direnv load / new shell for this to take effect. String values are coerced (`true/1/yes/on` vs `false/0/no/off`/empty, case-insensitive); unrecognised values fall back to `false`. |
+| `env_passthrough` | bool | `true` = endpoint-only override: export `ANTHROPIC_BASE_URL` / `API_TIMEOUT_MS` but no `ANTHROPIC_DEFAULT_*_MODEL`, so Claude Code picks its own models (default `false`). run-claude adds nothing and removes nothing: any model var already set in the environment is left untouched and continues to apply. `CLAUDE_CODE_MAX_CONTEXT_TOKENS` is never set nor cleared. String values are coerced (`true/1/yes/on` vs `false/0/no/off`/empty, case-insensitive); unrecognised values fall back to `false`. |
 
 ### models.yaml (`run_claude/models.yaml`; override `~/.config/run-claude/models.yaml`)
 

@@ -310,18 +310,11 @@ def cmd_run_agent(
     if agent_config.agent_name == "claude" and env.pop("ANTHROPIC_API_KEY", None) is not None:
         print("[ENV] Unset inherited ANTHROPIC_API_KEY before launching claude", file=sys.stderr)
 
-    # env_passthrough promises the agent picks its own models: a stale
-    # ANTHROPIC_DEFAULT_*_MODEL inherited from a shell that sourced a different
-    # profile would silently keep models pinned despite the suppressed exports,
-    # so clear those too. A deliberate CLAUDE_CODE_MAX_CONTEXT_TOKENS setting is
-    # left alone (the non-passthrough path above also only ever adds it).
-    if profile.meta.env_passthrough:
-        for var in ("ANTHROPIC_DEFAULT_HAIKU_MODEL",
-                    "ANTHROPIC_DEFAULT_SONNET_MODEL",
-                    "ANTHROPIC_DEFAULT_OPUS_MODEL",
-                    "ANTHROPIC_DEFAULT_FABLE_MODEL"):
-            if env.pop(var, None) is not None:
-                print(f"[ENV] Unset inherited {var} (env_passthrough profile)", file=sys.stderr)
+    # env_passthrough means run-claude contributes no model pinning of its own:
+    # it exports none of the ANTHROPIC_DEFAULT_*_MODEL vars (see
+    # build_env_vars_anthropic) and leaves anything already in the environment
+    # completely alone. External overrides pass through untouched — added
+    # nothing, removed nothing (owner decision).
 
     # Add agent-specific environment variables
     proxy_url = proxy.get_proxy_url()

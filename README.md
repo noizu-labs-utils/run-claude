@@ -6,7 +6,7 @@ Per-directory model routing for Claude Code & OpenCode, backed by a self-healing
 
 ## What
 
-`cd` into a project, get the right models. `run-claude` hot-registers whichever provider models a directory declares (via direnv + a shell hook) on a running gateway, routes all traffic through a front proxy that swaps auth per provider — including Anthropic OAuth passthrough so a Claude Pro/Max subscription is used instead of API billing — and keeps itself alive with a watchdog daemon. 211 cataloged model definitions across 35 built-in profiles (see `run_claude/models.yaml` and `profiles.yaml`) are one `set-folder` away. That 211 is the catalog — everything `run-claude models list` knows about; the running proxy only serves the subset the active directory's profile registers (`run-claude models enabled`).
+`cd` into a project, get the right models. `run-claude` hot-registers whichever provider models a directory declares (via direnv + a shell hook) on a running gateway, routes all traffic through a front proxy that swaps auth per provider — including Anthropic OAuth passthrough so a Claude Pro/Max subscription is used instead of API billing — and keeps itself alive with a watchdog daemon. 211 cataloged model definitions across 35 built-in profiles (see `run_claude/models.yaml` and `profiles.yaml`) are one `set-folder` away. That 211 is the catalog — everything `run-claude models list` knows about; the running proxy only serves the subset the active directory's profile registers (`run-claude models enabled`). The `anthropic` profile is endpoint-only (`env_passthrough: true`): it points Claude Code at the proxy but exports no model-pinning vars, so Claude Code's own default model selection passes through.
 
 ## Why
 

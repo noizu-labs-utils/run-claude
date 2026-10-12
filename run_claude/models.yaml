@@ -4987,88 +4987,6 @@ model_list:
       - video
       output: [text]
     supports_tools: true
-- model_name: "alibaba/qwen3.7-max"
-  litellm_params:
-    model: anthropic/qwen3.7-max
-    api_key: os.environ/QWEN_SUB_KEY
-    api_base: https://token-plan.ap-southeast-1.maas.aliyuncs.com/apps/anthropic
-    drop_params: false
-    additional_drop_params: ["context_management", "thinking"]
-    reasoning_effort: "high"
-  metadata:
-    provider: alibaba
-    description: "Alibaba Qwen 3.7 Max via Token Plan Anthropic API"
-    strengths: "Strong coding/agent work, 1M context"
-    weaknesses: "Text-only; superseded by 3.8 Max"
-
-    pricing:
-      text:
-        in: 1.6
-        out: 6.4
-        cached_in:
-      audio:
-        in:
-        out:
-      image:
-        in:
-        out:
-      source: subscription
-    limits:
-      max_input_tokens: 131072
-      max_output_tokens: 32768
-      max_thinking_tokens: 32768
-    thinking:
-      supported: true
-      levels:
-      default_level: "high"
-    tokens_per_second: 40
-    notes: subscription plan; list price shown for reference
-    context_window: 131072
-    modalities:
-      input: [text, image]
-      output: [text]
-    supports_tools: true
-- model_name: "alibaba/qwen3.7-plus"
-  litellm_params:
-    model: anthropic/qwen3.7-plus
-    api_key: os.environ/QWEN_SUB_KEY
-    api_base: https://token-plan.ap-southeast-1.maas.aliyuncs.com/apps/anthropic
-    drop_params: false
-    additional_drop_params: ["context_management", "thinking"]
-    reasoning_effort: "medium"
-  metadata:
-    provider: alibaba
-    description: "Alibaba Qwen 3.7 Plus via Token Plan Anthropic API"
-    strengths: "Vision + text, 1M context, balanced cost"
-    weaknesses: "Less peak quality than 3.7/3.8 Max"
-
-    pricing:
-      text:
-        in: 0.6
-        out: 2.4
-        cached_in:
-      audio:
-        in:
-        out:
-      image:
-        in:
-        out:
-      source: subscription
-    limits:
-      max_input_tokens: 131072
-      max_output_tokens: 32768
-      max_thinking_tokens: 32768
-    thinking:
-      supported: true
-      levels:
-      default_level: "medium"
-    tokens_per_second: 50
-    notes: subscription plan; list price shown for reference
-    context_window: 131072
-    modalities:
-      input: [text, image]
-      output: [text]
-    supports_tools: true
 - model_name: "alibaba/qwen3.6-plus"
   litellm_params:
     model: anthropic/qwen3.6-plus
@@ -5081,7 +4999,7 @@ model_list:
     provider: alibaba
     description: "Alibaba Qwen 3.6 Plus via Token Plan Anthropic API"
     strengths: "Vision + text, 1M context, Team-tier SKU"
-    weaknesses: "Older than 3.7/3.8; Team plan only"
+    weaknesses: "Older than 3.8; Team plan only"
 
     pricing:
       text:

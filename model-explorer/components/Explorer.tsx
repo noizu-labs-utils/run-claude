@@ -5,13 +5,17 @@ import type { ExplorerData, Model, Profile } from "@/lib/types";
 import { fmtPrice, fmtTps, ProviderBadge, SourceBadge } from "./Bits";
 import ModelModal from "./ModelModal";
 import ProfileModal from "./ProfileModal";
+import ProfileEditor from "./ProfileEditor";
 
 type ModalState =
   | { kind: "model"; name: string }
   | { kind: "profile"; name: string };
 
+type ProfileTabMode = "view" | "edit";
+
 export default function Explorer({ data }: { data: ExplorerData }) {
   const [tab, setTab] = useState<"models" | "profiles">("models");
+  const [profileMode, setProfileMode] = useState<ProfileTabMode>("view");
   const [query, setQuery] = useState("");
   const [providers, setProviders] = useState<Set<string>>(new Set());
   const [think, setThink] = useState<"any" | "yes" | "no">("any");
@@ -127,9 +131,26 @@ export default function Explorer({ data }: { data: ExplorerData }) {
           <button className={tab === "models" ? "active" : ""} onClick={() => setTab("models")}>
             Models
           </button>
-          <button className={tab === "profiles" ? "active" : ""} onClick={() => setTab("profiles")}>
+          <button className={tab === "profiles" ? "active" : ""} onClick={() => { setTab("profiles"); setProfileMode("view"); }}>
             Profiles
           </button>
+          {tab === "profiles" && (
+            <>
+              <span className="tab-divider">·</span>
+              <button
+                className={profileMode === "view" ? "active" : ""}
+                onClick={() => setProfileMode("view")}
+              >
+                View
+              </button>
+              <button
+                className={profileMode === "edit" ? "active" : ""}
+                onClick={() => setProfileMode("edit")}
+              >
+                Edit
+              </button>
+            </>
+          )}
         </div>
         <span className="count">
           {tab === "models" ? filteredModels.length : filteredProfiles.length} shown
@@ -229,6 +250,8 @@ export default function Explorer({ data }: { data: ExplorerData }) {
             <div className="empty">No models match “{query}”.</div>
           )}
         </div>
+      ) : profileMode === "edit" ? (
+        <ProfileEditor models={data.models.map((m) => m.name)} />
       ) : (
         <div className="grid">
           {filteredProfiles.map((p) => (

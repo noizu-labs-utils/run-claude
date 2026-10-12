@@ -98,6 +98,9 @@ _USER_PROFILES_TEMPLATE = """\
 #   sonnet_model: "model-name-for-sonnet"
 #   haiku_model: "model-name-for-haiku"
 #   fable_model: "model-name-for-fable"    # Optional Claude Code fable alias (defaults to opus_model)
+#   env_passthrough: true                   # Optional: endpoint-only override - export ANTHROPIC_BASE_URL /
+#                                           # API_TIMEOUT_MS but no ANTHROPIC_DEFAULT_*_MODEL, so Claude Code
+#                                           # picks its own default models (default: false)
 #   extended:                               # Optional: additional models to load
 #     - "custom-model-1"
 #     - "custom-model-2"
@@ -343,6 +346,33 @@ class ModelDef:
         )
 
 
+_TRUE_STRINGS = {"true", "1", "yes", "on"}
+_FALSE_STRINGS = {"false", "0", "no", "off", ""}
+
+
+def _coerce_bool(value: Any, default: bool = False) -> bool:
+    """Strict-ish boolean coercion for YAML config flags.
+
+    Real booleans pass through; strings match a true/false set case-insensitively
+    (`true/1/yes/on` vs `false/0/no/off`/empty); None/absent -> default. Numeric
+    YAML values fall through to truthiness. Unrecognised values fall back to the
+    default rather than raising: profile loading is on every command's hot path
+    and a typo in an optional flag must not brick the CLI.
+    """
+    if value is None:
+        return default
+    if isinstance(value, bool):
+        return value
+    if isinstance(value, str):
+        lowered = value.strip().lower()
+        if lowered in _TRUE_STRINGS:
+            return True
+        if lowered in _FALSE_STRINGS:
+            return False
+        return default
+    return bool(value)
+
+
 @dataclass
 class ProfileMeta:
     """Profile metadata."""
@@ -352,6 +382,9 @@ class ProfileMeta:
     haiku_model: str = ""
     fable_model: str = ""
     extended: list[str] = field(default_factory=list)
+    # Endpoint-only override: suppress the ANTHROPIC_DEFAULT_*_MODEL exports so
+    # Claude Code keeps its own default model selection.
+    env_passthrough: bool = False
 
     @classmethod
     def from_dict(cls, data: dict[str, Any]) -> ProfileMeta:
@@ -365,6 +398,7 @@ class ProfileMeta:
             haiku_model=data.get("haiku_model", ""),
             fable_model=data.get("fable_model") or "",
             extended=extended,
+            env_passthrough=_coerce_bool(data.get("env_passthrough"), False),
         )
 
     def effective_fable_model(self) -> str:
@@ -410,6 +444,7 @@ class Profile:
                 "haiku_model": self.meta.haiku_model,
                 "fable_model": self.meta.fable_model,
                 "extended": self.meta.extended,
+                "env_passthrough": self.meta.env_passthrough,
             },
             "model_list": [m.to_dict() for m in self.model_list],
         }

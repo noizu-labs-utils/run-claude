@@ -613,15 +613,18 @@ def cmd_env(args: argparse.Namespace) -> int:
         "API_TIMEOUT_MS": "3000000",
     }
 
-    if profile.meta.haiku_model:
-        env_vars["ANTHROPIC_DEFAULT_HAIKU_MODEL"] = profile.meta.haiku_model
-    if profile.meta.sonnet_model:
-        env_vars["ANTHROPIC_DEFAULT_SONNET_MODEL"] = profile.meta.sonnet_model
-    if profile.meta.opus_model:
-        env_vars["ANTHROPIC_DEFAULT_OPUS_MODEL"] = profile.meta.opus_model
-    fable_model = profile.meta.effective_fable_model()
-    if fable_model:
-        env_vars["ANTHROPIC_DEFAULT_FABLE_MODEL"] = fable_model
+    # env_passthrough: endpoint-only override - Claude Code keeps its own
+    # default model selection, so no model-pinning vars are exported.
+    if not profile.meta.env_passthrough:
+        if profile.meta.haiku_model:
+            env_vars["ANTHROPIC_DEFAULT_HAIKU_MODEL"] = profile.meta.haiku_model
+        if profile.meta.sonnet_model:
+            env_vars["ANTHROPIC_DEFAULT_SONNET_MODEL"] = profile.meta.sonnet_model
+        if profile.meta.opus_model:
+            env_vars["ANTHROPIC_DEFAULT_OPUS_MODEL"] = profile.meta.opus_model
+        fable_model = profile.meta.effective_fable_model()
+        if fable_model:
+            env_vars["ANTHROPIC_DEFAULT_FABLE_MODEL"] = fable_model
 
     # Output
     for key, value in env_vars.items():

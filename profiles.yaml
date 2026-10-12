@@ -10,14 +10,19 @@
 # Example:
 #   cerebras:
 #     model: null  # This disables cerebras, falling through to lower-priority files
+#
+# env_passthrough: true (per profile) = endpoint-only override: export
+# ANTHROPIC_BASE_URL / API_TIMEOUT_MS but no ANTHROPIC_DEFAULT_*_MODEL, so
+# Claude Code picks its own default models.
 
-# Anthropic - Native Claude models
+# Anthropic - Native Claude models (endpoint-only passthrough)
 anthropic:
   name: "Anthropic"
   fable_model: "claude-fable-5-1"
   opus_model: "claude-opus-5"
   sonnet_model: "claude-sonnet-5"
   haiku_model: "claude-haiku-4-5-20251001"
+  env_passthrough: true  # endpoint-only override; Claude Code picks its own models
   extended:
   - "claude-fable-5-1[1m]"
   - "claude-opus-5-5"
@@ -53,7 +58,6 @@ anthropic:
   - "alibaba/qwen3.8-max"
   - "alibaba/qwen3.8-max[1m]"
   - "alibaba/qwen3.8-flash"
-  - "alibaba/qwen3.7-max"
   - "alibaba/deepseek-v4-pro"
   - "alibaba/deepseek-v4.1-flash"
   - "alibaba/kimi-k3"
@@ -156,7 +160,6 @@ zai-pro:
   - "alibaba/qwen3.8-max"
   - "alibaba/qwen3.8-max[1m]"
   - "alibaba/qwen3.8-flash"
-  - "alibaba/qwen3.7-max"
   - "alibaba/deepseek-v4-pro"
   - "alibaba/deepseek-v4.1-flash"
   - "alibaba/kimi-k3"
@@ -201,7 +204,6 @@ zai-alt: &zai-alt-profile
   - "alibaba/qwen3.8-max"
   - "alibaba/qwen3.8-max[1m]"
   - "alibaba/qwen3.8-flash"
-  - "alibaba/qwen3.7-max"
   - "alibaba/deepseek-v4-pro"
   - "alibaba/deepseek-v4.1-flash"
   - "alibaba/kimi-k3"
@@ -356,8 +358,6 @@ alibaba:
   - "alibaba/qwen3.8-max-preview"
   - "alibaba/qwen3.8-flash"
   - "alibaba/qwen3.8-flash[1m]"
-  - "alibaba/qwen3.7-max"
-  - "alibaba/qwen3.7-plus"
   - "alibaba/qwen3.6-plus"
   - "alibaba/qwen3.6-flash"
   - "alibaba/deepseek-v4-pro"
@@ -380,45 +380,13 @@ alibaba:
 qwen:
   name: "Alibaba Qwen"
   fable_model: "alibaba/qwen3.8-max"
-  opus_model: "alibaba/qwen3.7-max"
+  opus_model: "alibaba/qwen3.8-max"
   sonnet_model: "alibaba/qwen3.8-flash"
   haiku_model: "alibaba/qwen3.6-flash"
   extended:
   - "alibaba/qwen3.8-max[1m]"
   - "alibaba/qwen3.8-flash[1m]"
   - "alibaba/qwen3.8-max-preview"
-
-# Alibaba Token Plan — all-Qwen flagship ladder (distinct model per slot)
-# Tiers (2026-09 plan; qwen3.8-flash outclasses 3.7-plus):
-#   fable  = qwen3.8-max   (flagship, 1M, vision, night 50% off)
-#   opus   = qwen3.7-max   (prior-gen max, reasoning)
-#   sonnet = qwen3.8-flash (newer-gen flash, stronger than 3.7-plus)
-#   haiku  = qwen3.7-plus  (balanced prior-gen, vision)
-qwen-max:
-  name: "Alibaba Qwen Max"
-  fable_model: "alibaba/qwen3.8-max"
-  opus_model: "alibaba/qwen3.7-max"
-  sonnet_model: "alibaba/qwen3.8-flash"
-  haiku_model: "alibaba/qwen3.7-plus"
-  extended:
-  - "alibaba/qwen3.8-max[1m]"
-  - "alibaba/qwen3.8-flash[1m]"
-  - "alibaba/qwen3.8-max-preview"
-  - "alibaba/qwen3.6-plus"
-  - "alibaba/qwen3.6-flash"
-
-# Alibaba Token Plan — all-Qwen speed tier (flash end of the ladder)
-# Tiers (2026-10): fable = qwen3.8-flash, opus = qwen3.7-plus,
-#                  sonnet = qwen3.6-plus, haiku = qwen3.6-flash
-qwen-flash:
-  name: "Alibaba Qwen Flash"
-  fable_model: "alibaba/qwen3.8-flash"
-  opus_model: "alibaba/qwen3.7-plus"
-  sonnet_model: "alibaba/qwen3.6-plus"
-  haiku_model: "alibaba/qwen3.6-flash"
-  extended:
-  - "alibaba/qwen3.8-flash[1m]"
-  - "alibaba/qwen3.6-plus"
 
 # Alibaba Token Plan — all-DeepSeek ladder
 # Tiers (2026-10):
@@ -530,8 +498,6 @@ claude-plan:
   - "alibaba/qwen3.8-max-preview"
   - "alibaba/qwen3.8-flash"
   - "alibaba/qwen3.8-flash[1m]"
-  - "alibaba/qwen3.7-max"
-  - "alibaba/qwen3.7-plus"
   - "alibaba/qwen3.6-plus"
   - "alibaba/deepseek-v4-pro"
   - "alibaba/deepseek-v4-flash"
@@ -610,8 +576,6 @@ all-sub:
   - "alibaba/qwen3.8-max-preview"
   - "alibaba/qwen3.8-flash"
   - "alibaba/qwen3.8-flash[1m]"
-  - "alibaba/qwen3.7-max"
-  - "alibaba/qwen3.7-plus"
   - "alibaba/qwen3.6-plus"
   - "alibaba/deepseek-v4-pro"
   - "alibaba/deepseek-v4-flash"
@@ -689,8 +653,6 @@ claude-enhanced:
   - "alibaba/qwen3.8-max-preview"
   - "alibaba/qwen3.8-flash"
   - "alibaba/qwen3.8-flash[1m]"
-  - "alibaba/qwen3.7-max"
-  - "alibaba/qwen3.7-plus"
   - "alibaba/qwen3.6-plus"
   - "alibaba/deepseek-v4-pro"
   - "alibaba/deepseek-v4-flash"
@@ -786,8 +748,6 @@ kitchen-sink:
   - "alibaba/qwen3.8-max-preview"
   - "alibaba/qwen3.8-flash"
   - "alibaba/qwen3.8-flash[1m]"
-  - "alibaba/qwen3.7-max"
-  - "alibaba/qwen3.7-plus"
   - "alibaba/qwen3.6-plus"
   - "alibaba/deepseek-v4-pro"
   - "alibaba/deepseek-v4-flash"

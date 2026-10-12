@@ -9494,3 +9494,996 @@ model_list:
       input: [text, image]
       output: [text]
     supports_tools: true
+- model_name: zai/glm-5.3-flash (sub, high)
+  litellm_params:
+    model: anthropic/glm-5.3-flash
+    api_key: os.environ/ZAI_SUB_KEY
+    api_base: https://api.z.ai/api/anthropic
+    drop_params: true
+    additional_drop_params:
+    - context_management
+    - thinking
+    - reasoning_effort
+    reasoning_effort: high
+    extra_headers:
+      anthropic-product: claude_code
+  metadata:
+    provider: zai
+    behavesAs: claude-sonnet-5-5
+    description: glm-5.3-flash (sub, max) subscription, high thinking
+    strengths: Deepest reasoning depth at flash cost
+    weaknesses: Slowest flash tier, most expensive
+    pricing:
+      text:
+        in: 0.04
+        out: 0.5
+        cached_in: null
+      audio:
+        in: null
+        out: null
+      image:
+        in: null
+        out: null
+      source: subscription
+    limits:
+      max_input_tokens: 1000000
+      max_output_tokens: 128000
+      max_thinking_tokens: 32768
+    thinking:
+      supported: true
+      levels:
+      - low
+      - medium
+      - high
+      default_level: high
+    tokens_per_second: 150
+    notes: 'GLM-5.3 family rejects reasoning_effort=medium (valid: low|high|max); subscription plan; list price shown for reference; flash context reported ~1M (aihubmix/z.ai docs); 200K guaranteed floor'
+    context_window: 1000000
+    modalities:
+      input:
+      - text
+      - image
+      - video
+      output:
+      - text
+    supports_tools: true
+- model_name: zai/glm-5.3-flash (sub, high)[1m]
+  litellm_params:
+    model: anthropic/glm-5.3-flash
+    api_key: os.environ/ZAI_SUB_KEY
+    api_base: https://api.z.ai/api/anthropic
+    drop_params: true
+    additional_drop_params:
+    - context_management
+    - thinking
+    - reasoning_effort
+    reasoning_effort: high
+    extra_headers:
+      anthropic-product: claude_code
+  metadata:
+    provider: zai
+    behavesAs: claude-sonnet-5-5
+    description: glm-5.3-flash (sub, max) subscription, high thinking
+    strengths: Deepest reasoning depth at flash cost
+    weaknesses: Slowest flash tier, most expensive
+    pricing:
+      text:
+        in: 0.04
+        out: 0.5
+        cached_in: null
+      audio:
+        in: null
+        out: null
+      image:
+        in: null
+        out: null
+      source: subscription
+    limits:
+      max_input_tokens: 1000000
+      max_output_tokens: 128000
+      max_thinking_tokens: 32768
+    thinking:
+      supported: true
+      levels:
+      - low
+      - medium
+      - high
+      default_level: high
+    tokens_per_second: 150
+    notes: 'GLM-5.3 family rejects reasoning_effort=medium (valid: low|high|max); subscription plan; list price shown for reference; flash context reported ~1M (aihubmix/z.ai docs); 200K guaranteed floor'
+    context_window: 1000000
+    modalities:
+      input:
+      - text
+      - image
+      - video
+      output:
+      - text
+    supports_tools: true
+- model_name: alibaba/qwen3.8-max (sub, max)
+  litellm_params:
+    model: anthropic/qwen3.8-max
+    api_key: os.environ/QWEN_SUB_KEY
+    api_base: https://token-plan.ap-southeast-1.maas.aliyuncs.com/apps/anthropic
+    drop_params: false
+    additional_drop_params:
+    - context_management
+    - thinking
+    reasoning_effort: max
+  metadata:
+    provider: alibaba
+    description: qwen3.8-max subscription, max thinking
+    strengths: Flagship Qwen, 1M context, vision
+    weaknesses: Highest Token Plan credit burn
+    pricing:
+      text:
+        in: 2.0
+        out: 6.0
+        cached_in: 0.25
+      audio:
+        in: null
+        out: null
+      image:
+        in: null
+        out: null
+      source: subscription
+    limits:
+      max_input_tokens: 1000000
+      max_output_tokens: 32768
+      max_thinking_tokens: 32768
+    thinking:
+      supported: true
+      levels: null
+      default_level: max
+    tokens_per_second: 40
+    notes: subscription plan; list price shown for reference; Qwen3.8 family natively omni-modal (audio/video in)
+    context_window: 1000000
+    modalities:
+      input:
+      - text
+      - image
+      - audio
+      - video
+      output:
+      - text
+    supports_tools: true
+- model_name: alibaba/qwen3.8-max (sub, max)[1m]
+  litellm_params:
+    model: anthropic/qwen3.8-max
+    api_key: os.environ/QWEN_SUB_KEY
+    api_base: https://token-plan.ap-southeast-1.maas.aliyuncs.com/apps/anthropic
+    drop_params: false
+    additional_drop_params:
+    - context_management
+    - thinking
+    reasoning_effort: max
+  metadata:
+    provider: alibaba
+    description: qwen3.8-max subscription, max thinking
+    strengths: Flagship Qwen, 1M context, vision
+    weaknesses: Highest Token Plan credit burn
+    pricing:
+      text:
+        in: 2.0
+        out: 6.0
+        cached_in: 0.25
+      audio:
+        in: null
+        out: null
+      image:
+        in: null
+        out: null
+      source: subscription
+    limits:
+      max_input_tokens: 1000000
+      max_output_tokens: 32768
+      max_thinking_tokens: 32768
+    thinking:
+      supported: true
+      levels: null
+      default_level: max
+    tokens_per_second: 40
+    notes: subscription plan; list price shown for reference; Qwen3.8 family natively omni-modal (audio/video in)
+    context_window: 1000000
+    modalities:
+      input:
+      - text
+      - image
+      - audio
+      - video
+      output:
+      - text
+    supports_tools: true
+- model_name: alibaba/qwen3.8-max (sub, high)
+  litellm_params:
+    model: anthropic/qwen3.8-max
+    api_key: os.environ/QWEN_SUB_KEY
+    api_base: https://token-plan.ap-southeast-1.maas.aliyuncs.com/apps/anthropic
+    drop_params: false
+    additional_drop_params:
+    - context_management
+    - thinking
+    reasoning_effort: high
+  metadata:
+    provider: alibaba
+    description: qwen3.8-max subscription, high thinking
+    strengths: Flagship Qwen, 1M context, vision
+    weaknesses: Highest Token Plan credit burn
+    pricing:
+      text:
+        in: 2.0
+        out: 6.0
+        cached_in: 0.25
+      audio:
+        in: null
+        out: null
+      image:
+        in: null
+        out: null
+      source: subscription
+    limits:
+      max_input_tokens: 1000000
+      max_output_tokens: 32768
+      max_thinking_tokens: 32768
+    thinking:
+      supported: true
+      levels: null
+      default_level: high
+    tokens_per_second: 40
+    notes: subscription plan; list price shown for reference; Qwen3.8 family natively omni-modal (audio/video in)
+    context_window: 1000000
+    modalities:
+      input:
+      - text
+      - image
+      - audio
+      - video
+      output:
+      - text
+    supports_tools: true
+- model_name: alibaba/qwen3.8-max (sub, high)[1m]
+  litellm_params:
+    model: anthropic/qwen3.8-max
+    api_key: os.environ/QWEN_SUB_KEY
+    api_base: https://token-plan.ap-southeast-1.maas.aliyuncs.com/apps/anthropic
+    drop_params: false
+    additional_drop_params:
+    - context_management
+    - thinking
+    reasoning_effort: high
+  metadata:
+    provider: alibaba
+    description: qwen3.8-max subscription, high thinking
+    strengths: Flagship Qwen, 1M context, vision
+    weaknesses: Highest Token Plan credit burn
+    pricing:
+      text:
+        in: 2.0
+        out: 6.0
+        cached_in: 0.25
+      audio:
+        in: null
+        out: null
+      image:
+        in: null
+        out: null
+      source: subscription
+    limits:
+      max_input_tokens: 1000000
+      max_output_tokens: 32768
+      max_thinking_tokens: 32768
+    thinking:
+      supported: true
+      levels: null
+      default_level: high
+    tokens_per_second: 40
+    notes: subscription plan; list price shown for reference; Qwen3.8 family natively omni-modal (audio/video in)
+    context_window: 1000000
+    modalities:
+      input:
+      - text
+      - image
+      - audio
+      - video
+      output:
+      - text
+    supports_tools: true
+- model_name: alibaba/qwen3.8-flash (sub, medium)
+  litellm_params:
+    model: anthropic/qwen3.8-flash
+    api_key: os.environ/QWEN_SUB_KEY
+    api_base: https://token-plan.ap-southeast-1.maas.aliyuncs.com/apps/anthropic
+    drop_params: false
+    additional_drop_params:
+    - context_management
+    - thinking
+    reasoning_effort: medium
+  metadata:
+    provider: alibaba
+    description: qwen3.8-flash subscription, medium thinking
+    strengths: Fast Qwen 3.8, 1M context, vision
+    weaknesses: Less depth than Qwen 3.8 Max / DeepSeek V4 Pro
+    pricing:
+      text:
+        in: 0.11
+        out: 0.6
+        cached_in: null
+      audio:
+        in: null
+        out: null
+      image:
+        in: null
+        out: null
+      source: subscription
+    limits:
+      max_input_tokens: 131072
+      max_output_tokens: 32768
+      max_thinking_tokens: 32768
+    thinking:
+      supported: true
+      levels: null
+      default_level: medium
+    tokens_per_second: 60
+    notes: subscription plan; list price shown for reference; Qwen3.8 family natively omni-modal (audio/video in)
+    context_window: 131072
+    modalities:
+      input:
+      - text
+      - image
+      - audio
+      - video
+      output:
+      - text
+    supports_tools: true
+- model_name: alibaba/qwen3.8-flash (sub, medium)[1m]
+  litellm_params:
+    model: anthropic/qwen3.8-flash
+    api_key: os.environ/QWEN_SUB_KEY
+    api_base: https://token-plan.ap-southeast-1.maas.aliyuncs.com/apps/anthropic
+    drop_params: false
+    additional_drop_params:
+    - context_management
+    - thinking
+    reasoning_effort: medium
+  metadata:
+    provider: alibaba
+    description: qwen3.8-flash subscription, medium thinking
+    strengths: Fast Qwen 3.8, 1M context, vision
+    weaknesses: Less depth than Qwen 3.8 Max / DeepSeek V4 Pro
+    pricing:
+      text:
+        in: 0.11
+        out: 0.6
+        cached_in: null
+      audio:
+        in: null
+        out: null
+      image:
+        in: null
+        out: null
+      source: subscription
+    limits:
+      max_input_tokens: 1000000
+      max_output_tokens: 32768
+      max_thinking_tokens: 32768
+    thinking:
+      supported: true
+      levels: null
+      default_level: medium
+    tokens_per_second: 60
+    notes: subscription plan; list price shown for reference; Qwen3.8 family natively omni-modal (audio/video in)
+    context_window: 1000000
+    modalities:
+      input:
+      - text
+      - image
+      - audio
+      - video
+      output:
+      - text
+    supports_tools: true
+- model_name: alibaba/qwen3.8-flash (sub, low)
+  litellm_params:
+    model: anthropic/qwen3.8-flash
+    api_key: os.environ/QWEN_SUB_KEY
+    api_base: https://token-plan.ap-southeast-1.maas.aliyuncs.com/apps/anthropic
+    drop_params: false
+    additional_drop_params:
+    - context_management
+    - thinking
+    reasoning_effort: low
+  metadata:
+    provider: alibaba
+    description: qwen3.8-flash subscription, low thinking
+    strengths: Fast Qwen 3.8, 1M context, vision
+    weaknesses: Less depth than Qwen 3.8 Max / DeepSeek V4 Pro
+    pricing:
+      text:
+        in: 0.11
+        out: 0.6
+        cached_in: null
+      audio:
+        in: null
+        out: null
+      image:
+        in: null
+        out: null
+      source: subscription
+    limits:
+      max_input_tokens: 131072
+      max_output_tokens: 32768
+      max_thinking_tokens: 32768
+    thinking:
+      supported: true
+      levels: null
+      default_level: low
+    tokens_per_second: 60
+    notes: subscription plan; list price shown for reference; Qwen3.8 family natively omni-modal (audio/video in)
+    context_window: 131072
+    modalities:
+      input:
+      - text
+      - image
+      - audio
+      - video
+      output:
+      - text
+    supports_tools: true
+- model_name: alibaba/qwen3.8-flash (sub, low)[1m]
+  litellm_params:
+    model: anthropic/qwen3.8-flash
+    api_key: os.environ/QWEN_SUB_KEY
+    api_base: https://token-plan.ap-southeast-1.maas.aliyuncs.com/apps/anthropic
+    drop_params: false
+    additional_drop_params:
+    - context_management
+    - thinking
+    reasoning_effort: low
+  metadata:
+    provider: alibaba
+    description: qwen3.8-flash subscription, low thinking
+    strengths: Fast Qwen 3.8, 1M context, vision
+    weaknesses: Less depth than Qwen 3.8 Max / DeepSeek V4 Pro
+    pricing:
+      text:
+        in: 0.11
+        out: 0.6
+        cached_in: null
+      audio:
+        in: null
+        out: null
+      image:
+        in: null
+        out: null
+      source: subscription
+    limits:
+      max_input_tokens: 1000000
+      max_output_tokens: 32768
+      max_thinking_tokens: 32768
+    thinking:
+      supported: true
+      levels: null
+      default_level: low
+    tokens_per_second: 60
+    notes: subscription plan; list price shown for reference; Qwen3.8 family natively omni-modal (audio/video in)
+    context_window: 1000000
+    modalities:
+      input:
+      - text
+      - image
+      - audio
+      - video
+      output:
+      - text
+    supports_tools: true
+- model_name: alibaba/deepseek-v4-pro (sub, max)
+  litellm_params:
+    model: anthropic/deepseek-v4-pro
+    api_key: os.environ/QWEN_SUB_KEY
+    api_base: https://token-plan.ap-southeast-1.maas.aliyuncs.com/apps/anthropic
+    drop_params: false
+    additional_drop_params:
+    - context_management
+    - thinking
+    reasoning_effort: max
+  metadata:
+    provider: alibaba
+    description: deepseek-v4-pro subscription, max thinking
+    strengths: Strong reasoning, 1M context, large output
+    weaknesses: Text-only; high credit burn
+    pricing:
+      text:
+        in: 1.32
+        out: 3.96
+        cached_in: null
+      audio:
+        in: null
+        out: null
+      image:
+        in: null
+        out: null
+      source: subscription
+    limits:
+      max_input_tokens: 131072
+      max_output_tokens: 65536
+      max_thinking_tokens: 32768
+    thinking:
+      supported: true
+      levels: null
+      default_level: max
+    tokens_per_second: 50
+    notes: subscription plan; list price shown for reference
+    context_window: 131072
+    modalities:
+      input:
+      - text
+      output:
+      - text
+    supports_tools: true
+- model_name: alibaba/deepseek-v4-pro (sub, max)[1m]
+  litellm_params:
+    model: anthropic/deepseek-v4-pro
+    api_key: os.environ/QWEN_SUB_KEY
+    api_base: https://token-plan.ap-southeast-1.maas.aliyuncs.com/apps/anthropic
+    drop_params: false
+    additional_drop_params:
+    - context_management
+    - thinking
+    reasoning_effort: max
+  metadata:
+    provider: alibaba
+    description: deepseek-v4-pro subscription, max thinking
+    strengths: Strong reasoning, 1M context, large output
+    weaknesses: Text-only; high credit burn
+    pricing:
+      text:
+        in: 1.32
+        out: 3.96
+        cached_in: null
+      audio:
+        in: null
+        out: null
+      image:
+        in: null
+        out: null
+      source: subscription
+    limits:
+      max_input_tokens: 1000000
+      max_output_tokens: 65536
+      max_thinking_tokens: 32768
+    thinking:
+      supported: true
+      levels: null
+      default_level: max
+    tokens_per_second: 50
+    notes: subscription plan; list price shown for reference
+    context_window: 1000000
+    modalities:
+      input:
+      - text
+      output:
+      - text
+    supports_tools: true
+- model_name: alibaba/deepseek-v4-pro (sub, high)
+  litellm_params:
+    model: anthropic/deepseek-v4-pro
+    api_key: os.environ/QWEN_SUB_KEY
+    api_base: https://token-plan.ap-southeast-1.maas.aliyuncs.com/apps/anthropic
+    drop_params: false
+    additional_drop_params:
+    - context_management
+    - thinking
+    reasoning_effort: high
+  metadata:
+    provider: alibaba
+    description: deepseek-v4-pro subscription, high thinking
+    strengths: Strong reasoning, 1M context, large output
+    weaknesses: Text-only; high credit burn
+    pricing:
+      text:
+        in: 1.32
+        out: 3.96
+        cached_in: null
+      audio:
+        in: null
+        out: null
+      image:
+        in: null
+        out: null
+      source: subscription
+    limits:
+      max_input_tokens: 131072
+      max_output_tokens: 65536
+      max_thinking_tokens: 32768
+    thinking:
+      supported: true
+      levels: null
+      default_level: high
+    tokens_per_second: 50
+    notes: subscription plan; list price shown for reference
+    context_window: 131072
+    modalities:
+      input:
+      - text
+      output:
+      - text
+    supports_tools: true
+- model_name: alibaba/deepseek-v4-pro (sub, high)[1m]
+  litellm_params:
+    model: anthropic/deepseek-v4-pro
+    api_key: os.environ/QWEN_SUB_KEY
+    api_base: https://token-plan.ap-southeast-1.maas.aliyuncs.com/apps/anthropic
+    drop_params: false
+    additional_drop_params:
+    - context_management
+    - thinking
+    reasoning_effort: high
+  metadata:
+    provider: alibaba
+    description: deepseek-v4-pro subscription, high thinking
+    strengths: Strong reasoning, 1M context, large output
+    weaknesses: Text-only; high credit burn
+    pricing:
+      text:
+        in: 1.32
+        out: 3.96
+        cached_in: null
+      audio:
+        in: null
+        out: null
+      image:
+        in: null
+        out: null
+      source: subscription
+    limits:
+      max_input_tokens: 1000000
+      max_output_tokens: 65536
+      max_thinking_tokens: 32768
+    thinking:
+      supported: true
+      levels: null
+      default_level: high
+    tokens_per_second: 50
+    notes: subscription plan; list price shown for reference
+    context_window: 1000000
+    modalities:
+      input:
+      - text
+      output:
+      - text
+    supports_tools: true
+- model_name: alibaba/deepseek-v4.1-flash (sub, medium)
+  litellm_params:
+    model: anthropic/deepseek-v4.1-flash
+    api_key: os.environ/QWEN_SUB_KEY
+    api_base: https://token-plan.ap-southeast-1.maas.aliyuncs.com/apps/anthropic
+    drop_params: false
+    additional_drop_params:
+    - context_management
+    - thinking
+    reasoning_effort: medium
+  metadata:
+    provider: alibaba
+    description: deepseek-v4.1-flash subscription, medium thinking
+    strengths: Newest Flash generation, fast 1M reasoning
+    weaknesses: Text-only; SKU new on Token Plan — verify console listing
+    pricing:
+      text:
+        in: 0.14
+        out: 0.28
+        cached_in: null
+      audio:
+        in: null
+        out: null
+      image:
+        in: null
+        out: null
+      source: subscription
+    limits:
+      max_input_tokens: 131072
+      max_output_tokens: 65536
+      max_thinking_tokens: 32768
+    thinking:
+      supported: true
+      levels: null
+      default_level: medium
+    tokens_per_second: 50
+    notes: v4.1 priced at v4-flash tier; subscription plan; list price shown for reference
+    context_window: 131072
+    modalities:
+      input:
+      - text
+      output:
+      - text
+    supports_tools: true
+- model_name: alibaba/deepseek-v4.1-flash (sub, medium)[1m]
+  litellm_params:
+    model: anthropic/deepseek-v4.1-flash
+    api_key: os.environ/QWEN_SUB_KEY
+    api_base: https://token-plan.ap-southeast-1.maas.aliyuncs.com/apps/anthropic
+    drop_params: false
+    additional_drop_params:
+    - context_management
+    - thinking
+    reasoning_effort: medium
+  metadata:
+    provider: alibaba
+    description: deepseek-v4.1-flash subscription, medium thinking
+    strengths: Newest Flash generation, fast 1M reasoning
+    weaknesses: Text-only; SKU new on Token Plan — verify console listing
+    pricing:
+      text:
+        in: 0.14
+        out: 0.28
+        cached_in: null
+      audio:
+        in: null
+        out: null
+      image:
+        in: null
+        out: null
+      source: subscription
+    limits:
+      max_input_tokens: 1000000
+      max_output_tokens: 65536
+      max_thinking_tokens: 32768
+    thinking:
+      supported: true
+      levels: null
+      default_level: medium
+    tokens_per_second: 50
+    notes: v4.1 priced at v4-flash tier; subscription plan; list price shown for reference
+    context_window: 1000000
+    modalities:
+      input:
+      - text
+      output:
+      - text
+    supports_tools: true
+- model_name: alibaba/deepseek-v4.1-flash (sub, low)
+  litellm_params:
+    model: anthropic/deepseek-v4.1-flash
+    api_key: os.environ/QWEN_SUB_KEY
+    api_base: https://token-plan.ap-southeast-1.maas.aliyuncs.com/apps/anthropic
+    drop_params: false
+    additional_drop_params:
+    - context_management
+    - thinking
+    reasoning_effort: low
+  metadata:
+    provider: alibaba
+    description: deepseek-v4.1-flash subscription, low thinking
+    strengths: Newest Flash generation, fast 1M reasoning
+    weaknesses: Text-only; SKU new on Token Plan — verify console listing
+    pricing:
+      text:
+        in: 0.14
+        out: 0.28
+        cached_in: null
+      audio:
+        in: null
+        out: null
+      image:
+        in: null
+        out: null
+      source: subscription
+    limits:
+      max_input_tokens: 131072
+      max_output_tokens: 65536
+      max_thinking_tokens: 32768
+    thinking:
+      supported: true
+      levels: null
+      default_level: low
+    tokens_per_second: 50
+    notes: v4.1 priced at v4-flash tier; subscription plan; list price shown for reference
+    context_window: 131072
+    modalities:
+      input:
+      - text
+      output:
+      - text
+    supports_tools: true
+- model_name: alibaba/deepseek-v4.1-flash (sub, low)[1m]
+  litellm_params:
+    model: anthropic/deepseek-v4.1-flash
+    api_key: os.environ/QWEN_SUB_KEY
+    api_base: https://token-plan.ap-southeast-1.maas.aliyuncs.com/apps/anthropic
+    drop_params: false
+    additional_drop_params:
+    - context_management
+    - thinking
+    reasoning_effort: low
+  metadata:
+    provider: alibaba
+    description: deepseek-v4.1-flash subscription, low thinking
+    strengths: Newest Flash generation, fast 1M reasoning
+    weaknesses: Text-only; SKU new on Token Plan — verify console listing
+    pricing:
+      text:
+        in: 0.14
+        out: 0.28
+        cached_in: null
+      audio:
+        in: null
+        out: null
+      image:
+        in: null
+        out: null
+      source: subscription
+    limits:
+      max_input_tokens: 1000000
+      max_output_tokens: 65536
+      max_thinking_tokens: 32768
+    thinking:
+      supported: true
+      levels: null
+      default_level: low
+    tokens_per_second: 50
+    notes: v4.1 priced at v4-flash tier; subscription plan; list price shown for reference
+    context_window: 1000000
+    modalities:
+      input:
+      - text
+      output:
+      - text
+    supports_tools: true
+- model_name: zai/glm-5.3 (sub, max)[1m]
+  litellm_params:
+    model: anthropic/glm-5.3
+    api_key: os.environ/ZAI_SUB_KEY
+    api_base: https://api.z.ai/api/anthropic
+    drop_params: true
+    additional_drop_params:
+    - context_management
+    - thinking
+    - reasoning_effort
+    reasoning_effort: max
+    extra_headers:
+      anthropic-product: claude_code
+  metadata:
+    provider: zai
+    behavesAs: claude-fable-5-1
+    description: Z.AI GLM-5.3 (subscription, max thinking)
+    strengths: Deepest reasoning depth
+    weaknesses: Slowest, most expensive
+    pricing:
+      text:
+        in: 1.4
+        out: 4.4
+        cached_in: 0.26
+      audio:
+        in: null
+        out: null
+      image:
+        in: null
+        out: null
+      source: subscription
+    limits:
+      max_input_tokens: 1000000
+      max_output_tokens: 128000
+      max_thinking_tokens: 32768
+    thinking:
+      supported: true
+      levels:
+      - low
+      - medium
+      - high
+      default_level: max
+    tokens_per_second: 80
+    notes: 'GLM-5.3 family rejects reasoning_effort=medium (valid: low|high|max); subscription plan; list price shown for reference'
+    context_window: 1000000
+    modalities:
+      input:
+      - text
+      - image
+      - video
+      output:
+      - text
+    supports_tools: true
+- model_name: zai/glm-5.3-flash (sub, max)[1m]
+  litellm_params:
+    model: anthropic/glm-5.3-flash
+    api_key: os.environ/ZAI_SUB_KEY
+    api_base: https://api.z.ai/api/anthropic
+    drop_params: true
+    additional_drop_params:
+    - context_management
+    - thinking
+    - reasoning_effort
+    reasoning_effort: max
+    extra_headers:
+      anthropic-product: claude_code
+  metadata:
+    provider: zai
+    behavesAs: claude-sonnet-5-5
+    description: Z.AI GLM-5.3-Flash (subscription, max thinking)
+    strengths: Deepest reasoning depth at flash cost
+    weaknesses: Slowest flash tier, most expensive
+    pricing:
+      text:
+        in: 0.04
+        out: 0.5
+        cached_in: null
+      audio:
+        in: null
+        out: null
+      image:
+        in: null
+        out: null
+      source: subscription
+    limits:
+      max_input_tokens: 1000000
+      max_output_tokens: 128000
+      max_thinking_tokens: 32768
+    thinking:
+      supported: true
+      levels:
+      - low
+      - medium
+      - high
+      default_level: max
+    tokens_per_second: 150
+    notes: 'GLM-5.3 family rejects reasoning_effort=medium (valid: low|high|max); subscription plan; list price shown for reference; flash context reported ~1M (aihubmix/z.ai docs); 200K guaranteed floor'
+    context_window: 1000000
+    modalities:
+      input:
+      - text
+      - image
+      - video
+      output:
+      - text
+    supports_tools: true
+- model_name: zai/glm-5.3-flash (sub, low)[1m]
+  litellm_params:
+    model: anthropic/glm-5.3-flash
+    api_key: os.environ/ZAI_SUB_KEY
+    api_base: https://api.z.ai/api/anthropic
+    drop_params: true
+    additional_drop_params:
+    - context_management
+    - thinking
+    - reasoning_effort
+    reasoning_effort: low
+    extra_headers:
+      anthropic-product: claude_code
+  metadata:
+    provider: zai
+    behavesAs: claude-sonnet-5-5
+    description: Z.AI GLM-5.3-Flash (subscription, low thinking)
+    strengths: Fastest 5.3 tier (shallowest thinking)
+    weaknesses: Reduced reasoning depth
+    pricing:
+      text:
+        in: 0.04
+        out: 0.5
+        cached_in: null
+      audio:
+        in: null
+        out: null
+      image:
+        in: null
+        out: null
+      source: subscription
+    limits:
+      max_input_tokens: 1000000
+      max_output_tokens: 128000
+      max_thinking_tokens: 32768
+    thinking:
+      supported: true
+      levels:
+      - low
+      - medium
+      - high
+      default_level: low
+    tokens_per_second: 150
+    notes: 'GLM-5.3 family rejects reasoning_effort=medium (valid: low|high|max); subscription plan; list price shown for reference; flash context reported ~1M (aihubmix/z.ai docs); 200K guaranteed floor'
+    context_window: 1000000
+    modalities:
+      input:
+      - text
+      - image
+      - video
+      output:
+      - text
+    supports_tools: true

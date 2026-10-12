@@ -388,38 +388,6 @@ qwen:
   - "alibaba/qwen3.8-flash[1m]"
   - "alibaba/qwen3.8-max-preview"
 
-# Alibaba Token Plan — all-Qwen flagship ladder
-# Tiers (2026-10; prior-gen tier retired — only 3.8-max/3.8-flash remain served):
-#   fable  = qwen3.8-max   (flagship, 1M, vision, night 50% off)
-#   opus   = qwen3.8-max   (same SKU; 3.7-max retired)
-#   sonnet = qwen3.8-flash
-#   haiku  = qwen3.8-flash
-qwen-max:
-  name: "Alibaba Qwen Max"
-  fable_model: "alibaba/qwen3.8-max"
-  opus_model: "alibaba/qwen3.8-max"
-  sonnet_model: "alibaba/qwen3.8-flash"
-  haiku_model: "alibaba/qwen3.8-flash"
-  extended:
-  - "alibaba/qwen3.8-max[1m]"
-  - "alibaba/qwen3.8-flash[1m]"
-  - "alibaba/qwen3.8-max-preview"
-  - "alibaba/qwen3.6-plus"
-  - "alibaba/qwen3.6-flash"
-
-# Alibaba Token Plan — all-Qwen speed tier (flash end of the ladder)
-# Tiers (2026-10; prior-gen tier retired): fable = qwen3.8-flash, opus = qwen3.8-flash,
-#                  sonnet = qwen3.6-plus, haiku = qwen3.6-flash
-qwen-flash:
-  name: "Alibaba Qwen Flash"
-  fable_model: "alibaba/qwen3.8-flash"
-  opus_model: "alibaba/qwen3.8-flash"
-  sonnet_model: "alibaba/qwen3.6-plus"
-  haiku_model: "alibaba/qwen3.6-flash"
-  extended:
-  - "alibaba/qwen3.8-flash[1m]"
-  - "alibaba/qwen3.6-plus"
-
 # Alibaba Token Plan — all-DeepSeek ladder
 # Tiers (2026-10):
 #   fable  = deepseek-v4-pro-0813  (GA snapshot, night 50% off)

@@ -34,22 +34,25 @@ def build_env_vars_anthropic(profile, proxy_url: str, api_key: str) -> dict[str,
     env["ANTHROPIC_BASE_URL"] = f"http://127.0.0.1:{FRONT_PROXY_PORT}"
     env["API_TIMEOUT_MS"] = "3000000"
 
-    if profile.meta.haiku_model:
-        env["ANTHROPIC_DEFAULT_HAIKU_MODEL"] = profile.meta.haiku_model
-    if profile.meta.sonnet_model:
-        env["ANTHROPIC_DEFAULT_SONNET_MODEL"] = profile.meta.sonnet_model
-    if profile.meta.opus_model:
-        env["ANTHROPIC_DEFAULT_OPUS_MODEL"] = profile.meta.opus_model
-    fable_model = profile.meta.effective_fable_model()
-    if fable_model:
-        env["ANTHROPIC_DEFAULT_FABLE_MODEL"] = fable_model
-        # Claude Code assumes a 200k window for catalog-unknown model IDs; the
-        # run-claude catalog knows the real one, so pass it through unless the
-        # user already pinned it.
-        if not os.environ.get("CLAUDE_CODE_MAX_CONTEXT_TOKENS"):
-            window = _catalog_context_window(fable_model)
-            if window:
-                env["CLAUDE_CODE_MAX_CONTEXT_TOKENS"] = str(window)
+    # env_passthrough: endpoint-only override - Claude Code keeps its own
+    # default model selection, so no model-pinning vars are exported.
+    if not profile.meta.env_passthrough:
+        if profile.meta.haiku_model:
+            env["ANTHROPIC_DEFAULT_HAIKU_MODEL"] = profile.meta.haiku_model
+        if profile.meta.sonnet_model:
+            env["ANTHROPIC_DEFAULT_SONNET_MODEL"] = profile.meta.sonnet_model
+        if profile.meta.opus_model:
+            env["ANTHROPIC_DEFAULT_OPUS_MODEL"] = profile.meta.opus_model
+        fable_model = profile.meta.effective_fable_model()
+        if fable_model:
+            env["ANTHROPIC_DEFAULT_FABLE_MODEL"] = fable_model
+            # Claude Code assumes a 200k window for catalog-unknown model IDs; the
+            # run-claude catalog knows the real one, so pass it through unless the
+            # user already pinned it.
+            if not os.environ.get("CLAUDE_CODE_MAX_CONTEXT_TOKENS"):
+                window = _catalog_context_window(fable_model)
+                if window:
+                    env["CLAUDE_CODE_MAX_CONTEXT_TOKENS"] = str(window)
 
     return env
 
@@ -315,7 +318,10 @@ def cmd_run_agent(
 
     # Determine command to run
     cmd = args.cmd if args.cmd else agent_config.default_cmd
-    if agent_config.agent_name == "claude" and model_overrides_enabled():
+    # Belt-and-braces: env_passthrough profiles are already a value-based no-op
+    # here (their slots are real claude-* IDs), but skip the injection outright
+    # so passthrough stays explicit and cheap.
+    if agent_config.agent_name == "claude" and model_overrides_enabled() and not profile.meta.env_passthrough:
         cmd = inject_model_overrides(list(cmd), profile, profile_name)
 
     # Print status (reuse existing function if needed)

@@ -67,7 +67,7 @@ the core Python proxy never owns a migration against it.
 
 ## Config Artifacts (YAML)
 
-### profiles.yaml (root; built-in fallback `run_claude/defaults/profiles.yaml`)
+### profiles.yaml (repo root; `get_builtin_dir()` resolves it — repo root from source, packaged inside the wheel when installed; the old `run_claude/defaults/` copies are gone)
 
 Profile → tier model mapping. Search order (first match wins):
 `~/.config/run-claude/user.profiles.yaml` → `~/.config/run-claude/profiles.yaml` →
@@ -80,6 +80,7 @@ a profile at that priority and falls through.
 | `name` | string | Display name |
 | `opus_model` / `sonnet_model` / `haiku_model` / `fable_model` | string | LiteLLM model_name per Claude tier |
 | `extended` | list[string] | Extra model names registered with the proxy (incl. `[1m]` aliases) |
+| `env_passthrough` | bool | `true` = endpoint-only override: export `ANTHROPIC_BASE_URL` / `API_TIMEOUT_MS` but no `ANTHROPIC_DEFAULT_*_MODEL`, so Claude Code picks its own models (default `false`) |
 
 ### models.yaml (`run_claude/models.yaml`; override `~/.config/run-claude/models.yaml`)
 

@@ -441,3 +441,79 @@ def test_zai_alt_x_profile_exists_without_flashx():
     assert "zai-oa-alt/glm-5.3-flash" in extra_names
 
     _assert_no_flashx_refs("zai-alt-x")
+
+
+def _pin_builtin_profile_resolution(monkeypatch, tmp_path):
+    """Hermetic: pin resolution to the built-in catalog (see test_inspect_wafer_tiers)."""
+    monkeypatch.setattr(
+        "run_claude.profiles.get_user_models_file",
+        lambda: tmp_path / "no-user-models.yaml",
+    )
+    monkeypatch.setattr(
+        "run_claude.profiles.get_user_profiles_file",
+        lambda: tmp_path / "no-user-profiles.yaml",
+    )
+    monkeypatch.setattr(
+        "run_claude.profiles.get_user_profiles_override_file",
+        lambda: tmp_path / "no-user-profile-override.yaml",
+    )
+
+
+def test_profile_meta_env_passthrough_defaults_false():
+    from run_claude.profiles import ProfileMeta
+
+    assert ProfileMeta.from_dict({}).env_passthrough is False
+    assert ProfileMeta.from_dict({"name": "x"}).env_passthrough is False
+
+
+def test_profile_meta_env_passthrough_read_when_present():
+    from run_claude.profiles import ProfileMeta
+
+    assert ProfileMeta.from_dict({"env_passthrough": True}).env_passthrough is True
+    assert ProfileMeta.from_dict({"env_passthrough": "true"}).env_passthrough is True
+    assert ProfileMeta.from_dict({"env_passthrough": False}).env_passthrough is False
+
+
+def test_profile_to_dict_round_trips_env_passthrough():
+    from run_claude.profiles import Profile, ProfileMeta
+
+    profile = Profile(meta=ProfileMeta(name="t", env_passthrough=True))
+    assert profile.to_dict()["meta"]["env_passthrough"] is True
+    restored = Profile.from_dict(profile.to_dict())
+    assert restored.meta.env_passthrough is True
+
+
+def test_anthropic_profile_is_env_passthrough_only(monkeypatch, tmp_path):
+    from run_claude.profiles import load_profile
+
+    _pin_builtin_profile_resolution(monkeypatch, tmp_path)
+    clear_caches()
+    try:
+        profile = load_profile("anthropic")
+        assert profile is not None
+        assert profile.meta.env_passthrough is True
+    finally:
+        clear_caches()
+
+
+def test_env_passthrough_stays_off_otherwise(monkeypatch, tmp_path):
+    from run_claude.profiles import load_profile
+
+    _pin_builtin_profile_resolution(monkeypatch, tmp_path)
+    clear_caches()
+    try:
+        for name in ("cerebras", "alibaba", "zai-pro", "wafer", "claude-plan"):
+            profile = load_profile(name)
+            assert profile is not None
+            assert profile.meta.env_passthrough is False, name
+    finally:
+        clear_caches()
+
+
+def test_profile_meta_from_data_env_passthrough_flat_and_nested():
+    from run_claude.profiles import _profile_meta_from_data
+
+    flat = _profile_meta_from_data("t", {"env_passthrough": True})
+    nested = _profile_meta_from_data("t", {"meta": {"env_passthrough": True}})
+    assert flat.env_passthrough is True
+    assert nested.env_passthrough is True

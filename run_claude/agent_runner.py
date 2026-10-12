@@ -316,6 +316,29 @@ def cmd_run_agent(
     # completely alone. External overrides pass through untouched — added
     # nothing, removed nothing (owner decision).
 
+    # Diagnostic hint, informational only — it never unsets, modifies, or
+    # suppresses anything (owner rule). A shell that previously sourced a
+    # non-passthrough profile keeps its model vars set; name them so a
+    # passthrough launch does not look like it silently did nothing.
+    if agent_config.agent_name == "claude" and profile.meta.env_passthrough:
+        inherited = [
+            f"{name}={env[name]!r}"
+            for name in (
+                "ANTHROPIC_DEFAULT_HAIKU_MODEL",
+                "ANTHROPIC_DEFAULT_SONNET_MODEL",
+                "ANTHROPIC_DEFAULT_OPUS_MODEL",
+                "ANTHROPIC_DEFAULT_FABLE_MODEL",
+            )
+            if name in env
+        ]
+        if inherited:
+            print(
+                "[ENV] env_passthrough: inherited model vars still apply — "
+                + ", ".join(inherited)
+                + " (external overrides; nothing unset)",
+                file=sys.stderr,
+            )
+
     # Add agent-specific environment variables
     proxy_url = proxy.get_proxy_url()
     api_key = proxy.get_api_key()

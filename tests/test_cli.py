@@ -533,6 +533,59 @@ class TestRunAgentEnv:
             assert env[var] == f"external/{var}"
         assert "Unset inherited ANTHROPIC_DEFAULT" not in capsys.readouterr().err
 
+    def test_claude_launch_passthrough_hints_when_inherited_model_vars_set(self, monkeypatch, capsys):
+        """Passthrough launch names inherited model vars in one [ENV] notice; unsets nothing."""
+        # Set EXPLICITLY (not ambient inheritance) so the test measures real behaviour.
+        for var in ("ANTHROPIC_DEFAULT_OPUS_MODEL", "ANTHROPIC_DEFAULT_SONNET_MODEL",
+                    "ANTHROPIC_DEFAULT_HAIKU_MODEL", "ANTHROPIC_DEFAULT_FABLE_MODEL"):
+            monkeypatch.setenv(var, f"external/{var}")
+        monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+        env, _cmd = self._run(monkeypatch, "claude", env_passthrough=True)
+        err = capsys.readouterr().err
+        # One notice, not one per variable.
+        assert err.count("[ENV] env_passthrough") == 1
+        for var in ("ANTHROPIC_DEFAULT_OPUS_MODEL", "ANTHROPIC_DEFAULT_SONNET_MODEL",
+                    "ANTHROPIC_DEFAULT_HAIKU_MODEL", "ANTHROPIC_DEFAULT_FABLE_MODEL"):
+            assert var in err
+            assert f"external/{var}" in err
+        # The hint is informational only: every var still present and unchanged.
+        for var in ("ANTHROPIC_DEFAULT_OPUS_MODEL", "ANTHROPIC_DEFAULT_SONNET_MODEL",
+                    "ANTHROPIC_DEFAULT_HAIKU_MODEL", "ANTHROPIC_DEFAULT_FABLE_MODEL"):
+            assert env[var] == f"external/{var}"
+
+    def test_claude_launch_passthrough_hint_names_only_set_vars(self, monkeypatch, capsys):
+        """Only the vars actually present appear in the notice."""
+        import os
+        monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+        for key in [k for k in os.environ
+                    if k.startswith("ANTHROPIC_DEFAULT_") and k != "ANTHROPIC_DEFAULT_SONNET_MODEL"]:
+            monkeypatch.delenv(key, raising=False)
+        monkeypatch.setenv("ANTHROPIC_DEFAULT_SONNET_MODEL", "external/sonnet-only")
+        env, _cmd = self._run(monkeypatch, "claude", env_passthrough=True)
+        err = capsys.readouterr().err
+        assert err.count("[ENV] env_passthrough") == 1
+        assert "ANTHROPIC_DEFAULT_SONNET_MODEL='external/sonnet-only'" in err
+        assert "ANTHROPIC_DEFAULT_OPUS_MODEL" not in err
+        assert "ANTHROPIC_DEFAULT_HAIKU_MODEL" not in err
+        assert "ANTHROPIC_DEFAULT_FABLE_MODEL" not in err
+        assert env["ANTHROPIC_DEFAULT_SONNET_MODEL"] == "external/sonnet-only"
+
+    def test_claude_launch_passthrough_no_hint_without_inherited_model_vars(self, monkeypatch, capsys):
+        import os
+        monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+        # Strip ambient inheritance so absence measures this code, not the harness shell.
+        for key in [k for k in os.environ if k.startswith("ANTHROPIC_DEFAULT_")]:
+            monkeypatch.delenv(key, raising=False)
+        self._run(monkeypatch, "claude", env_passthrough=True)
+        assert "[ENV] env_passthrough" not in capsys.readouterr().err
+
+    def test_claude_launch_non_passthrough_no_hint_even_with_vars(self, monkeypatch, capsys):
+        """Non-passthrough profiles set the vars themselves; a notice there would be noise."""
+        monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+        monkeypatch.setenv("ANTHROPIC_DEFAULT_SONNET_MODEL", "external/sonnet")
+        self._run(monkeypatch, "claude")
+        assert "[ENV] env_passthrough" not in capsys.readouterr().err
+
     def test_claude_launch_passthrough_respects_deliberate_max_context_tokens(self, monkeypatch):
         """CLAUDE_CODE_MAX_CONTEXT_TOKENS is never set nor cleared under passthrough."""
         monkeypatch.setenv("CLAUDE_CODE_MAX_CONTEXT_TOKENS", "123456")

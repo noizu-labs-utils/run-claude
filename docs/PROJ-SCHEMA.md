@@ -80,7 +80,7 @@ a profile at that priority and falls through.
 | `name` | string | Display name |
 | `opus_model` / `sonnet_model` / `haiku_model` / `fable_model` | string | LiteLLM model_name per Claude tier |
 | `extended` | list[string] | Extra model names registered with the proxy (incl. `[1m]` aliases) |
-| `env_passthrough` | bool | `true` = endpoint-only override: export `ANTHROPIC_BASE_URL` / `API_TIMEOUT_MS` but no `ANTHROPIC_DEFAULT_*_MODEL`, so Claude Code picks its own models (default `false`). run-claude adds nothing and removes nothing: any model var already set in the environment is left untouched and continues to apply. `CLAUDE_CODE_MAX_CONTEXT_TOKENS` is never set nor cleared. String values are coerced (`true/1/yes/on` vs `false/0/no/off`/empty, case-insensitive); unrecognised values fall back to `false`. |
+| `env_passthrough` | bool | `true` = endpoint-only override: export `ANTHROPIC_BASE_URL` / `API_TIMEOUT_MS` but no `ANTHROPIC_DEFAULT_*_MODEL`, so Claude Code picks its own models (default `false`). run-claude adds nothing and removes nothing: any model var already set in the environment is left untouched and continues to apply. Agent launches on a passthrough profile print a one-line `[ENV]` stderr notice naming any inherited `ANTHROPIC_DEFAULT_*_MODEL` vars and their values, so an externally pinned model is visible despite passthrough — informational only; nothing is unset or modified. `CLAUDE_CODE_MAX_CONTEXT_TOKENS` is never set nor cleared. String values are coerced (`true/1/yes/on` vs `false/0/no/off`/empty, case-insensitive); unrecognised values fall back to `false`. |
 
 ### models.yaml (`run_claude/models.yaml`; override `~/.config/run-claude/models.yaml`)
 

@@ -1879,78 +1879,78 @@ model_list:
   # ==========================================================================
 - model_name: "gemini-pro"
   litellm_params:
-    model: gemini/gemini-3.1-pro-preview
+    model: gemini/gemini-4-argon
     api_key: os.environ/GEMINI_API_KEY
     drop_params: true
     additional_drop_params: ["context_management", "thinking"]
   metadata:
     provider: gemini
-    description: "Gemini 3.1 Pro (preview) via Google AI"
-    strengths: "Huge context (1M+), strong coding, fast"
-    weaknesses: "Occasional hallucinations, less precise"
+    description: "Gemini 4 Argon via Google AI"
+    strengths: "Flagship reasoning model, unified 1M context, long decodes"
+    weaknesses: "Output capped at 32K; input price rises Dec 2026"
 
     pricing:
       text:
         in: 2.0
-        out: 12.0
-        cached_in: 0.2
+        out: 10.0
+        cached_in:
       audio:
-        in: 2.0
+        in:
         out:
       image:
-        in: 2.0
+        in:
         out:
       source: docs
     limits:
-      max_input_tokens: 1000000
-      max_output_tokens: 65536
-      max_thinking_tokens: 32768
+      max_input_tokens: 1048576
+      max_output_tokens: 32768
+      max_thinking_tokens:
     thinking:
       supported: true
       levels:
       default_level:
-    tokens_per_second: 70
-    notes: image input tokenized at text rate
-    context_window: 1000000
+    tokens_per_second:
+    notes: input $2/output $10 per MTok until 2026-11-30 then $4/$20; non-text pricing + thinking budget unverified 2026-10-19; limits API-verified
+    context_window: 1048576
     modalities:
       input: [text, image, audio, video]
       output: [text]
     supports_tools: true
 - model_name: "gemini-flash"
   litellm_params:
-    model: gemini/gemini-3.7-flash
+    model: gemini/gemini-3.8-flash
     api_key: os.environ/GEMINI_API_KEY
     drop_params: true
     additional_drop_params: ["context_management", "thinking"]
   metadata:
     provider: gemini
-    description: "Gemini 3.7 Flash via Google AI"
-    strengths: "Very fast, large context, cheap"
-    weaknesses: "Less depth than Pro"
+    description: "Gemini 3.8 Flash via Google AI"
+    strengths: "Most intelligent Flash; tuned for long-horizon agentic work; fast"
+    weaknesses: "Less depth than Pro; price rises Jan 2027"
 
     pricing:
       text:
-        in: 0.5
-        out: 3.0
-        cached_in: 0.075
+        in: 0.75
+        out: 3.75
+        cached_in:
       audio:
-        in: 1.0
+        in:
         out:
       image:
-        in: 0.5
+        in:
         out:
-      source: estimate
+      source: docs
     limits:
-      max_input_tokens: 1000000
+      max_input_tokens: 1048576
       max_output_tokens: 65536
-      max_thinking_tokens: 32768
+      max_thinking_tokens:
     thinking:
       supported: true
       levels:
       default_level:
-    tokens_per_second: 200
-    notes: image input tokenized at text rate
-    context_window: 1000000
+    tokens_per_second:
+    notes: input $0.75/output $3.75 per MTok until 2026-12-31 then $1.50/$7.50; non-text pricing + thinking budget unverified 2026-10-19; limits API-verified
+    context_window: 1048576
     modalities:
       input: [text, image, audio, video]
       output: [text]
@@ -1969,18 +1969,18 @@ model_list:
 
     pricing:
       text:
-        in: 0.1
-        out: 0.4
+        in: 0.3
+        out: 2.5
         cached_in:
       audio:
         in:
         out:
       image:
-        in: 0.1
+        in: 0.3
         out:
       source: docs
     limits:
-      max_input_tokens: 1000000
+      max_input_tokens: 1048576
       max_output_tokens: 65536
       max_thinking_tokens: 32768
     thinking:
@@ -1988,48 +1988,48 @@ model_list:
       levels:
       default_level:
     tokens_per_second: 400
-    notes: image input tokenized at text rate
-    context_window: 1000000
+    notes: pricing corrected to docs figures 2026-10-19 (was $0.10/$0.40); thinking budget unverified
+    context_window: 1048576
     modalities:
       input: [text, image, audio, video]
       output: [text]
     supports_tools: true
 - model_name: "gemini-thinking"
   litellm_params:
-    model: gemini/gemini-3.7-flash
+    model: gemini/gemini-3.8-flash
     api_key: os.environ/GEMINI_API_KEY
     drop_params: true
     additional_drop_params: ["context_management"]
   metadata:
     provider: gemini
-    description: "Gemini 3.7 Flash with thinking mode"
+    description: "Gemini 3.8 Flash with thinking mode"
     strengths: "Chain-of-thought reasoning, fast"
     weaknesses: "Higher latency than base Flash"
 
   # Image-generation models (not chat tiers)
     pricing:
       text:
-        in: 0.5
-        out: 3.0
-        cached_in: 0.075
+        in: 0.75
+        out: 3.75
+        cached_in:
       audio:
-        in: 1.0
+        in:
         out:
       image:
-        in: 0.5
+        in:
         out:
-      source: estimate
+      source: docs
     limits:
-      max_input_tokens: 1000000
+      max_input_tokens: 1048576
       max_output_tokens: 65536
-      max_thinking_tokens: 32768
+      max_thinking_tokens:
     thinking:
       supported: true
       levels:
       default_level:
-    tokens_per_second: 200
-    notes: image input tokenized at text rate
-    context_window: 1000000
+    tokens_per_second:
+    notes: same model as gemini-flash (3.8); input $0.75/output $3.75 per MTok until 2026-12-31 then $1.50/$7.50; non-text pricing + thinking budget unverified 2026-10-19; limits API-verified
+    context_window: 1048576
     modalities:
       input: [text, image, audio, video]
       output: [text]
@@ -2059,16 +2059,16 @@ model_list:
         out: 30.0
       source: inferred
     limits:
-      max_input_tokens: 1000000
-      max_output_tokens: 65536
+      max_input_tokens: 131072
+      max_output_tokens: 32768
       max_thinking_tokens: 32768
     thinking:
       supported: true
       levels:
       default_level:
     tokens_per_second: 70
-    notes: image output ~$30/1M tokens
-    context_window: 1000000
+    notes: image output ~$30/1M tokens; limits API-verified 2026-10-19 (was 1M in / 64K out)
+    context_window: 131072
     modalities:
       input: [text, image]
       output: [image]
@@ -2113,10 +2113,10 @@ model_list:
         out:
       image:
         in: 0.5
-        out: 30.0
-      source: estimate
+        out: 60.0
+      source: docs
     limits:
-      max_input_tokens: 1000000
+      max_input_tokens: 65536
       max_output_tokens: 65536
       max_thinking_tokens: 32768
     thinking:
@@ -2124,8 +2124,8 @@ model_list:
       levels:
       default_level:
     tokens_per_second: 200
-    notes: image output ~$30/1M tokens
-    context_window: 1000000
+    notes: image output $60/MTok per docs 2026-10-19 (was ~$30 estimated); limits API-verified (was 1M in)
+    context_window: 65536
     modalities:
       input: [text, image]
       output: [image]

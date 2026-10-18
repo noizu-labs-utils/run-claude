@@ -112,6 +112,12 @@ anthropic:
   # cerebras (CEREBRAS_API_KEY)
   - "cerebras/qwen-3.8-27b"
   - "cerebras/gpt-oss-120b"
+  # openai (OPENAI_API_KEY)
+  - "openai-gpt6.1-sol"
+  - "openai-gpt5.4-mini"
+  # gemini (GEMINI_API_KEY)
+  - "gemini-pro"
+  - "gemini-flash-lite"
 
 # OpenAI - GPT models
 openai:
@@ -241,6 +247,12 @@ zai-pro:
   # cerebras (CEREBRAS_API_KEY)
   - "cerebras/qwen-3.8-27b"
   - "cerebras/gpt-oss-120b"
+  # openai (OPENAI_API_KEY)
+  - "openai-gpt6.1-sol"
+  - "openai-gpt5.4-mini"
+  # gemini (GEMINI_API_KEY)
+  - "gemini-pro"
+  - "gemini-flash-lite"
 zai-alt: &zai-alt-profile
   name: "Zai Subscription (Alt)"
   opus_model: "zai-alt/glm-5.3-flash (sub, max)"
@@ -324,6 +336,12 @@ zai-alt: &zai-alt-profile
   # cerebras (CEREBRAS_API_KEY)
   - "cerebras/qwen-3.8-27b"
   - "cerebras/gpt-oss-120b"
+  # openai (OPENAI_API_KEY)
+  - "openai-gpt6.1-sol"
+  - "openai-gpt5.4-mini"
+  # gemini (GEMINI_API_KEY)
+  - "gemini-pro"
+  - "gemini-flash-lite"
 zai-pro-alt: *zai-alt-profile
 
 # Z.AI Subscription - formerly the FlashX variant.

@@ -109,6 +109,9 @@ anthropic:
   - "groq-gpt-oss-20b"
   - "groq-safety-gpt-oss-20b"
   - "groq-minimax-m2.7"
+  # cerebras (CEREBRAS_API_KEY)
+  - "cerebras/qwen-3.8-27b"
+  - "cerebras/gpt-oss-120b"
 
 # OpenAI - GPT models
 openai:
@@ -235,6 +238,9 @@ zai-pro:
   - "groq-gpt-oss-20b"
   - "groq-safety-gpt-oss-20b"
   - "groq-minimax-m2.7"
+  # cerebras (CEREBRAS_API_KEY)
+  - "cerebras/qwen-3.8-27b"
+  - "cerebras/gpt-oss-120b"
 zai-alt: &zai-alt-profile
   name: "Zai Subscription (Alt)"
   opus_model: "zai-alt/glm-5.3-flash (sub, max)"
@@ -315,6 +321,9 @@ zai-alt: &zai-alt-profile
   - "groq-gpt-oss-20b"
   - "groq-safety-gpt-oss-20b"
   - "groq-minimax-m2.7"
+  # cerebras (CEREBRAS_API_KEY)
+  - "cerebras/qwen-3.8-27b"
+  - "cerebras/gpt-oss-120b"
 zai-pro-alt: *zai-alt-profile
 
 # Z.AI Subscription - formerly the FlashX variant.

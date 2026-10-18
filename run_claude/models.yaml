@@ -2548,6 +2548,52 @@ model_list:
       input: [text]
       output: [text]
     supports_tools: true
+- model_name: "cerebras/qwen-3.8-27b"
+  litellm_params:
+    model: cerebras/qwen-3.8-27b
+    api_key: os.environ/CEREBRAS_API_KEY
+    drop_params: true
+    additional_drop_params: ["context_management", "output_config", "thinking", "reasoning_effort",
+      "thinking_blocks"]
+    timeout: 600
+    stream_timeout: 600
+    num_retries: 10
+  allowed_fails: 10
+  cooldown_time: 5
+  metadata:
+    provider: cerebras
+    description: "Qwen 3.8 27B on Cerebras hardware"
+    strengths: "Fast, good multilingual support"
+    weaknesses: "Flaky, smaller model"
+
+  # qwen-3.8-27b
+    pricing:
+      text:
+        in: 0.1
+        out: 0.2
+        cached_in:
+      audio:
+        in:
+        out:
+      image:
+        in:
+        out:
+      source: estimate
+    limits:
+      max_input_tokens: 131072
+      max_output_tokens: 32768
+      max_thinking_tokens:
+    thinking:
+      supported: false
+      levels:
+      default_level:
+    tokens_per_second: 1000
+    notes: ''
+    context_window: 131072
+    modalities:
+      input: [text]
+      output: [text]
+    supports_tools: true
 - model_name: "cerebras/zai-glm-4.7"
   litellm_params:
     model: cerebras/zai-glm-4.7

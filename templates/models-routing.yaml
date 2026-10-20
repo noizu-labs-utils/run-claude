@@ -1,0 +1,56 @@
+# models-routing.yaml — ROUTING-TABLE TEMPLATE (EXAMPLE entries only)
+# ============================================================================
+# STATUS: TEMPLATE. Nothing in run-claude loads this file today. It defines
+# the shape the model-routing layer will consume once the feature ships.
+#
+# FEATURE FLAG (default OFF): routing activates only when MODELS_ROUTING is
+# explicitly enabled in the environment:
+#
+#     MODELS_ROUTING=off      # default — no routing decisions, no logging
+#     MODELS_ROUTING=shadow   # log-only: record the model that WOULD be
+#                             # chosen; traffic is unchanged
+#     MODELS_ROUTING=on       # route by this table
+#
+# SHADOW FIRST: for the first two weeks after enabling, run shadow mode.
+# Shadow logs (router decisions vs. actual model) are reviewed before any
+# traffic switch; expect routing to stay log-only for at least 14 days.
+#
+# Entry fields:
+#   id                — catalog id as served by the gateway (run_claude/models.yaml)
+#   provider          — provider slug (anthropic, zai, qwen, deepseek, ...)
+#   cost_in_per_mtok  — USD per million input tokens
+#   cost_out_per_mtok — USD per million output tokens
+#   quality_tier      — house effort ladder: fable | opus | sonnet | haiku
+#   context_window    — tokens
+#   when_to_use       — one-line routing hint the router matches against
+#
+# Everything below is EXAMPLE data — copy to ~/.config/run-claude/
+# models-routing.yaml and replace with real entries before enabling.
+
+routing_table:
+  # EXAMPLE — hardest work, depth over speed
+  - id: "claude-fable-5-1"
+    provider: anthropic
+    cost_in_per_mtok: 15.00
+    cost_out_per_mtok: 75.00
+    quality_tier: fable
+    context_window: 200000
+    when_to_use: "hardest multi-step work where depth beats speed"
+
+  # EXAMPLE — ordinary code + docs, the default tier
+  - id: "zai/glm-5.3-flash (sub, high)"
+    provider: zai
+    cost_in_per_mtok: 0.60
+    cost_out_per_mtok: 2.20
+    quality_tier: sonnet
+    context_window: 128000
+    when_to_use: "ordinary code and docs; default tier for delegated agents"
+
+  # EXAMPLE — lookups, extraction, format-exact output
+  - id: "zai/glm-5.3-flash (sub, low)"
+    provider: zai
+    cost_in_per_mtok: 0.60
+    cost_out_per_mtok: 2.20
+    quality_tier: haiku
+    context_window: 128000
+    when_to_use: "lookups, extraction, format-exact output, simple edits"

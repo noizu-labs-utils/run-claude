@@ -6136,6 +6136,7 @@ model_list:
     model: groq/qwen/qwen3.8-27b
     api_key: os.environ/GROQ_API_KEY
     drop_params: true
+    max_tokens: 16384  # groq caps qwen3.8-27b output; client values above 400
     additional_drop_params: ["context_management", "thinking", "reasoning_effort"]
   metadata:
     provider: groq
@@ -6157,7 +6158,7 @@ model_list:
       source: estimate
     limits:
       max_input_tokens: 131072
-      max_output_tokens: 32768
+      max_output_tokens: 16384
       max_thinking_tokens: 32768
     thinking:
       supported: true
@@ -8725,6 +8726,7 @@ model_list:
     model: groq/qwen/qwen3.8-27b
     api_key: os.environ/GROQ_API_KEY
     drop_params: true
+    max_tokens: 16384  # groq caps qwen3.8-27b output; client values above 400
     additional_drop_params: [context_management, thinking, reasoning_effort]
   metadata:
     provider: groq
@@ -8745,7 +8747,7 @@ model_list:
       source: estimate
     limits:
       max_input_tokens: 1000000
-      max_output_tokens: 32768
+      max_output_tokens: 16384
       max_thinking_tokens: 32768
     thinking:
       supported: true
@@ -8763,6 +8765,7 @@ model_list:
     model: groq/qwen/qwen3.8-27b
     api_key: os.environ/GROQ_API_KEY
     drop_params: true
+    max_tokens: 16384  # groq caps qwen3.8-27b output; client values above 400
     additional_drop_params: [context_management, thinking]
     reasoning_effort: medium
   metadata:
@@ -8783,7 +8786,7 @@ model_list:
       source: estimate
     limits:
       max_input_tokens: 1000000
-      max_output_tokens: 32768
+      max_output_tokens: 16384
       max_thinking_tokens: 32768
     thinking:
       supported: true

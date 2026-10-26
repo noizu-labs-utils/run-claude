@@ -73,7 +73,7 @@ class TestEnvCommand:
         output = captured.out
 
         assert "ANTHROPIC_DEFAULT_FABLE_MODEL=cerebras/zai-glm-4.7" in output
-        assert "ANTHROPIC_DEFAULT_OPUS_MODEL=cerebras/qwen-3-235b-a22b-instruct-2507" in output
+        assert "ANTHROPIC_DEFAULT_OPUS_MODEL=cerebras/qwen-3.8-27b" in output
         assert "ANTHROPIC_DEFAULT_SONNET_MODEL=cerebras/gpt-oss-120b" in output
         assert "ANTHROPIC_DEFAULT_HAIKU_MODEL=cerebras/llama-3.3-70b" in output
 

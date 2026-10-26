@@ -2548,6 +2548,53 @@ model_list:
       input: [text]
       output: [text]
     supports_tools: true
+- model_name: "cerebras/qwen-3.8-27b"
+  litellm_params:
+    model: cerebras/qwen-3.8-27b
+    api_key: os.environ/CEREBRAS_API_KEY
+    drop_params: true
+    additional_drop_params: [context_management, output_config, thinking, 
+        thinking_blocks]
+    timeout: 600
+    stream_timeout: 600
+    num_retries: 10
+  metadata:
+    provider: cerebras
+    description: "Qwen3.8 27B on Cerebras hardware"
+    strengths: "Fast dense 27B, vision, tool calling, reasoning_effort honored"
+    weaknesses: "64K context, 32K max output"
+
+    pricing:
+      text:
+        in: 0.99
+        out: 1.49
+        cached_in:
+      audio:
+        in:
+        out:
+      image:
+        in:
+        out:
+      source: docs
+    limits:
+      max_input_tokens: 65536
+      max_output_tokens: 32768
+      max_thinking_tokens: 32768
+    thinking:
+      supported: true
+      levels:
+      - none
+      - low
+      - medium
+      - high
+      default_level:
+    tokens_per_second: 1000
+    notes: cerebras public catalog list price (2026-10-26)
+    context_window: 65536
+    modalities:
+      input: [text, image]
+      output: [text]
+    supports_tools: true
 - model_name: "cerebras/zai-glm-4.7"
   litellm_params:
     model: cerebras/zai-glm-4.7
@@ -4200,16 +4247,16 @@ model_list:
 
     pricing:
       text:
-        in: 0.25
-        out: 0.8
-        cached_in:
+        in: 1.4
+        out: 4.4
+        cached_in: 0.26
       audio:
         in:
         out:
       image:
         in:
         out:
-      source: estimate
+      source: docs
     limits:
       max_input_tokens: 200000
       max_output_tokens: 128000
@@ -4222,7 +4269,7 @@ model_list:
       - high
       default_level: "high"
     tokens_per_second: 80
-    notes: portfolio discount cluster pricing
+    notes: wafer catalog list price (2026-10-26)
     context_window: 200000
     modalities:
       input: [text, image, video]
@@ -4246,16 +4293,16 @@ model_list:
 
     pricing:
       text:
-        in: 0.25
-        out: 0.8
-        cached_in:
+        in: 1.4
+        out: 4.4
+        cached_in: 0.26
       audio:
         in:
         out:
       image:
         in:
         out:
-      source: estimate
+      source: docs
     limits:
       max_input_tokens: 1000000
       max_output_tokens: 128000
@@ -4268,7 +4315,7 @@ model_list:
       - high
       default_level: "high"
     tokens_per_second: 80
-    notes: portfolio discount cluster pricing
+    notes: wafer catalog list price (2026-10-26)
     context_window: 1000000
     modalities:
       input: [text, image, video]
@@ -4292,18 +4339,18 @@ model_list:
 
     pricing:
       text:
-        in: 0.3
-        out: 1.2
-        cached_in:
+        in: 3.0
+        out: 15.0
+        cached_in: 0.3
       audio:
         in:
         out:
       image:
         in:
         out:
-      source: estimate
+      source: docs
     limits:
-      max_input_tokens: 262144
+      max_input_tokens: 1000000
       max_output_tokens: 32768
       max_thinking_tokens: 32768
     thinking:
@@ -4311,8 +4358,8 @@ model_list:
       levels:
       default_level: "high"
     tokens_per_second: 50
-    notes: portfolio discount cluster pricing
-    context_window: 262144
+    notes: wafer catalog list price (2026-10-26)
+    context_window: 1000000
     modalities:
       input: [text, image]
       output: [text]
@@ -4335,16 +4382,16 @@ model_list:
 
     pricing:
       text:
-        in: 0.3
-        out: 1.2
-        cached_in:
+        in: 3.0
+        out: 15.0
+        cached_in: 0.3
       audio:
         in:
         out:
       image:
         in:
         out:
-      source: estimate
+      source: docs
     limits:
       max_input_tokens: 1000000
       max_output_tokens: 32768
@@ -4354,179 +4401,7 @@ model_list:
       levels:
       default_level: "high"
     tokens_per_second: 50
-    notes: portfolio discount cluster pricing
-    context_window: 1000000
-    modalities:
-      input: [text, image]
-      output: [text]
-    supports_tools: true
-- model_name: "WAFER_KIMI_K26"
-  litellm_params:
-    model: anthropic/Kimi-K2.6
-    api_key: os.environ/WAFER_AI_API_KEY
-    api_base: https://pass.wafer.ai
-    drop_params: false
-    additional_drop_params: ["context_management", "thinking"]
-    reasoning_effort: "medium"
-    extra_headers:
-      anthropic-product: claude_code
-  metadata:
-    provider: wafer
-    description: "Wafer Kimi-K2.6 (262K, vision, non-ZDR)"
-    strengths: "Fast coding MoE, vision, mid price"
-    weaknesses: "262K not 1M; ZDR requests are rejected"
-
-    pricing:
-      text:
-        in: 0.2
-        out: 0.8
-        cached_in:
-      audio:
-        in:
-        out:
-      image:
-        in:
-        out:
-      source: estimate
-    limits:
-      max_input_tokens: 262144
-      max_output_tokens: 32768
-      max_thinking_tokens: 32768
-    thinking:
-      supported: true
-      levels:
-      default_level: "medium"
-    tokens_per_second: 50
-    notes: portfolio discount cluster pricing
-    context_window: 262144
-    modalities:
-      input: [text, image]
-      output: [text]
-    supports_tools: true
-- model_name: "WAFER_KIMI_K26[1m]"
-  litellm_params:
-    model: anthropic/Kimi-K2.6
-    api_key: os.environ/WAFER_AI_API_KEY
-    api_base: https://pass.wafer.ai
-    drop_params: false
-    additional_drop_params: ["context_management", "thinking"]
-    reasoning_effort: "medium"
-    extra_headers:
-      anthropic-product: claude_code
-  metadata:
-    provider: wafer
-    description: "Wafer Kimi-K2.6 Claude Code [1m] alias (backend is 262K)"
-    strengths: "Prevents [1m] suffix 404s"
-    weaknesses: "Backend cap is 262K, not 1M"
-
-    pricing:
-      text:
-        in: 0.2
-        out: 0.8
-        cached_in:
-      audio:
-        in:
-        out:
-      image:
-        in:
-        out:
-      source: estimate
-    limits:
-      max_input_tokens: 1000000
-      max_output_tokens: 32768
-      max_thinking_tokens: 32768
-    thinking:
-      supported: true
-      levels:
-      default_level: "medium"
-    tokens_per_second: 50
-    notes: portfolio discount cluster pricing
-    context_window: 1000000
-    modalities:
-      input: [text, image]
-      output: [text]
-    supports_tools: true
-- model_name: "WAFER_QWEN35_397B"
-  litellm_params:
-    model: anthropic/Qwen3.5-397B-A17B
-    api_key: os.environ/WAFER_AI_API_KEY
-    api_base: https://pass.wafer.ai
-    drop_params: false
-    additional_drop_params: ["context_management", "thinking"]
-    reasoning_effort: "low"
-    extra_headers:
-      anthropic-product: claude_code
-  metadata:
-    provider: wafer
-    description: "Wafer Qwen3.5-397B-A17B (latest Qwen on Wafer, 262K)"
-    strengths: "Fast MoE, good cheap coding/chat"
-    weaknesses: "262K context; no ZDR"
-
-    pricing:
-      text:
-        in: 0.15
-        out: 0.5
-        cached_in:
-      audio:
-        in:
-        out:
-      image:
-        in:
-        out:
-      source: estimate
-    limits:
-      max_input_tokens: 131072
-      max_output_tokens: 32768
-      max_thinking_tokens: 32768
-    thinking:
-      supported: true
-      levels:
-      default_level: "low"
-    tokens_per_second: 60
-    notes: portfolio discount cluster pricing
-    context_window: 131072
-    modalities:
-      input: [text, image]
-      output: [text]
-    supports_tools: true
-- model_name: "WAFER_QWEN35_397B[1m]"
-  litellm_params:
-    model: anthropic/Qwen3.5-397B-A17B
-    api_key: os.environ/WAFER_AI_API_KEY
-    api_base: https://pass.wafer.ai
-    drop_params: false
-    additional_drop_params: ["context_management", "thinking"]
-    reasoning_effort: "low"
-    extra_headers:
-      anthropic-product: claude_code
-  metadata:
-    provider: wafer
-    description: "Wafer Qwen3.5-397B Claude Code [1m] alias (backend is 262K)"
-    strengths: "Prevents [1m] suffix 404s"
-    weaknesses: "Backend cap is 262K, not 1M"
-
-    pricing:
-      text:
-        in: 0.15
-        out: 0.5
-        cached_in:
-      audio:
-        in:
-        out:
-      image:
-        in:
-        out:
-      source: estimate
-    limits:
-      max_input_tokens: 1000000
-      max_output_tokens: 32768
-      max_thinking_tokens: 32768
-    thinking:
-      supported: true
-      levels:
-      default_level: "low"
-    tokens_per_second: 60
-    notes: portfolio discount cluster pricing
+    notes: wafer catalog list price (2026-10-26)
     context_window: 1000000
     modalities:
       input: [text, image]
@@ -4550,16 +4425,16 @@ model_list:
 
     pricing:
       text:
-        in: 0.04
-        out: 0.16
-        cached_in:
+        in: 0.14
+        out: 0.28
+        cached_in: 0.028
       audio:
         in:
         out:
       image:
         in:
         out:
-      source: estimate
+      source: docs
     limits:
       max_input_tokens: 131072
       max_output_tokens: 65536
@@ -4569,7 +4444,7 @@ model_list:
       levels:
       default_level: "low"
     tokens_per_second: 150
-    notes: portfolio discount cluster pricing
+    notes: wafer catalog list price (2026-10-26)
     context_window: 131072
     modalities:
       input: [text]
@@ -4593,16 +4468,16 @@ model_list:
 
     pricing:
       text:
-        in: 0.04
-        out: 0.16
-        cached_in:
+        in: 0.14
+        out: 0.28
+        cached_in: 0.028
       audio:
         in:
         out:
       image:
         in:
         out:
-      source: estimate
+      source: docs
     limits:
       max_input_tokens: 1000000
       max_output_tokens: 65536
@@ -4612,97 +4487,10 @@ model_list:
       levels:
       default_level: "low"
     tokens_per_second: 150
-    notes: portfolio discount cluster pricing
+    notes: wafer catalog list price (2026-10-26)
     context_window: 1000000
     modalities:
       input: [text]
-      output: [text]
-    supports_tools: true
-- model_name: "wafer/kimi-k2.6"
-  litellm_params:
-    model: anthropic/Kimi-K2.6
-    api_key: os.environ/WAFER_AI_API_KEY
-    api_base: https://pass.wafer.ai
-    drop_params: false
-    additional_drop_params: ["context_management", "thinking"]
-    reasoning_effort: "medium"
-    extra_headers:
-      anthropic-product: claude_code
-  metadata:
-    provider: wafer
-    description: "Wafer Kimi-K2.6 named alias (262K, vision, non-ZDR)"
-    strengths: "Fast coding MoE, vision, mid price"
-    weaknesses: "262K not 1M; ZDR requests are rejected"
-
-    pricing:
-      text:
-        in: 0.2
-        out: 0.8
-        cached_in:
-      audio:
-        in:
-        out:
-      image:
-        in:
-        out:
-      source: estimate
-    limits:
-      max_input_tokens: 262144
-      max_output_tokens: 32768
-      max_thinking_tokens: 32768
-    thinking:
-      supported: true
-      levels:
-      default_level: "medium"
-    tokens_per_second: 50
-    notes: portfolio discount cluster pricing
-    context_window: 262144
-    modalities:
-      input: [text, image]
-      output: [text]
-    supports_tools: true
-- model_name: "wafer/kimi-k2.6[1m]"
-  litellm_params:
-    model: anthropic/Kimi-K2.6
-    api_key: os.environ/WAFER_AI_API_KEY
-    api_base: https://pass.wafer.ai
-    drop_params: false
-    additional_drop_params: ["context_management", "thinking"]
-    reasoning_effort: "medium"
-    extra_headers:
-      anthropic-product: claude_code
-  metadata:
-    provider: wafer
-    description: "Wafer Kimi-K2.6 named alias, Claude Code [1m] suffix (backend is
-      262K)"
-    strengths: "Prevents [1m] suffix 404s"
-    weaknesses: "Backend cap is 262K, not 1M"
-
-    pricing:
-      text:
-        in: 0.2
-        out: 0.8
-        cached_in:
-      audio:
-        in:
-        out:
-      image:
-        in:
-        out:
-      source: estimate
-    limits:
-      max_input_tokens: 1000000
-      max_output_tokens: 32768
-      max_thinking_tokens: 32768
-    thinking:
-      supported: true
-      levels:
-      default_level: "medium"
-    tokens_per_second: 50
-    notes: portfolio discount cluster pricing
-    context_window: 1000000
-    modalities:
-      input: [text, image]
       output: [text]
     supports_tools: true
 - model_name: "wafer/glm-5.2"
@@ -4723,16 +4511,16 @@ model_list:
 
     pricing:
       text:
-        in: 0.25
-        out: 0.8
-        cached_in:
+        in: 1.4
+        out: 4.4
+        cached_in: 0.26
       audio:
         in:
         out:
       image:
         in:
         out:
-      source: estimate
+      source: docs
     limits:
       max_input_tokens: 200000
       max_output_tokens: 128000
@@ -4745,7 +4533,7 @@ model_list:
       - high
       default_level: "high"
     tokens_per_second: 80
-    notes: portfolio discount cluster pricing
+    notes: wafer catalog list price (2026-10-26)
     context_window: 200000
     modalities:
       input: [text, image, video]
@@ -4779,16 +4567,16 @@ model_list:
 
     pricing:
       text:
-        in: 0.25
-        out: 0.8
-        cached_in:
+        in: 1.4
+        out: 4.4
+        cached_in: 0.26
       audio:
         in:
         out:
       image:
         in:
         out:
-      source: estimate
+      source: docs
     limits:
       max_input_tokens: 1000000
       max_output_tokens: 128000
@@ -4801,7 +4589,7 @@ model_list:
       - high
       default_level: "high"
     tokens_per_second: 80
-    notes: portfolio discount cluster pricing
+    notes: wafer catalog list price (2026-10-26)
     context_window: 1000000
     modalities:
       input: [text, image, video]
@@ -6334,22 +6122,22 @@ model_list:
       input: [text]
       output: [text]
     supports_tools: true
-- model_name: "groq-qwen3.6-27b"
+- model_name: "groq-qwen3.8-27b"
   litellm_params:
-    model: groq/qwen/qwen3.6-27b
+    model: groq/qwen/qwen3.8-27b
     api_key: os.environ/GROQ_API_KEY
     drop_params: true
     additional_drop_params: ["context_management", "thinking", "reasoning_effort"]
   metadata:
     provider: groq
-    description: "Qwen3.6 27B preview on Groq"
+    description: "Qwen3.8 27B preview on Groq"
     strengths: "Fast preview model with large context"
     weaknesses: "Preview availability may change"
 
     pricing:
       text:
-        in: 0.8
-        out: 0.9
+        in: 0.35
+        out: 0.99
         cached_in:
       audio:
         in:
@@ -8923,21 +8711,59 @@ model_list:
       input: [text]
       output: [text]
     supports_tools: true
-- model_name: "groq-qwen3.6-27b[1m]"
+- model_name: "groq-qwen3.8-27b[1m]"
   litellm_params:
-    model: groq/qwen/qwen3.6-27b
+    model: groq/qwen/qwen3.8-27b
     api_key: os.environ/GROQ_API_KEY
     drop_params: true
     additional_drop_params: [context_management, thinking, reasoning_effort]
   metadata:
     provider: groq
-    description: Real-name copy of groq/fable[1m] — Qwen3.6 27B on Groq (fable 
+    description: Real-name copy of groq/fable[1m] — Qwen3.8 27B on Groq (fable 
       1M alias)
 
     pricing:
       text:
-        in: 0.8
-        out: 0.9
+        in: 0.35
+        out: 0.99
+        cached_in:
+      audio:
+        in:
+        out:
+      image:
+        in:
+        out:
+      source: estimate
+    limits:
+      max_input_tokens: 1000000
+      max_output_tokens: 32768
+      max_thinking_tokens: 32768
+    thinking:
+      supported: true
+      levels:
+      default_level:
+    tokens_per_second: 400
+    notes: ''
+    context_window: 1000000
+    modalities:
+      input: [text]
+      output: [text]
+    supports_tools: true
+- model_name: "groq-qwen3.8-27b[1m] (medium)"
+  litellm_params:
+    model: groq/qwen/qwen3.8-27b
+    api_key: os.environ/GROQ_API_KEY
+    drop_params: true
+    additional_drop_params: [context_management, thinking]
+    reasoning_effort: medium
+  metadata:
+    provider: groq
+    description: Qwen3.8 27B on Groq, 1M context, reasoning_effort medium
+
+    pricing:
+      text:
+        in: 0.35
+        out: 0.99
         cached_in:
       audio:
         in:
@@ -9055,6 +8881,100 @@ model_list:
       input: [text]
       output: [text]
     supports_tools: true
+- model_name: "cerebras-pro/qwen-3.8-27b"
+  litellm_params:
+    model: cerebras/qwen-3.8-27b
+    api_key: os.environ/CEREBRAS_SUB_KEY
+    drop_params: true
+    additional_drop_params: [context_management, output_config, thinking, 
+        thinking_blocks]
+    timeout: 600
+    stream_timeout: 600
+    num_retries: 10
+  metadata:
+    provider: cerebras
+    description: "Qwen3.8 27B on Cerebras (subscription key)"
+    strengths: "Fast dense 27B, vision, tool calling, reasoning_effort honored"
+    weaknesses: "64K context, 32K max output"
+
+    pricing:
+      text:
+        in: 0.99
+        out: 1.49
+        cached_in:
+      audio:
+        in:
+        out:
+      image:
+        in:
+        out:
+      source: docs
+    limits:
+      max_input_tokens: 65536
+      max_output_tokens: 32768
+      max_thinking_tokens: 32768
+    thinking:
+      supported: true
+      levels:
+      - none
+      - low
+      - medium
+      - high
+      default_level:
+    tokens_per_second: 1000
+    notes: cerebras public catalog list price (2026-10-26)
+    context_window: 65536
+    modalities:
+      input: [text, image]
+      output: [text]
+    supports_tools: true
+- model_name: "cerebras-pro/qwen-3.8-27b[1m]"
+  litellm_params:
+    model: cerebras/qwen-3.8-27b
+    api_key: os.environ/CEREBRAS_SUB_KEY
+    drop_params: true
+    additional_drop_params: [context_management, output_config, thinking, 
+        thinking_blocks]
+    timeout: 600
+    stream_timeout: 600
+    num_retries: 10
+  metadata:
+    provider: cerebras
+    description: "Qwen3.8 27B on Cerebras (subscription key) (Claude Code [1m] alias; upstream context is 64K)"
+    strengths: "Fast dense 27B, vision, tool calling, reasoning_effort honored"
+    weaknesses: "64K context, 32K max output"
+
+    pricing:
+      text:
+        in: 0.99
+        out: 1.49
+        cached_in:
+      audio:
+        in:
+        out:
+      image:
+        in:
+        out:
+      source: docs
+    limits:
+      max_input_tokens: 65536
+      max_output_tokens: 32768
+      max_thinking_tokens: 32768
+    thinking:
+      supported: true
+      levels:
+      - none
+      - low
+      - medium
+      - high
+      default_level:
+    tokens_per_second: 1000
+    notes: cerebras public catalog list price (2026-10-26)
+    context_window: 65536
+    modalities:
+      input: [text, image]
+      output: [text]
+    supports_tools: true
 - model_name: "wafer/kimi-k3"
   litellm_params:
     model: anthropic/Kimi-K3
@@ -9072,18 +8992,18 @@ model_list:
 
     pricing:
       text:
-        in: 0.3
-        out: 1.2
-        cached_in:
+        in: 3.0
+        out: 15.0
+        cached_in: 0.3
       audio:
         in:
         out:
       image:
         in:
         out:
-      source: estimate
+      source: docs
     limits:
-      max_input_tokens: 262144
+      max_input_tokens: 1000000
       max_output_tokens: 32768
       max_thinking_tokens: 32768
     thinking:
@@ -9091,8 +9011,8 @@ model_list:
       levels:
       default_level:
     tokens_per_second: 50
-    notes: portfolio discount cluster pricing
-    context_window: 262144
+    notes: wafer catalog list price (2026-10-26)
+    context_window: 1000000
     modalities:
       input: [text, image]
       output: [text]
@@ -9114,16 +9034,16 @@ model_list:
 
     pricing:
       text:
-        in: 0.3
-        out: 1.2
-        cached_in:
+        in: 3.0
+        out: 15.0
+        cached_in: 0.3
       audio:
         in:
         out:
       image:
         in:
         out:
-      source: estimate
+      source: docs
     limits:
       max_input_tokens: 1000000
       max_output_tokens: 32768
@@ -9133,7 +9053,7 @@ model_list:
       levels:
       default_level:
     tokens_per_second: 50
-    notes: portfolio discount cluster pricing
+    notes: wafer catalog list price (2026-10-26)
     context_window: 1000000
     modalities:
       input: [text, image]
@@ -9157,16 +9077,16 @@ model_list:
 
     pricing:
       text:
-        in: 0.03
-        out: 0.3
-        cached_in:
+        in: 0.15
+        out: 0.5
+        cached_in: 0.03
       audio:
         in:
         out:
       image:
         in:
         out:
-      source: estimate
+      source: docs
     limits:
       max_input_tokens: 1000000
       max_output_tokens: 128000
@@ -9179,8 +9099,7 @@ model_list:
       - high
       default_level: max
     tokens_per_second: 150
-    notes: portfolio discount cluster pricing; flash context reported ~1M 
-      (aihubmix/z.ai docs); 200K guaranteed floor
+    notes: wafer catalog list price (2026-10-26)
     context_window: 1000000
     modalities:
       input: [text, image, video]
@@ -9204,16 +9123,16 @@ model_list:
 
     pricing:
       text:
-        in: 0.03
-        out: 0.3
-        cached_in:
+        in: 0.15
+        out: 0.5
+        cached_in: 0.03
       audio:
         in:
         out:
       image:
         in:
         out:
-      source: estimate
+      source: docs
     limits:
       max_input_tokens: 1000000
       max_output_tokens: 128000
@@ -9226,16 +9145,15 @@ model_list:
       - high
       default_level: max
     tokens_per_second: 150
-    notes: portfolio discount cluster pricing; flash context reported ~1M 
-      (aihubmix/z.ai docs); 200K guaranteed floor
+    notes: wafer catalog list price (2026-10-26)
     context_window: 1000000
     modalities:
       input: [text, image, video]
       output: [text]
     supports_tools: true
-- model_name: "wafer/qwen3.5-397b-a17b (high)"
+- model_name: "wafer/qwen3.8-27b (high)"
   litellm_params:
-    model: anthropic/Qwen3.5-397B-A17B
+    model: anthropic/Qwen3.8-27B
     api_key: os.environ/WAFER_AI_API_KEY
     api_base: https://pass.wafer.ai
     drop_params: false
@@ -9244,42 +9162,43 @@ model_list:
     extra_headers: {anthropic-product: claude_code}
   metadata:
     provider: wafer
-    description: Real-name copy of wafer/sonnet — Wafer sonnet tier 
-      (Qwen3.5-397B-A17B, default high effort)
-    strengths: Daily driver; fast coding MoE; client effort overrides still 
-      honored
-    weaknesses: 262K context, not 1M; no ZDR; pay-as-you-go
+    description: "Wafer opus tier — Qwen3.8 27B dense VL, default high effort"
+    strengths: "Tool calling, vision; client effort overrides honored"
+    weaknesses: "262K context; pricier output than the flash tiers"
 
     pricing:
       text:
-        in: 0.15
-        out: 0.5
-        cached_in:
+        in: 0.42
+        out: 2.55
+        cached_in: 0.085
       audio:
         in:
         out:
       image:
         in:
         out:
-      source: estimate
+      source: docs
     limits:
-      max_input_tokens: 131072
-      max_output_tokens: 32768
+      max_input_tokens: 262144
+      max_output_tokens: 65536
       max_thinking_tokens: 32768
     thinking:
       supported: true
       levels:
+      - low
+      - medium
+      - high
       default_level: high
-    tokens_per_second: 60
-    notes: portfolio discount cluster pricing
-    context_window: 131072
+    tokens_per_second: 150
+    notes: wafer catalog list price (2026-10-26)
+    context_window: 262144
     modalities:
       input: [text, image]
       output: [text]
     supports_tools: true
-- model_name: "wafer/qwen3.5-397b-a17b (high)[1m]"
+- model_name: "wafer/qwen3.8-27b (high)[1m]"
   litellm_params:
-    model: anthropic/Qwen3.5-397B-A17B
+    model: anthropic/Qwen3.8-27B
     api_key: os.environ/WAFER_AI_API_KEY
     api_base: https://pass.wafer.ai
     drop_params: false
@@ -9288,34 +9207,36 @@ model_list:
     extra_headers: {anthropic-product: claude_code}
   metadata:
     provider: wafer
-    description: Real-name copy of wafer/sonnet[1m] — Wafer sonnet tier 1M alias
-      (Qwen3.5-397B-A17B, default high effort)
-    strengths: Prevents [1m] suffix 404s; client effort overrides still honored
-    weaknesses: Backend cap is 262K, not 1M; pay-as-you-go
+    description: "Wafer opus tier — Qwen3.8 27B dense VL, default high effort (Claude Code [1m] alias; upstream context is 262K)"
+    strengths: "Tool calling, vision; client effort overrides honored"
+    weaknesses: "262K context; pricier output than the flash tiers"
 
     pricing:
       text:
-        in: 0.15
-        out: 0.5
-        cached_in:
+        in: 0.42
+        out: 2.55
+        cached_in: 0.085
       audio:
         in:
         out:
       image:
         in:
         out:
-      source: estimate
+      source: docs
     limits:
-      max_input_tokens: 1000000
-      max_output_tokens: 32768
+      max_input_tokens: 262144
+      max_output_tokens: 65536
       max_thinking_tokens: 32768
     thinking:
       supported: true
       levels:
+      - low
+      - medium
+      - high
       default_level: high
-    tokens_per_second: 60
-    notes: portfolio discount cluster pricing
-    context_window: 1000000
+    tokens_per_second: 150
+    notes: wafer catalog list price (2026-10-26)
+    context_window: 262144
     modalities:
       input: [text, image]
       output: [text]
@@ -9339,16 +9260,16 @@ model_list:
 
     pricing:
       text:
-        in: 0.04
-        out: 0.16
-        cached_in:
+        in: 0.14
+        out: 0.28
+        cached_in: 0.028
       audio:
         in:
         out:
       image:
         in:
         out:
-      source: estimate
+      source: docs
     limits:
       max_input_tokens: 131072
       max_output_tokens: 65536
@@ -9358,7 +9279,7 @@ model_list:
       levels:
       default_level: low
     tokens_per_second: 150
-    notes: portfolio discount cluster pricing
+    notes: wafer catalog list price (2026-10-26)
     context_window: 131072
     modalities:
       input: [text]
@@ -9382,16 +9303,16 @@ model_list:
 
     pricing:
       text:
-        in: 0.04
-        out: 0.16
-        cached_in:
+        in: 0.14
+        out: 0.28
+        cached_in: 0.028
       audio:
         in:
         out:
       image:
         in:
         out:
-      source: estimate
+      source: docs
     limits:
       max_input_tokens: 1000000
       max_output_tokens: 65536
@@ -9401,7 +9322,337 @@ model_list:
       levels:
       default_level: low
     tokens_per_second: 150
-    notes: portfolio discount cluster pricing
+    notes: wafer catalog list price (2026-10-26)
+    context_window: 1000000
+    modalities:
+      input: [text]
+      output: [text]
+    supports_tools: true
+- model_name: "wafer/minimax-m3.1-flash"
+  litellm_params:
+    model: anthropic/MiniMax-M3.1-Flash
+    api_key: os.environ/WAFER_AI_API_KEY
+    api_base: https://pass.wafer.ai
+    drop_params: false
+    additional_drop_params: [context_management, thinking]
+    extra_headers: {anthropic-product: claude_code}
+  metadata:
+    provider: wafer
+    description: "MiniMax M3.1 Flash MoE on Wafer, 1M context, image input"
+    strengths: "Cheap, fast, 1M context, vision"
+    weaknesses: "Flash-tier depth"
+
+    pricing:
+      text:
+        in: 0.15
+        out: 0.6
+        cached_in: 0.015
+      audio:
+        in:
+        out:
+      image:
+        in:
+        out:
+      source: docs
+    limits:
+      max_input_tokens: 1000000
+      max_output_tokens: 65536
+      max_thinking_tokens: 32768
+    thinking:
+      supported: true
+      levels:
+      default_level:
+    tokens_per_second: 150
+    notes: wafer catalog list price (2026-10-26)
+    context_window: 1000000
+    modalities:
+      input: [text, image]
+      output: [text]
+    supports_tools: true
+- model_name: "wafer/minimax-m3.1-flash[1m]"
+  litellm_params:
+    model: anthropic/MiniMax-M3.1-Flash
+    api_key: os.environ/WAFER_AI_API_KEY
+    api_base: https://pass.wafer.ai
+    drop_params: false
+    additional_drop_params: [context_management, thinking]
+    extra_headers: {anthropic-product: claude_code}
+  metadata:
+    provider: wafer
+    description: "MiniMax M3.1 Flash MoE on Wafer, 1M context, image input (Claude Code [1m] alias)"
+    strengths: "Cheap, fast, 1M context, vision"
+    weaknesses: "Flash-tier depth"
+
+    pricing:
+      text:
+        in: 0.15
+        out: 0.6
+        cached_in: 0.015
+      audio:
+        in:
+        out:
+      image:
+        in:
+        out:
+      source: docs
+    limits:
+      max_input_tokens: 1000000
+      max_output_tokens: 65536
+      max_thinking_tokens: 32768
+    thinking:
+      supported: true
+      levels:
+      default_level:
+    tokens_per_second: 150
+    notes: wafer catalog list price (2026-10-26)
+    context_window: 1000000
+    modalities:
+      input: [text, image]
+      output: [text]
+    supports_tools: true
+- model_name: "wafer/deepseek-v4.1-flash"
+  litellm_params:
+    model: anthropic/DeepSeek-V4.1-Flash
+    api_key: os.environ/WAFER_AI_API_KEY
+    api_base: https://pass.wafer.ai
+    drop_params: false
+    additional_drop_params: [context_management, thinking]
+    extra_headers: {anthropic-product: claude_code}
+  metadata:
+    provider: wafer
+    description: "DeepSeek V4.1 Flash MoE on Wafer, 1M context"
+    strengths: "Reasoning + tool calling, 1M context"
+    weaknesses: "Pricier than the 1017 checkpoint"
+
+    pricing:
+      text:
+        in: 0.3
+        out: 1.2
+        cached_in: 0.006
+      audio:
+        in:
+        out:
+      image:
+        in:
+        out:
+      source: docs
+    limits:
+      max_input_tokens: 1000000
+      max_output_tokens: 65536
+      max_thinking_tokens: 32768
+    thinking:
+      supported: true
+      levels:
+      default_level:
+    tokens_per_second: 150
+    notes: wafer catalog list price (2026-10-26)
+    context_window: 1000000
+    modalities:
+      input: [text]
+      output: [text]
+    supports_tools: true
+- model_name: "wafer/deepseek-v4.1-flash[1m]"
+  litellm_params:
+    model: anthropic/DeepSeek-V4.1-Flash
+    api_key: os.environ/WAFER_AI_API_KEY
+    api_base: https://pass.wafer.ai
+    drop_params: false
+    additional_drop_params: [context_management, thinking]
+    extra_headers: {anthropic-product: claude_code}
+  metadata:
+    provider: wafer
+    description: "DeepSeek V4.1 Flash MoE on Wafer, 1M context (Claude Code [1m] alias)"
+    strengths: "Reasoning + tool calling, 1M context"
+    weaknesses: "Pricier than the 1017 checkpoint"
+
+    pricing:
+      text:
+        in: 0.3
+        out: 1.2
+        cached_in: 0.006
+      audio:
+        in:
+        out:
+      image:
+        in:
+        out:
+      source: docs
+    limits:
+      max_input_tokens: 1000000
+      max_output_tokens: 65536
+      max_thinking_tokens: 32768
+    thinking:
+      supported: true
+      levels:
+      default_level:
+    tokens_per_second: 150
+    notes: wafer catalog list price (2026-10-26)
+    context_window: 1000000
+    modalities:
+      input: [text]
+      output: [text]
+    supports_tools: true
+- model_name: "wafer/deepseek-v4.1-flash-1017"
+  litellm_params:
+    model: anthropic/DeepSeek-V4.1-Flash-1017
+    api_key: os.environ/WAFER_AI_API_KEY
+    api_base: https://pass.wafer.ai
+    drop_params: false
+    additional_drop_params: [context_management, thinking]
+    default_reasoning_effort: low
+    extra_headers: {anthropic-product: claude_code}
+  metadata:
+    provider: wafer
+    description: "DeepSeek V4.1 Flash (10-17 update) on Wafer, 1M context"
+    strengths: "Newest V4.1 Flash checkpoint, cheap cache reads"
+    weaknesses: "Flash-tier depth"
+
+    pricing:
+      text:
+        in: 0.15
+        out: 0.6
+        cached_in: 0.003
+      audio:
+        in:
+        out:
+      image:
+        in:
+        out:
+      source: docs
+    limits:
+      max_input_tokens: 1000000
+      max_output_tokens: 65536
+      max_thinking_tokens: 32768
+    thinking:
+      supported: true
+      levels:
+      default_level: low
+    tokens_per_second: 150
+    notes: wafer catalog list price (2026-10-26)
+    context_window: 1000000
+    modalities:
+      input: [text]
+      output: [text]
+    supports_tools: true
+- model_name: "wafer/deepseek-v4.1-flash-1017[1m]"
+  litellm_params:
+    model: anthropic/DeepSeek-V4.1-Flash-1017
+    api_key: os.environ/WAFER_AI_API_KEY
+    api_base: https://pass.wafer.ai
+    drop_params: false
+    additional_drop_params: [context_management, thinking]
+    default_reasoning_effort: low
+    extra_headers: {anthropic-product: claude_code}
+  metadata:
+    provider: wafer
+    description: "DeepSeek V4.1 Flash (10-17 update) on Wafer, 1M context (Claude Code [1m] alias)"
+    strengths: "Newest V4.1 Flash checkpoint, cheap cache reads"
+    weaknesses: "Flash-tier depth"
+
+    pricing:
+      text:
+        in: 0.15
+        out: 0.6
+        cached_in: 0.003
+      audio:
+        in:
+        out:
+      image:
+        in:
+        out:
+      source: docs
+    limits:
+      max_input_tokens: 1000000
+      max_output_tokens: 65536
+      max_thinking_tokens: 32768
+    thinking:
+      supported: true
+      levels:
+      default_level: low
+    tokens_per_second: 150
+    notes: wafer catalog list price (2026-10-26)
+    context_window: 1000000
+    modalities:
+      input: [text]
+      output: [text]
+    supports_tools: true
+- model_name: "wafer/deepseek-v4-flash-0423"
+  litellm_params:
+    model: anthropic/DeepSeek-V4-Flash-0423
+    api_key: os.environ/WAFER_AI_API_KEY
+    api_base: https://pass.wafer.ai
+    drop_params: false
+    additional_drop_params: [context_management, thinking]
+    extra_headers: {anthropic-product: claude_code}
+  metadata:
+    provider: wafer
+    description: "DeepSeek V4 Flash 0423 checkpoint on Wafer, high TPS"
+    strengths: "Cheapest Wafer tier, high throughput"
+    weaknesses: "Older V4 checkpoint"
+
+    pricing:
+      text:
+        in: 0.14
+        out: 0.28
+        cached_in: 0.028
+      audio:
+        in:
+        out:
+      image:
+        in:
+        out:
+      source: docs
+    limits:
+      max_input_tokens: 1000000
+      max_output_tokens: 65536
+      max_thinking_tokens: 32768
+    thinking:
+      supported: true
+      levels:
+      default_level:
+    tokens_per_second: 150
+    notes: wafer catalog list price (2026-10-26)
+    context_window: 1000000
+    modalities:
+      input: [text]
+      output: [text]
+    supports_tools: true
+- model_name: "wafer/deepseek-v4-flash-0423[1m]"
+  litellm_params:
+    model: anthropic/DeepSeek-V4-Flash-0423
+    api_key: os.environ/WAFER_AI_API_KEY
+    api_base: https://pass.wafer.ai
+    drop_params: false
+    additional_drop_params: [context_management, thinking]
+    extra_headers: {anthropic-product: claude_code}
+  metadata:
+    provider: wafer
+    description: "DeepSeek V4 Flash 0423 checkpoint on Wafer, high TPS (Claude Code [1m] alias)"
+    strengths: "Cheapest Wafer tier, high throughput"
+    weaknesses: "Older V4 checkpoint"
+
+    pricing:
+      text:
+        in: 0.14
+        out: 0.28
+        cached_in: 0.028
+      audio:
+        in:
+        out:
+      image:
+        in:
+        out:
+      source: docs
+    limits:
+      max_input_tokens: 1000000
+      max_output_tokens: 65536
+      max_thinking_tokens: 32768
+    thinking:
+      supported: true
+      levels:
+      default_level:
+    tokens_per_second: 150
+    notes: wafer catalog list price (2026-10-26)
     context_window: 1000000
     modalities:
       input: [text]

@@ -111,11 +111,11 @@ def _assert_wafer_inspection():
     assert fable.key_env == "WAFER_AI_API_KEY"
     assert "pass.wafer.ai" in fable.api_base
 
-    # Tier remap (2026-08): opus=GLM-5.3-Flash, sonnet=Qwen3.5-397B, haiku=DS-V4-Flash-Fast
+    # Tier remap (2026-10): opus=Qwen3.8-27B, sonnet=GLM-5.3-Flash, haiku=DS-V4.1-Flash-1017
     expected_internal = {
-        "opus": "anthropic/GLM-5.3-Flash",
-        "sonnet": "anthropic/Qwen3.5-397B-A17B",
-        "haiku": "anthropic/DeepSeek-V4-Flash-0731-Fast",
+        "opus": "anthropic/Qwen3.8-27B",
+        "sonnet": "anthropic/GLM-5.3-Flash",
+        "haiku": "anthropic/DeepSeek-V4.1-Flash-1017",
     }
     for tier, internal in expected_internal.items():
         binding = inspection.tiers[tier]
@@ -124,7 +124,7 @@ def _assert_wafer_inspection():
         assert "pass.wafer.ai" in binding.api_base
 
     extra_names = {item.model_name for item in inspection.extended}
-    assert "wafer/kimi-k2.6[1m]" in extra_names
+    assert "wafer/deepseek-v4-flash-0731-fast[1m]" in extra_names
     assert "wafer/glm-5.2[1m]" in extra_names
 
 
@@ -255,8 +255,8 @@ def test_inspect_cerebras_explicit_fable_tier(monkeypatch, tmp_path):
         assert inspection.fable_fallback is False
         assert inspection.tiers["fable"].model_name == "cerebras/zai-glm-4.7"
         # Tier variance (2026-10): gemma-4-31b dropped from the catalog;
-        # opus = qwen-3-235b, haiku = llama-3.3-70b (was gpt-oss-120b, dup of sonnet).
-        assert inspection.tiers["opus"].model_name == "cerebras/qwen-3-235b-a22b-instruct-2507"
+        # opus = qwen-3.8-27b, haiku = llama-3.3-70b (was gpt-oss-120b, dup of sonnet).
+        assert inspection.tiers["opus"].model_name == "cerebras/qwen-3.8-27b"
         assert inspection.tiers["sonnet"].model_name == "cerebras/gpt-oss-120b"
         assert inspection.tiers["haiku"].model_name == "cerebras/llama-3.3-70b"
         assert inspection.tiers["opus"].key_env == "CEREBRAS_API_KEY"

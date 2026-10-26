@@ -24,6 +24,8 @@ and the eval'd shell-hook environment.
 
 Local-process trust baseline (eval of `run-claude env` output T-004, dynamic hook imports T-005); loopback DB `sslmode=disable` (T-006); no gateway rate limiting (T-007); minimal audit trail (T-010).
 
+Planned model-routing layer (`templates/models-routing.yaml`, `MODELS_ROUTING` flag) is template-only — nothing loads it today, so no added surface until it ships.
+
 ## Controls verified in code
 
 - `.secrets` + `.env` chmod 0600 (`config.py`)

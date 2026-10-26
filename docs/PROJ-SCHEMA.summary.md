@@ -11,7 +11,8 @@
 | Runtime state | JSON | `~/.local/state/run-claude/state.json` | `state.py` |
 | Profiles | YAML | repo + `~/.config/run-claude/` (4-level fallthrough) | `profiles.py` |
 | Models | YAML | `run_claude/models.yaml` + user override | `profiles.py` |
-| Hooks | YAML | `run_claude/defaults/hooks.yaml` + user override | `hooks/loader.py` |
+| Hooks | YAML | user-supplied (loader not yet CLI-wired) | `hooks/loader.py` |
+| Routing table | YAML | `templates/models-routing.yaml` → `~/.config/run-claude/` (template only) | planned (MODELS_ROUTING) |
 | Gateway config | YAML | go-litellm config (helm canonical) | go-litellm `internal/config` |
 | Generated proxy cfg | YAML | `~/.local/state/run-claude/litellm_config.yaml` | `proxy.py` |
 | Secrets / env | KEY=value files | `~/.config/run-claude/.secrets` → `.env` | `config.py` |

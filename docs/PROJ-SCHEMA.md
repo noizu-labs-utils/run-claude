@@ -95,7 +95,11 @@ LiteLLM `model_list` entries:
 | `litellm_params.api_base` | string | Optional custom endpoint |
 | `metadata.provider/description/strengths/weaknesses` | string | Catalog annotations |
 
-### hooks.yaml (`run_claude/defaults/hooks.yaml`; user override supported)
+### hooks.yaml (user-supplied YAML; loaded by `run_claude/hooks/loader.py` — the old `run_claude/defaults/` copies are gone)
+
+The loader is present and exercised by `tests/test_hooks.py`, but is not yet wired
+into the CLI startup path; a config path is passed explicitly to
+`load_hooks_from_config()`. Built-in hooks live in `run_claude/hooks/builtin.py`.
 
 | Field | Type | Description |
 |-------|------|-------------|
@@ -110,6 +114,22 @@ LiteLLM `model_list` entries:
 Same `model_list` / `litellm_params` shape as models.yaml plus
 `general_settings.master_key` — all secret refs use `os.environ/NAME`, resolved
 at load time (`ResolveDeep`); no key values are ever stored in the file.
+
+### models-routing.yaml (`templates/models-routing.yaml`; template only — nothing loads it today)
+
+Shape for the planned model-routing layer, gated by the `MODELS_ROUTING` env flag
+(`off` default · `shadow` log-only · `on` route by table; shadow mode recommended
+14 days before any traffic switch). Users copy the template to
+`~/.config/run-claude/models-routing.yaml` and supply real entries.
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `id` | string | Catalog id as served by the gateway (`run_claude/models.yaml`) |
+| `provider` | string | Provider slug (`anthropic`, `zai`, `qwen`, `deepseek`, …) |
+| `cost_in_per_mtok` / `cost_out_per_mtok` | number | USD per million tokens |
+| `quality_tier` | string | House effort ladder: `fable` / `opus` / `sonnet` / `haiku` |
+| `context_window` | int | Token window |
+| `when_to_use` | string | One-line routing hint the router matches against |
 
 ## State & Generated Files
 

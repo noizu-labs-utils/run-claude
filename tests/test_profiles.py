@@ -187,7 +187,8 @@ def test_inspect_zai_pro_alt_defaults_to_tyna(monkeypatch, tmp_path):
         assert inspection is not None
         assert inspection.display_name == "Zai Subscription (Alt)"
         assert inspection.tiers["opus"].model_name == "zai-alt/glm-5.3-flash (sub, max)"
-        assert inspection.tiers["sonnet"].model_name == "zai-alt/glm-5.3-flash (sub)"
+        # Effort ladder (2026-10): mirrors zai-pro — sonnet = flash at high.
+        assert inspection.tiers["sonnet"].model_name == "zai-alt/glm-5.3-flash (sub, high)"
         assert inspection.tiers["haiku"].model_name == "zai-alt/glm-5.3-flash (sub, low)"
         assert inspection.tiers["fable"].model_name == "zai-alt/glm-5.3 (sub, max)"
         assert inspection.tiers["opus"].internal_name == "anthropic/glm-5.3-flash"
@@ -345,7 +346,12 @@ def test_inspect_zai_pro_alt_key_sets(monkeypatch, tmp_path):
     assert "zai-alt" in families
     assert families["zai-alt"].key_env == "ZAI_SUB_KEY_TYNA"
     assert families["zai-alt"].instance == "tyna"
-    assert "zai" not in families
+    # Tiers stay keyed to the tyna key, but the extended list also carries bare
+    # zai/*, zai-oa/*, alibaba, groq and cerebras SKUs (2026-10 breadth), so the
+    # zai family (ZAI_SUB_KEY) is reported alongside it.
+    assert "zai" in families
+    assert families["zai"].key_env == "ZAI_SUB_KEY"
+    assert families["zai"].instance == "zai"
     clear_caches()
 
 

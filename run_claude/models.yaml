@@ -1497,45 +1497,6 @@ model_list:
       input: [text, image]
       output: [text]
     supports_tools: true
-- model_name: "openai-gpt4"
-  litellm_params:
-    model: openai/gpt-4.1
-    api_key: os.environ/OPENAI_API_KEY
-    drop_params: true
-    additional_drop_params: ["context_management", "thinking"]
-  metadata:
-    provider: openai
-    description: "GPT-4.1 via OpenAI API"
-    strengths: "Strong general reasoning, tool use"
-    weaknesses: "No extended thinking, moderate speed"
-
-    pricing:
-      text:
-        in: 2.0
-        out: 8.0
-        cached_in:
-      audio:
-        in:
-        out:
-      image:
-        in: 2.0
-        out:
-      source: estimate
-    limits:
-      max_input_tokens: 1047576
-      max_output_tokens: 32768
-      max_thinking_tokens:
-    thinking:
-      supported: false
-      levels:
-      default_level:
-    tokens_per_second: 60
-    notes: images tokenized at text rate GPT-4.1 supports function/tool calling.
-    context_window: 1047576
-    modalities:
-      input: [text]
-      output: [text]
-    supports_tools: true
 - model_name: "openai-gpt4o"
   litellm_params:
     model: openai/gpt-4o
@@ -1612,91 +1573,6 @@ model_list:
     context_window: 128000
     modalities:
       input: [text, image, audio]
-      output: [text]
-    supports_tools: true
-- model_name: "openai-o1"
-  litellm_params:
-    model: openai/o1
-    api_key: os.environ/OPENAI_API_KEY
-    drop_params: true
-    additional_drop_params: ["context_management", "thinking"]
-  metadata:
-    provider: openai
-    description: "O1 reasoning model via OpenAI API"
-    strengths: "Strong chain-of-thought, math, logic"
-    weaknesses: "Slow, expensive, no streaming"
-
-    pricing:
-      text:
-        in: 15.0
-        out: 60.0
-        cached_in:
-      audio:
-        in:
-        out:
-      image:
-        in: 15.0
-        out:
-      source: docs
-    limits:
-      max_input_tokens: 200000
-      max_output_tokens: 100000
-      max_thinking_tokens:
-    thinking:
-      supported: true
-      levels:
-      - low
-      - medium
-      - high
-      default_level:
-    tokens_per_second: 40
-    notes: images tokenized at text rate
-    context_window: 200000
-    modalities:
-      input: [text, image]
-      output: [text]
-    supports_tools: true
-- model_name: "openai-o3-mini"
-  litellm_params:
-    model: openai/o3-mini
-    api_key: os.environ/OPENAI_API_KEY
-    drop_params: true
-    additional_drop_params: ["context_management", "thinking"]
-  metadata:
-    provider: openai
-    description: "O3 Mini reasoning model via OpenAI API"
-    strengths: "Fast reasoning, cost-efficient"
-    weaknesses: "Less capable than full O3"
-
-    pricing:
-      text:
-        in: 1.1
-        out: 4.4
-        cached_in:
-      audio:
-        in:
-        out:
-      image:
-        in:
-        out:
-      source: docs
-    limits:
-      max_input_tokens: 200000
-      max_output_tokens: 100000
-      max_thinking_tokens:
-    thinking:
-      supported: true
-      levels:
-      - low
-      - medium
-      - high
-      default_level:
-    tokens_per_second: 80
-    notes: ''
-    context_window: 200000
-    modalities:
-      input:
-      - text
       output: [text]
     supports_tools: true
 - model_name: "openai-gpt5.5"
@@ -1837,9 +1713,6 @@ model_list:
     strengths: "Fast, lower-cost GPT-5 generation model"
     weaknesses: "Less capable than frontier GPT-5.5"
 
-  # ==========================================================================
-  # Gemini
-  # ==========================================================================
     pricing:
       text:
         in: 0.25
@@ -1870,80 +1743,214 @@ model_list:
       input: [text, image, audio]
       output: [text]
     supports_tools: true
+- model_name: "openai-gpt6.1-sol"
+  litellm_params:
+    model: openai/gpt-6.1-sol
+    api_key: os.environ/OPENAI_API_KEY
+    drop_params: true
+    additional_drop_params: ["context_management", "thinking"]
+  metadata:
+    provider: openai
+    description: "GPT-6.1 Sol via OpenAI API"
+    strengths: "Near-Astra performance for complex work at lower cost"
+    weaknesses: "Costs more than the efficient Luna tier"
+
+    pricing:
+      text:
+        in: 2.0
+        out: 10.0
+        cached_in:
+      audio:
+        in:
+        out:
+      image:
+        in:
+        out:
+      source: docs
+    limits:
+      max_input_tokens: 1050000
+      max_output_tokens: 128000
+      max_thinking_tokens:
+    thinking:
+      supported: true
+      levels:
+      - low
+      - medium
+      - high
+      - max
+      default_level:
+    tokens_per_second:
+    notes: text/image input, text output; non-text pricing unverified 2026-10-19
+    context_window: 1050000
+    modalities:
+      input: [text, image]
+      output: [text]
+    supports_tools: true
+- model_name: "openai-gpt6-astra"
+  litellm_params:
+    model: openai/gpt-6-astra
+    api_key: os.environ/OPENAI_API_KEY
+    drop_params: true
+    additional_drop_params: ["context_management", "thinking"]
+  metadata:
+    provider: openai
+    description: "GPT-6 Astra via OpenAI API"
+    strengths: "Most capable OpenAI model for demanding work"
+    weaknesses: "Highest-cost OpenAI tier"
+
+    pricing:
+      text:
+        in: 10.0
+        out: 50.0
+        cached_in:
+      audio:
+        in:
+        out:
+      image:
+        in:
+        out:
+      source: docs
+    limits:
+      max_input_tokens: 1050000
+      max_output_tokens: 128000
+      max_thinking_tokens:
+    thinking:
+      supported: true
+      levels:
+      - low
+      - medium
+      - high
+      - max
+      default_level:
+    tokens_per_second:
+    notes: text/image input, text output; non-text pricing unverified 2026-10-19
+    context_window: 1050000
+    modalities:
+      input: [text, image]
+      output: [text]
+    supports_tools: true
+- model_name: "openai-gpt6-luna"
+  litellm_params:
+    model: openai/gpt-6-luna
+    api_key: os.environ/OPENAI_API_KEY
+    drop_params: true
+    additional_drop_params: ["context_management", "thinking"]
+  metadata:
+    provider: openai
+    description: "GPT-6 Luna via OpenAI API"
+    strengths: "Most efficient OpenAI model for focused, high-volume work"
+    weaknesses: "Trades peak capability for cost and speed"
+
+    pricing:
+      text:
+        in: 0.1
+        out: 0.5
+        cached_in:
+      audio:
+        in:
+        out:
+      image:
+        in:
+        out:
+      source: docs
+    limits:
+      max_input_tokens: 1050000
+      max_output_tokens: 128000
+      max_thinking_tokens:
+    thinking:
+      supported: true
+      levels:
+      - none
+      - low
+      - medium
+      - high
+      - max
+      default_level:
+    tokens_per_second:
+    notes: text/image input, text output; non-text pricing unverified 2026-10-19
+    context_window: 1050000
+    modalities:
+      input: [text, image]
+      output: [text]
+    supports_tools: true
+
+  # ==========================================================================
+  # Gemini
+  # ==========================================================================
 - model_name: "gemini-pro"
   litellm_params:
-    model: gemini/gemini-3.1-pro-preview
+    model: gemini/gemini-4-argon
     api_key: os.environ/GEMINI_API_KEY
     drop_params: true
     additional_drop_params: ["context_management", "thinking"]
   metadata:
     provider: gemini
-    description: "Gemini 3.1 Pro (preview) via Google AI"
-    strengths: "Huge context (1M+), strong coding, fast"
-    weaknesses: "Occasional hallucinations, less precise"
+    description: "Gemini 4 Argon via Google AI"
+    strengths: "Flagship reasoning model, unified 1M context, long decodes"
+    weaknesses: "Output capped at 32K; input price rises Dec 2026"
 
     pricing:
       text:
         in: 2.0
-        out: 12.0
-        cached_in: 0.2
+        out: 10.0
+        cached_in:
       audio:
-        in: 2.0
+        in:
         out:
       image:
-        in: 2.0
+        in:
         out:
       source: docs
     limits:
-      max_input_tokens: 1000000
-      max_output_tokens: 65536
-      max_thinking_tokens: 32768
+      max_input_tokens: 1048576
+      max_output_tokens: 32768
+      max_thinking_tokens:
     thinking:
       supported: true
       levels:
       default_level:
-    tokens_per_second: 70
-    notes: image input tokenized at text rate
-    context_window: 1000000
+    tokens_per_second:
+    notes: input $2/output $10 per MTok until 2026-11-30 then $4/$20; non-text pricing + thinking budget unverified 2026-10-19; limits API-verified
+    context_window: 1048576
     modalities:
       input: [text, image, audio, video]
       output: [text]
     supports_tools: true
 - model_name: "gemini-flash"
   litellm_params:
-    model: gemini/gemini-3.7-flash
+    model: gemini/gemini-3.8-flash
     api_key: os.environ/GEMINI_API_KEY
     drop_params: true
     additional_drop_params: ["context_management", "thinking"]
   metadata:
     provider: gemini
-    description: "Gemini 3.7 Flash via Google AI"
-    strengths: "Very fast, large context, cheap"
-    weaknesses: "Less depth than Pro"
+    description: "Gemini 3.8 Flash via Google AI"
+    strengths: "Most intelligent Flash; tuned for long-horizon agentic work; fast"
+    weaknesses: "Less depth than Pro; price rises Jan 2027"
 
     pricing:
       text:
-        in: 0.5
-        out: 3.0
-        cached_in: 0.075
+        in: 0.75
+        out: 3.75
+        cached_in:
       audio:
-        in: 1.0
+        in:
         out:
       image:
-        in: 0.5
+        in:
         out:
-      source: estimate
+      source: docs
     limits:
-      max_input_tokens: 1000000
+      max_input_tokens: 1048576
       max_output_tokens: 65536
-      max_thinking_tokens: 32768
+      max_thinking_tokens:
     thinking:
       supported: true
       levels:
       default_level:
-    tokens_per_second: 200
-    notes: image input tokenized at text rate
-    context_window: 1000000
+    tokens_per_second:
+    notes: input $0.75/output $3.75 per MTok until 2026-12-31 then $1.50/$7.50; non-text pricing + thinking budget unverified 2026-10-19; limits API-verified
+    context_window: 1048576
     modalities:
       input: [text, image, audio, video]
       output: [text]
@@ -1962,18 +1969,18 @@ model_list:
 
     pricing:
       text:
-        in: 0.1
-        out: 0.4
+        in: 0.3
+        out: 2.5
         cached_in:
       audio:
         in:
         out:
       image:
-        in: 0.1
+        in: 0.3
         out:
       source: docs
     limits:
-      max_input_tokens: 1000000
+      max_input_tokens: 1048576
       max_output_tokens: 65536
       max_thinking_tokens: 32768
     thinking:
@@ -1981,48 +1988,48 @@ model_list:
       levels:
       default_level:
     tokens_per_second: 400
-    notes: image input tokenized at text rate
-    context_window: 1000000
+    notes: pricing corrected to docs figures 2026-10-19 (was $0.10/$0.40); thinking budget unverified
+    context_window: 1048576
     modalities:
       input: [text, image, audio, video]
       output: [text]
     supports_tools: true
 - model_name: "gemini-thinking"
   litellm_params:
-    model: gemini/gemini-3.7-flash
+    model: gemini/gemini-3.8-flash
     api_key: os.environ/GEMINI_API_KEY
     drop_params: true
     additional_drop_params: ["context_management"]
   metadata:
     provider: gemini
-    description: "Gemini 3.7 Flash with thinking mode"
+    description: "Gemini 3.8 Flash with thinking mode"
     strengths: "Chain-of-thought reasoning, fast"
     weaknesses: "Higher latency than base Flash"
 
   # Image-generation models (not chat tiers)
     pricing:
       text:
-        in: 0.5
-        out: 3.0
-        cached_in: 0.075
+        in: 0.75
+        out: 3.75
+        cached_in:
       audio:
-        in: 1.0
+        in:
         out:
       image:
-        in: 0.5
+        in:
         out:
-      source: estimate
+      source: docs
     limits:
-      max_input_tokens: 1000000
+      max_input_tokens: 1048576
       max_output_tokens: 65536
-      max_thinking_tokens: 32768
+      max_thinking_tokens:
     thinking:
       supported: true
       levels:
       default_level:
-    tokens_per_second: 200
-    notes: image input tokenized at text rate
-    context_window: 1000000
+    tokens_per_second:
+    notes: same model as gemini-flash (3.8); input $0.75/output $3.75 per MTok until 2026-12-31 then $1.50/$7.50; non-text pricing + thinking budget unverified 2026-10-19; limits API-verified
+    context_window: 1048576
     modalities:
       input: [text, image, audio, video]
       output: [text]
@@ -2052,16 +2059,16 @@ model_list:
         out: 30.0
       source: inferred
     limits:
-      max_input_tokens: 1000000
-      max_output_tokens: 65536
+      max_input_tokens: 131072
+      max_output_tokens: 32768
       max_thinking_tokens: 32768
     thinking:
       supported: true
       levels:
       default_level:
     tokens_per_second: 70
-    notes: image output ~$30/1M tokens
-    context_window: 1000000
+    notes: image output ~$30/1M tokens; limits API-verified 2026-10-19 (was 1M in / 64K out)
+    context_window: 131072
     modalities:
       input: [text, image]
       output: [image]
@@ -2106,10 +2113,10 @@ model_list:
         out:
       image:
         in: 0.5
-        out: 30.0
-      source: estimate
+        out: 60.0
+      source: docs
     limits:
-      max_input_tokens: 1000000
+      max_input_tokens: 65536
       max_output_tokens: 65536
       max_thinking_tokens: 32768
     thinking:
@@ -2117,8 +2124,8 @@ model_list:
       levels:
       default_level:
     tokens_per_second: 200
-    notes: image output ~$30/1M tokens
-    context_window: 1000000
+    notes: image output $60/MTok per docs 2026-10-19 (was ~$30 estimated); limits API-verified (was 1M in)
+    context_window: 65536
     modalities:
       input: [text, image]
       output: [image]
@@ -2558,6 +2565,8 @@ model_list:
     timeout: 600
     stream_timeout: 600
     num_retries: 10
+  allowed_fails: 10
+  cooldown_time: 5
   metadata:
     provider: cerebras
     description: "Qwen3.8 27B on Cerebras hardware"

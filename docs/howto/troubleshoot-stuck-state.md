@@ -1,3 +1,5 @@
+<!-- 〚📁:994c3897-e234-5b65-b190-c2152107eda6〛 troubleshoot-stuck-state :: Diagnosing and clearing stuck proxy/state conditions. -->
+
 ## How to: get out of a stuck/half-registered directory state
 
 **Goal:** recover when a directory's models aren't showing up, a profile change isn't taking effect, or the proxy's model table looks inconsistent with state.json.

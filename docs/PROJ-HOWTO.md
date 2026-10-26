@@ -1,3 +1,5 @@
+<!-- 〚📁:c72efe11-6ba7-5f39-97ac-ff39dfdebff4〛 PROJ-HOWTO :: Index of task-oriented how-to guides. -->
+
 # PROJ-HOWTO.md — run-claude
 
 Task-oriented guides for the things you'll actually do with `run-claude`. For *what it is*, see [PROJ-ARCH.md](PROJ-ARCH.md); for *where things live*, see [PROJ-LAYOUT.md](PROJ-LAYOUT.md).

@@ -1,3 +1,5 @@
+<!-- 〚📁:3b67a422-eeb5-5e7a-8ddf-218251f31733〛 PROJ-HOWTO summary :: Condensed how-to index for agents. -->
+
 # PROJ-HOWTO Summary — run-claude
 
 Task list only, no steps. Full guides: [PROJ-HOWTO.md](PROJ-HOWTO.md).

@@ -1,3 +1,5 @@
+<!-- 〚📁:d038231a-a177-5523-939d-bddbfae838a6〛 watchdog-and-proxy-lifecycle :: Watchdog daemon and proxy start/stop lifecycle guide. -->
+
 ## How to: keep the proxy pair alive across crashes
 
 **Goal:** run the front proxy (:4443) and LiteLLM proxy (:4444) so they auto-restart on crash, without an intentional `proxy stop` getting silently undone.

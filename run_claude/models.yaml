@@ -3426,6 +3426,54 @@ model_list:
       input: [text, image, video]
       output: [text]
     supports_tools: true
+- model_name: "zai/glm-5.3 (sub, high)"
+  litellm_params:
+    model: anthropic/glm-5.3
+    api_key: os.environ/ZAI_SUB_KEY
+    api_base: https://api.z.ai/api/anthropic
+    drop_params: true
+    additional_drop_params: ["context_management", "thinking", "reasoning_effort"]
+    reasoning_effort: "high"
+    extra_headers:
+      anthropic-product: claude_code
+  metadata:
+    provider: zai
+    behavesAs: claude-fable-5-1
+    description: "Z.AI GLM-5.3 (subscription, high thinking)"
+    strengths: "Deepest reasoning depth"
+    weaknesses: "Slowest, most expensive"
+
+    pricing:
+      text:
+        in: 1.4
+        out: 4.4
+        cached_in: 0.26
+      audio:
+        in:
+        out:
+      image:
+        in:
+        out:
+      source: subscription
+    limits:
+      max_input_tokens: 200000
+      max_output_tokens: 128000
+      max_thinking_tokens: 32768
+    thinking:
+      supported: true
+      levels:
+      - low
+      - medium
+      - high
+      default_level: "high"
+    tokens_per_second: 80
+    notes: 'GLM-5.3 family rejects reasoning_effort=medium (valid: low|high|max);
+      subscription plan; list price shown for reference'
+    context_window: 200000
+    modalities:
+      input: [text, image, video]
+      output: [text]
+    supports_tools: true
 - model_name: "zai/glm-5.3 (sub, low)"
   litellm_params:
     model: anthropic/glm-5.3
@@ -3612,6 +3660,56 @@ model_list:
       - medium
       - high
       default_level: "max"
+    tokens_per_second: 150
+    notes: 'GLM-5.3 family rejects reasoning_effort=medium (valid: low|high|max);
+      subscription plan; list price shown for reference; flash context reported ~1M
+      (aihubmix/z.ai docs); 200K guaranteed floor'
+    context_window: 1000000
+    modalities:
+      input: [text, image, video]
+      output: [text]
+    supports_tools: true
+
+- model_name: "zai/glm-5.3-flash (sub, high)"
+  litellm_params:
+    model: anthropic/glm-5.3-flash
+    api_key: os.environ/ZAI_SUB_KEY
+    api_base: https://api.z.ai/api/anthropic
+    drop_params: true
+    additional_drop_params: ["context_management", "thinking", "reasoning_effort"]
+    reasoning_effort: "high"
+    extra_headers:
+      anthropic-product: claude_code
+  metadata:
+    provider: zai
+    behavesAs: claude-sonnet-5-5
+    description: "Z.AI GLM-5.3-Flash (subscription, high thinking)"
+    strengths: "Deepest reasoning depth at flash cost"
+    weaknesses: "Slowest flash tier, most expensive"
+
+    pricing:
+      text:
+        in: 0.04
+        out: 0.5
+        cached_in:
+      audio:
+        in:
+        out:
+      image:
+        in:
+        out:
+      source: subscription
+    limits:
+      max_input_tokens: 1000000
+      max_output_tokens: 128000
+      max_thinking_tokens: 32768
+    thinking:
+      supported: true
+      levels:
+      - low
+      - medium
+      - high
+      default_level: "high"
     tokens_per_second: 150
     notes: 'GLM-5.3 family rejects reasoning_effort=medium (valid: low|high|max);
       subscription plan; list price shown for reference; flash context reported ~1M
@@ -8451,6 +8549,54 @@ model_list:
       - medium
       - high
       default_level: max
+    tokens_per_second: 80
+    notes: 'GLM-5.3 family rejects reasoning_effort=medium (valid: low|high|max);
+      subscription plan; list price shown for reference'
+    context_window: 1000000
+    modalities:
+      input: [text, image, video]
+      output: [text]
+    supports_tools: true
+- model_name: "zai/glm-5.3 (sub, high)[1m]"
+  litellm_params:
+    model: anthropic/glm-5.3
+    api_key: os.environ/ZAI_SUB_KEY
+    api_base: https://api.z.ai/api/anthropic
+    drop_params: false
+    additional_drop_params: [context_management, thinking]
+    reasoning_effort: high
+    extra_headers: {anthropic-product: claude_code}
+  metadata:
+    provider: zai
+    behavesAs: claude-fable-5-1
+    description: Real-name copy of zai/fable[1m] — ZAI GLM 5.3 1M context (fable
+      tier)
+    strengths: Flagship coding/agent; Claude Fable 5-level, large context
+    weaknesses: Slower, more expensive; text-only
+
+    pricing:
+      text:
+        in: 1.4
+        out: 4.4
+        cached_in: 0.26
+      audio:
+        in:
+        out:
+      image:
+        in:
+        out:
+      source: subscription
+    limits:
+      max_input_tokens: 1000000
+      max_output_tokens: 128000
+      max_thinking_tokens: 32768
+    thinking:
+      supported: true
+      levels:
+      - low
+      - medium
+      - high
+      default_level: high
     tokens_per_second: 80
     notes: 'GLM-5.3 family rejects reasoning_effort=medium (valid: low|high|max);
       subscription plan; list price shown for reference'

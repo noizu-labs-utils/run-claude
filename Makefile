@@ -53,6 +53,9 @@ clean:
 	rm -rf build/
 
 install-go-litellm:
+	@if [ ! -f repos/go-litellm/Makefile ]; then \
+		git submodule update --init repos/go-litellm; \
+	fi
 	$(MAKE) -C repos/go-litellm install
 	@mkdir -p run_claude/bin
 	@cp repos/go-litellm/bin/go-litellm run_claude/bin/go-litellm

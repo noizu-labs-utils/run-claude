@@ -227,7 +227,7 @@ The following custom skills remain available via `/command`:
 
 ## Monorepo context (run-claude — trl-infra)
 
-Wafer model-tier CLI (sonnet→Qwen3.5, haiku→DS-V4-Flash-Fast, fable→kimi-k3 + glm-5.3-flash); cerebras profile = glm-4.7/gemma/gpt-oss tiers on non-sub key. Installed to `~/.local/bin` via trl-infra root `make install-utilities`.
+Wafer model-tier CLI (fable→kimi-k3, opus→Qwen3.8-27B, sonnet→glm-5.3-flash, haiku→DS-V4.1-Flash-1017); cerebras profile = glm-4.7/gemma/gpt-oss tiers on non-sub key. Installed to `~/.local/bin` via trl-infra root `make install-utilities`.
 
 REQUIRED monorepo rules: Trinity Protocol (substantive responses run Orientation → Friction → Response; full text trl-infra `protocols/the-trinity-protocol.md`); no shell in the main thread — delegate to tasker subagents; all work on worktrees — placement per the `## Worktrees` section below; `epic.<group>` consolidation branches off `develop`, PR + squash flow into epics (one epic PR per group). Monorepo ops: `../../../../CLAUDE.md`.
 

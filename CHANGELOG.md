@@ -1,5 +1,8 @@
 # Changelog — utilities/agent/run-claude
 
+## 2026-10-28
+- docs: add AGENT-README.md (agent orientation)
+
 ## [Unreleased]
 - 2026-10-27: Back-merge `main` → `develop` (house-required after release #61): carries the `groq qwen3.8-27b` `max_tokens: 16384` cap and the qwen3.8/wafer catalog revamp into develop, so a reinstall from develop no longer regresses to the extinct `groq-qwen3.6-27b` ids. Conflicts resolved: `tests/test_profiles.py` in favour of `main` (adds the `zai` key-set instance assertion); `CHANGELOG.md` keeps both sides' dated entries.
 - 2026-10-26: docs: doc-sweep — refreshed `PROJ-LAYOUT`/`PROJ-ARCH`/`PROJ-SCHEMA`/`THREAT-MODEL` (+ summaries). Dropped the removed `run_claude/defaults/` entries; corrected the profile count (35→33) and the monorepo placement (`Projects/run-claude`, not `Portfolio/Utilities/source/run-claude`); documented the `templates/models-routing.yaml` routing-table template + `MODELS_ROUTING` flag (template only, nothing loads it); fixed the stale `hooks.yaml` path/loader note and the threat-model dynamic-import line (`hooks/loader.py:80`); noted the planned routing layer adds no attack surface yet. Doc-pointer seed store opened as PR #62.

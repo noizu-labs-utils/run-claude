@@ -576,6 +576,33 @@ def get_model_definition(model_name: str) -> ModelDef | None:
     return models.get(model_name)
 
 
+def hydrate_os_environ_value(value: Any) -> Any:
+    """
+    Recursively expand 'os.environ/VAR_NAME' references inside a litellm_params value.
+
+    Strings are expanded (or kept as placeholders when the variable is unset);
+    dicts and lists are walked so nested values (e.g. ``extra_headers``) hydrate
+    too. Anything else passes through unchanged.
+
+    Args:
+        value: A litellm_params value
+
+    Returns:
+        The value with environment references expanded
+    """
+    if isinstance(value, str):
+        if not value.startswith("os.environ/"):
+            return value
+        env_var = value.replace("os.environ/", "", 1)
+        hydrated = os.environ.get(env_var)
+        return hydrated if hydrated else value
+    if isinstance(value, dict):
+        return {k: hydrate_os_environ_value(v) for k, v in value.items()}
+    if isinstance(value, list):
+        return [hydrate_os_environ_value(v) for v in value]
+    return value
+
+
 def hydrate_model_def(model_def: ModelDef) -> ModelDef:
     """
     Hydrate a model definition by expanding environment variable references.
@@ -604,7 +631,7 @@ def hydrate_model_def(model_def: ModelDef) -> ModelDef:
                 # Print warning in red
                 print(f"\033[31m[HYDRATE_WARNING] {key}: os.environ/{env_var} not found, keeping placeholder\033[0m", file=sys.stderr)
         else:
-            hydrated_params[key] = value
+            hydrated_params[key] = hydrate_os_environ_value(value)
 
     return ModelDef(model_name=model_def.model_name, litellm_params=hydrated_params, model_info=model_def.model_info, metadata=model_def.metadata)
 

@@ -576,6 +576,7 @@ def _hydrate_model_dict(model_dict: dict[str, Any]) -> dict[str, Any]:
         return hydrated
 
     from .keys import canonical_key_name, env_for_name, family_of, name_from_env
+    from .profiles import hydrate_os_environ_value
 
     hydrated_params = {}
     inferred_name: str | None = None
@@ -592,7 +593,9 @@ def _hydrate_model_dict(model_dict: dict[str, Any]) -> dict[str, Any]:
             if key == "api_key":
                 inferred_name = name_from_env(env_var)
         else:
-            hydrated_params[key] = value
+            # Recurse into containers (e.g. extra_headers) so nested
+            # os.environ/ references hydrate too.
+            hydrated_params[key] = hydrate_os_environ_value(value)
 
     if inferred_name and not hydrated_params.get("api_key_name"):
         hydrated_params["api_key_name"] = inferred_name

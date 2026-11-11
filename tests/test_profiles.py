@@ -548,3 +548,27 @@ def test_profile_meta_from_data_env_passthrough_flat_and_nested():
     nested = _profile_meta_from_data("t", {"meta": {"env_passthrough": True}})
     assert flat.env_passthrough is True
     assert nested.env_passthrough is True
+
+
+def test_local_profile_maps_haiku_to_dory_via_litellm(monkeypatch, tmp_path):
+    from run_claude.profiles import load_model_definitions, load_profile
+
+    _pin_builtin_profile_resolution(monkeypatch, tmp_path)
+    clear_caches()
+    try:
+        profile = load_profile("local")
+        assert profile is not None
+        # 2026-11-11: Dory 1.0 4B is the smallest local tier and is cluster-served,
+        # so the haiku slot routes to it through the shared LiteLLM gateway instead
+        # of localhost ollama (which the Mac may not have running).
+        assert profile.meta.haiku_model == "dory"
+        assert "dory" in profile.meta.extended
+        models = load_model_definitions(force_reload=True, quiet=True)
+        entry = models["dory"]
+        assert entry.litellm_params["model"] == "openai/dory"
+        assert entry.litellm_params["api_base"] == "https://inference.noizu.com/v1"
+        # Credential by reference only — dc `auto litellm_master_key` exports as
+        # LITELLM_API_KEY; the value must never be inlined into the catalog.
+        assert entry.litellm_params["api_key"] == "os.environ/LITELLM_API_KEY"
+    finally:
+        clear_caches()

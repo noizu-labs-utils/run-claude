@@ -10469,6 +10469,202 @@ model_list:
       output:
       - text
     supports_tools: true
+- model_name: alibaba/qwen4-max-preview (sub, max)
+  litellm_params:
+    model: anthropic/qwen4-max-preview
+    api_key: os.environ/QWEN_SUB_KEY
+    api_base: https://token-plan.ap-southeast-1.maas.aliyuncs.com/apps/anthropic
+    drop_params: false
+    additional_drop_params:
+    - context_management
+    - thinking
+    reasoning_effort: max
+  metadata:
+    provider: alibaba
+    description: Qwen4.0 Max Preview — agent/coding-first, 1M context (preview)
+    strengths: Newest Qwen flagship preview, 1M context, agent/coding-first
+    weaknesses: Preview ID — may be renamed/retired at GA; rate unpublished
+    pricing:
+      text:
+        in: 2.0
+        out: 6.0
+        cached_in: 0.25
+      audio:
+        in: null
+        out: null
+      image:
+        in: null
+        out: null
+      source: subscription
+    limits:
+      max_input_tokens: 1000000
+      max_output_tokens: 32768
+      max_thinking_tokens: 32768
+    thinking:
+      supported: true
+      levels: null
+      default_level: max
+    tokens_per_second: 40
+    notes: PREVIEW PROMO ~80% off at launch (2026-11-11); exact rate unpublished
+      — verify in Model Studio console; subscription plan; list price shown for
+      reference
+    context_window: 1000000
+    modalities:
+      input:
+      - text
+      - image
+      - audio
+      - video
+      output:
+      - text
+    supports_tools: true
+- model_name: alibaba/qwen4-max-preview (sub, high)
+  litellm_params:
+    model: anthropic/qwen4-max-preview
+    api_key: os.environ/QWEN_SUB_KEY
+    api_base: https://token-plan.ap-southeast-1.maas.aliyuncs.com/apps/anthropic
+    drop_params: false
+    additional_drop_params:
+    - context_management
+    - thinking
+    reasoning_effort: high
+  metadata:
+    provider: alibaba
+    description: Qwen4.0 Max Preview — agent/coding-first, 1M context (preview)
+    strengths: Newest Qwen flagship preview, 1M context, agent/coding-first
+    weaknesses: Preview ID — may be renamed/retired at GA; rate unpublished
+    pricing:
+      text:
+        in: 2.0
+        out: 6.0
+        cached_in: 0.25
+      audio:
+        in: null
+        out: null
+      image:
+        in: null
+        out: null
+      source: subscription
+    limits:
+      max_input_tokens: 1000000
+      max_output_tokens: 32768
+      max_thinking_tokens: 32768
+    thinking:
+      supported: true
+      levels: null
+      default_level: high
+    tokens_per_second: 40
+    notes: PREVIEW PROMO ~80% off at launch (2026-11-11); exact rate unpublished
+      — verify in Model Studio console; subscription plan; list price shown for
+      reference
+    context_window: 1000000
+    modalities:
+      input:
+      - text
+      - image
+      - audio
+      - video
+      output:
+      - text
+    supports_tools: true
+- model_name: alibaba/qwen4-max-preview (sub, medium)
+  litellm_params:
+    model: anthropic/qwen4-max-preview
+    api_key: os.environ/QWEN_SUB_KEY
+    api_base: https://token-plan.ap-southeast-1.maas.aliyuncs.com/apps/anthropic
+    drop_params: false
+    additional_drop_params:
+    - context_management
+    - thinking
+    reasoning_effort: medium
+  metadata:
+    provider: alibaba
+    description: Qwen4.0 Max Preview — agent/coding-first, 1M context (preview)
+    strengths: Newest Qwen flagship preview, 1M context, agent/coding-first
+    weaknesses: Preview ID — may be renamed/retired at GA; rate unpublished
+    pricing:
+      text:
+        in: 2.0
+        out: 6.0
+        cached_in: 0.25
+      audio:
+        in: null
+        out: null
+      image:
+        in: null
+        out: null
+      source: subscription
+    limits:
+      max_input_tokens: 1000000
+      max_output_tokens: 32768
+      max_thinking_tokens: 32768
+    thinking:
+      supported: true
+      levels: null
+      default_level: medium
+    tokens_per_second: 40
+    notes: PREVIEW PROMO ~80% off at launch (2026-11-11); exact rate unpublished
+      — verify in Model Studio console; subscription plan; list price shown for
+      reference
+    context_window: 1000000
+    modalities:
+      input:
+      - text
+      - image
+      - audio
+      - video
+      output:
+      - text
+    supports_tools: true
+- model_name: alibaba/qwen4-max-preview (sub, low)
+  litellm_params:
+    model: anthropic/qwen4-max-preview
+    api_key: os.environ/QWEN_SUB_KEY
+    api_base: https://token-plan.ap-southeast-1.maas.aliyuncs.com/apps/anthropic
+    drop_params: false
+    additional_drop_params:
+    - context_management
+    - thinking
+    reasoning_effort: low
+  metadata:
+    provider: alibaba
+    description: Qwen4.0 Max Preview — agent/coding-first, 1M context (preview)
+    strengths: Newest Qwen flagship preview, 1M context, agent/coding-first
+    weaknesses: Preview ID — may be renamed/retired at GA; rate unpublished
+    pricing:
+      text:
+        in: 2.0
+        out: 6.0
+        cached_in: 0.25
+      audio:
+        in: null
+        out: null
+      image:
+        in: null
+        out: null
+      source: subscription
+    limits:
+      max_input_tokens: 1000000
+      max_output_tokens: 32768
+      max_thinking_tokens: 32768
+    thinking:
+      supported: true
+      levels: null
+      default_level: low
+    tokens_per_second: 40
+    notes: PREVIEW PROMO ~80% off at launch (2026-11-11); exact rate unpublished
+      — verify in Model Studio console; subscription plan; list price shown for
+      reference
+    context_window: 1000000
+    modalities:
+      input:
+      - text
+      - image
+      - audio
+      - video
+      output:
+      - text
+    supports_tools: true
 - model_name: alibaba/deepseek-v4-pro (sub, max)
   litellm_params:
     model: anthropic/deepseek-v4-pro

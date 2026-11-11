@@ -96,6 +96,10 @@ anthropic:
   - "alibaba/kimi-k3"
   - "alibaba/glm-5.3"
   - "alibaba/glm-5.3[1m]"
+  - "alibaba/qwen4-max-preview (sub, max)"
+  - "alibaba/qwen4-max-preview (sub, high)"
+  - "alibaba/qwen4-max-preview (sub, medium)"
+  - "alibaba/qwen4-max-preview (sub, low)"
   # groq (GROQ_API_KEY) - live catalog only
   - "groq/gpt-oss-120b (high)"
   - "groq/gpt-oss-120b (high)[1m]"
@@ -147,6 +151,10 @@ openai:
   - "openai-gpt5.4"
   - "openai-gpt4o"
   - "openai-gpt4o-mini"
+  - "alibaba/qwen4-max-preview (sub, max)"
+  - "alibaba/qwen4-max-preview (sub, high)"
+  - "alibaba/qwen4-max-preview (sub, medium)"
+  - "alibaba/qwen4-max-preview (sub, low)"
 
 # Cerebras - Speed optimized inference
 # Ladder: zai-glm-4.7 > qwen-3-235b > gpt-oss-120b > llama-3.3-70b
@@ -161,6 +169,10 @@ cerebras:
   - "cerebras/qwen-3.8-27b"
   - "cerebras-pro/qwen-3.8-27b"
   - "cerebras-pro/qwen-3.8-27b[1m]"
+  - "alibaba/qwen4-max-preview (sub, max)"
+  - "alibaba/qwen4-max-preview (sub, high)"
+  - "alibaba/qwen4-max-preview (sub, medium)"
+  - "alibaba/qwen4-max-preview (sub, low)"
 
 groq-pro:
   name: "Groq Equivalent"
@@ -183,6 +195,10 @@ groq-pro:
   - "groq-gpt-oss-20b"
   - "groq-safety-gpt-oss-20b"
   - "groq-minimax-m2.7"
+  - "alibaba/qwen4-max-preview (sub, max)"
+  - "alibaba/qwen4-max-preview (sub, high)"
+  - "alibaba/qwen4-max-preview (sub, medium)"
+  - "alibaba/qwen4-max-preview (sub, low)"
 zai-pro:
   name: "Zai Subscription"
   opus_model: "zai/glm-5.3-flash (sub, max)"
@@ -251,6 +267,10 @@ zai-pro:
   - "alibaba/kimi-k3"
   - "alibaba/glm-5.3"
   - "alibaba/glm-5.3[1m]"
+  - "alibaba/qwen4-max-preview (sub, max)"
+  - "alibaba/qwen4-max-preview (sub, high)"
+  - "alibaba/qwen4-max-preview (sub, medium)"
+  - "alibaba/qwen4-max-preview (sub, low)"
   # groq (GROQ_API_KEY) - live catalog only
   - "groq/gpt-oss-120b (high)"
   - "groq/gpt-oss-120b (high)[1m]"
@@ -356,6 +376,10 @@ zai-alt: &zai-alt-profile
   - "alibaba/kimi-k3"
   - "alibaba/glm-5.3"
   - "alibaba/glm-5.3[1m]"
+  - "alibaba/qwen4-max-preview (sub, max)"
+  - "alibaba/qwen4-max-preview (sub, high)"
+  - "alibaba/qwen4-max-preview (sub, medium)"
+  - "alibaba/qwen4-max-preview (sub, low)"
   # groq (GROQ_API_KEY) - live catalog only
   - "groq/gpt-oss-120b (high)"
   - "groq/gpt-oss-120b (high)[1m]"
@@ -433,6 +457,10 @@ zai-pro-x:
   - "zai-oa/glm-5.2"
   - "zai-oa/glm-5-turbo"
   - "zai-oa/glm-4.7"
+  - "alibaba/qwen4-max-preview (sub, max)"
+  - "alibaba/qwen4-max-preview (sub, high)"
+  - "alibaba/qwen4-max-preview (sub, medium)"
+  - "alibaba/qwen4-max-preview (sub, low)"
 zai-alt-x:
   name: "Zai Subscription (Alt, legacy -x alias)"
   opus_model: "zai-alt/glm-5.3-flash"
@@ -452,6 +480,10 @@ zai-alt-x:
   - "zai-oa-alt/glm-5.2"
   - "zai-oa-alt/glm-5-turbo"
   - "zai-oa-alt/glm-4.7"
+  - "alibaba/qwen4-max-preview (sub, max)"
+  - "alibaba/qwen4-max-preview (sub, high)"
+  - "alibaba/qwen4-max-preview (sub, medium)"
+  - "alibaba/qwen4-max-preview (sub, low)"
 zai-oa:
   name: "Zai Subscription (OpenAI v1)"
   fable_model: "zai-oa/glm-5.3"
@@ -465,6 +497,10 @@ zai-oa:
   - "zai-oa/glm-5-turbo"
   - "zai-oa/glm-5.3-flash[1m]"
   - "zai-oa/glm-4.7"
+  - "alibaba/qwen4-max-preview (sub, max)"
+  - "alibaba/qwen4-max-preview (sub, high)"
+  - "alibaba/qwen4-max-preview (sub, medium)"
+  - "alibaba/qwen4-max-preview (sub, low)"
 zai-max:
   name: "Zai Subscription (Max Thinking)"
   opus_model: "zai/glm-5.3 (sub, max)"
@@ -515,6 +551,10 @@ wafer:
   - "WAFER_KIMI_K3[1m]"
   - "WAFER_DS_V4_FLASH_FAST"
   - "WAFER_DS_V4_FLASH_FAST[1m]"
+  - "alibaba/qwen4-max-preview (sub, max)"
+  - "alibaba/qwen4-max-preview (sub, high)"
+  - "alibaba/qwen4-max-preview (sub, medium)"
+  - "alibaba/qwen4-max-preview (sub, low)"
 alibaba:
   name: "Alibaba Token Plan"
   opus_model: "alibaba/qwen3.8-max"
@@ -549,6 +589,10 @@ alibaba:
   - "alibaba/glm-5.1"
   - "alibaba/glm-5"
   - "alibaba/minimax-m2.5"
+  - "alibaba/qwen4-max-preview (sub, max)"
+  - "alibaba/qwen4-max-preview (sub, high)"
+  - "alibaba/qwen4-max-preview (sub, medium)"
+  - "alibaba/qwen4-max-preview (sub, low)"
 qwen:
   name: "Alibaba Qwen"
   fable_model: "alibaba/qwen3.8-max (sub, max)"
@@ -577,6 +621,10 @@ qwen:
   - "alibaba/qwen3.8-max[1m]"
   - "alibaba/qwen3.8-flash[1m]"
   - "alibaba/qwen3.8-max-preview"
+  - "alibaba/qwen4-max-preview (sub, max)"
+  - "alibaba/qwen4-max-preview (sub, high)"
+  - "alibaba/qwen4-max-preview (sub, medium)"
+  - "alibaba/qwen4-max-preview (sub, low)"
 
 # Alibaba Token Plan — all-DeepSeek ladder
 # Tiers (2026-10):
@@ -612,6 +660,10 @@ alibaba-deepseek:
   - "alibaba/deepseek-v4-pro-0813[1m]"
   - "alibaba/deepseek-v4.1-flash"
   - "alibaba/deepseek-v4.1-flash[1m]"
+  - "alibaba/qwen4-max-preview (sub, max)"
+  - "alibaba/qwen4-max-preview (sub, high)"
+  - "alibaba/qwen4-max-preview (sub, medium)"
+  - "alibaba/qwen4-max-preview (sub, low)"
 
 # OpenRouter — Free Tier models
 # Requires: OPENROUTER_API_KEY
@@ -637,6 +689,10 @@ openrouter:
   - "openrouter/nemotron-3-ultra"
   - "openrouter/minimax-m3"
   - "openrouter/ox-alpha"
+  - "alibaba/qwen4-max-preview (sub, max)"
+  - "alibaba/qwen4-max-preview (sub, high)"
+  - "alibaba/qwen4-max-preview (sub, medium)"
+  - "alibaba/qwen4-max-preview (sub, low)"
 
 # Claude Plan - OAuth Pass-through (Pro/Max subscription)
 # Anthropic models go directly to api.anthropic.com via front proxy.
@@ -722,6 +778,10 @@ claude-plan:
   - "alibaba/glm-5.1"
   - "alibaba/glm-5"
   - "alibaba/minimax-m2.5"
+  - "alibaba/qwen4-max-preview (sub, max)"
+  - "alibaba/qwen4-max-preview (sub, high)"
+  - "alibaba/qwen4-max-preview (sub, medium)"
+  - "alibaba/qwen4-max-preview (sub, low)"
 all-sub:
   name: "All Subscriptions (Claude + Z.AI + Cerebras)"
 
@@ -802,6 +862,10 @@ all-sub:
   - "alibaba/glm-5.1"
   - "alibaba/glm-5"
   - "alibaba/minimax-m2.5"
+  - "alibaba/qwen4-max-preview (sub, max)"
+  - "alibaba/qwen4-max-preview (sub, high)"
+  - "alibaba/qwen4-max-preview (sub, medium)"
+  - "alibaba/qwen4-max-preview (sub, low)"
   - "cerebras-pro/glm-4.7"
   - "cerebras-pro/qwen-3.8-27b"
   - "cerebras-pro/qwen-3.8-27b[1m]"
@@ -879,6 +943,10 @@ claude-enhanced:
   - "alibaba/glm-5.1"
   - "alibaba/glm-5"
   - "alibaba/minimax-m2.5"
+  - "alibaba/qwen4-max-preview (sub, max)"
+  - "alibaba/qwen4-max-preview (sub, high)"
+  - "alibaba/qwen4-max-preview (sub, medium)"
+  - "alibaba/qwen4-max-preview (sub, low)"
   - "cerebras-pro/glm-4.7"
   - "cerebras-pro/glm-4.7[1m]"
   - "cerebras-pro/qwen-3.8-27b"
@@ -974,6 +1042,10 @@ kitchen-sink:
   - "alibaba/glm-5.1"
   - "alibaba/glm-5"
   - "alibaba/minimax-m2.5"
+  - "alibaba/qwen4-max-preview (sub, max)"
+  - "alibaba/qwen4-max-preview (sub, high)"
+  - "alibaba/qwen4-max-preview (sub, medium)"
+  - "alibaba/qwen4-max-preview (sub, low)"
   - "cerebras-pro/glm-4.7"
   - "cerebras-pro/glm-4.7[1m]"
   - "cerebras-pro/qwen-3.8-27b"
@@ -1041,6 +1113,10 @@ groq:
   - "groq-gpt-oss-20b"
   - "groq-safety-gpt-oss-20b"
   - "groq-minimax-m2.7"
+  - "alibaba/qwen4-max-preview (sub, max)"
+  - "alibaba/qwen4-max-preview (sub, high)"
+  - "alibaba/qwen4-max-preview (sub, medium)"
+  - "alibaba/qwen4-max-preview (sub, low)"
 
 # Gemini - Google AI models
 gemini:
@@ -1065,6 +1141,10 @@ grok:
   extended:
   - "grok-2"
   - "grok-vision"
+  - "alibaba/qwen4-max-preview (sub, max)"
+  - "alibaba/qwen4-max-preview (sub, high)"
+  - "alibaba/qwen4-max-preview (sub, medium)"
+  - "alibaba/qwen4-max-preview (sub, low)"
 
 # DeepSeek - DeepSeek AI models
 deepseek:
@@ -1075,6 +1155,10 @@ deepseek:
   extended:
   - "deepseek-reasoner"
   - "deepseek-coder"
+  - "alibaba/qwen4-max-preview (sub, max)"
+  - "alibaba/qwen4-max-preview (sub, high)"
+  - "alibaba/qwen4-max-preview (sub, medium)"
+  - "alibaba/qwen4-max-preview (sub, low)"
 
 # Mistral - Mistral AI models
 mistral:
@@ -1099,6 +1183,10 @@ local:
   extended:
   - "dory"
   - "lmstudio/qwen3.8-27b"
+  - "alibaba/qwen4-max-preview (sub, max)"
+  - "alibaba/qwen4-max-preview (sub, high)"
+  - "alibaba/qwen4-max-preview (sub, medium)"
+  - "alibaba/qwen4-max-preview (sub, low)"
 
 # Multi - Best-of-breed from multiple providers
 multi:

@@ -88,15 +88,15 @@ claude</code></pre>
             <td>anthropic</td>
             <td>claude-fable-5-2</td>
             <td>claude-opus-5</td>
-            <td>claude-sonnet-5</td>
-            <td>claude-haiku-4-5-20251001</td>
+            <td>claude-sonnet-5-5</td>
+            <td>claude-haiku-5-5</td>
           </tr>
           <tr>
             <td>claude-plan <span class="tag">OAuth</span></td>
             <td>claude-fable-5-2</td>
             <td>claude-opus-5</td>
-            <td>claude-sonnet-5</td>
-            <td>claude-haiku-4-5-20251001</td>
+            <td>claude-sonnet-5-5</td>
+            <td>claude-haiku-5-5</td>
           </tr>
           <tr>
             <td>wafer</td>

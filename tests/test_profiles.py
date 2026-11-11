@@ -512,7 +512,7 @@ def test_profile_to_dict_round_trips_env_passthrough():
     assert restored.meta.env_passthrough is True
 
 
-def test_anthropic_profile_is_env_passthrough_only(monkeypatch, tmp_path):
+def test_anthropic_profile_pins_claude_slots(monkeypatch, tmp_path):
     from run_claude.profiles import load_profile
 
     _pin_builtin_profile_resolution(monkeypatch, tmp_path)
@@ -520,7 +520,9 @@ def test_anthropic_profile_is_env_passthrough_only(monkeypatch, tmp_path):
     try:
         profile = load_profile("anthropic")
         assert profile is not None
-        assert profile.meta.env_passthrough is True
+        # 2026-11-11: pinned so the /model picker follows the profile (CLI table lagged).
+        assert profile.meta.env_passthrough is False
+        assert profile.meta.fable_model == "claude-fable-5-2"
     finally:
         clear_caches()
 

@@ -29,7 +29,7 @@
 
 routing_table:
   # EXAMPLE — hardest work, depth over speed
-  - id: "claude-fable-5-1"
+  - id: "claude-fable-5-2"
     provider: anthropic
     cost_in_per_mtok: 15.00
     cost_out_per_mtok: 75.00

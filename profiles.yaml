@@ -104,6 +104,7 @@ anthropic:
   - "groq/gpt-oss-20b (low)"
   - "groq/gpt-oss-20b (low)[1m]"
   - "groq-qwen3.8-27b"
+  - "lmstudio/qwen3.8-27b"
   - "groq-qwen3.8-27b[1m]"
   - "groq-compound"
   - "groq-compound-mini"
@@ -258,6 +259,7 @@ zai-pro:
   - "groq/gpt-oss-20b (low)"
   - "groq/gpt-oss-20b (low)[1m]"
   - "groq-qwen3.8-27b"
+  - "lmstudio/qwen3.8-27b"
   - "groq-qwen3.8-27b[1m]"
   - "groq-compound"
   - "groq-compound-mini"
@@ -362,6 +364,7 @@ zai-alt: &zai-alt-profile
   - "groq/gpt-oss-20b (low)"
   - "groq/gpt-oss-20b (low)[1m]"
   - "groq-qwen3.8-27b"
+  - "lmstudio/qwen3.8-27b"
   - "groq-qwen3.8-27b[1m]"
   - "groq-compound"
   - "groq-compound-mini"
@@ -1095,6 +1098,7 @@ local:
   haiku_model: "local-small"
   extended:
   - "dory"
+  - "lmstudio/qwen3.8-27b"
 
 # Multi - Best-of-breed from multiple providers
 multi:

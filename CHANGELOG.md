@@ -1,7 +1,7 @@
 # Changelog — utilities/agent/run-claude
 
 ## 2026-11-11
-- Opus 5.5 slots: `opus_model` → `claude-opus-5-5` in `anthropic`, `claude-plan` (were `claude-opus-5`) and `all-sub`, `claude-enhanced`, `kitchen-sink` (were `claude-opus-4-8`); landing tables updated.
+- Opus 5.5 slots: `opus_model` → `claude-opus-5-5` in `anthropic`, `claude-plan` (were `claude-opus-5`) and `all-sub`, `claude-enhanced`, `kitchen-sink` (were `claude-opus-4-8`); landing tables updated. #72 → stage (#73) → main (#74); back-merge #75.
 - Sonnet/Haiku 5.5 slots: `sonnet_model` `claude-sonnet-5` → `claude-sonnet-5-5` and `haiku_model` `claude-haiku-4-5-20251001` → `claude-haiku-5-5` in the `anthropic`, `claude-plan`, `claude-enhanced` and `kitchen-sink` profiles (catalog entries already existed); landing tables updated. Opus slots unchanged. #68 → stage (#69) → main (#70); back-merge #71.
 - Anthropic Fable 5.2: `claude-fable-5-1` → `claude-fable-5-2` (+`[1m]`) in the `models.yaml` catalog (API-key + plan entries, `behavesAs`), the `anthropic` / `claude-plan` fable slots, the routing template and the landing tables; `claude-fable-5-2` + `[1m]` added to the `zai-pro`, `zai-alt` (and its `zai-pro-alt` alias), `qwen`, `alibaba-deepseek` and `all-sub` extended lists; `claude-fable-5-2` added to `BUILTIN_CLAUDE_MODEL_SLOTS` (5-1 kept so older CLI ids still remap). #64 → stage (#65) → main (#66); back-merge #67.
 

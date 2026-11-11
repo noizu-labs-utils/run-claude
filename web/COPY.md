@@ -96,8 +96,8 @@ disables an entry.`
 
 | Profile | fable | opus | sonnet | haiku |
 |---|---|---|---|---|
-| `anthropic` | claude-fable-5-2 | claude-opus-5 | claude-sonnet-5-5 | claude-haiku-5-5 |
-| `claude-plan` (OAuth) | claude-fable-5-2 | claude-opus-5 | claude-sonnet-5-5 | claude-haiku-5-5 |
+| `anthropic` | claude-fable-5-2 | claude-opus-5-5 | claude-sonnet-5-5 | claude-haiku-5-5 |
+| `claude-plan` (OAuth) | claude-fable-5-2 | claude-opus-5-5 | claude-sonnet-5-5 | claude-haiku-5-5 |
 | `wafer` | wafer/kimi-k3[1m] | wafer/glm-5.3-flash (max)[1m] | wafer/qwen3.5-397b-a17b (high)[1m] | wafer/deepseek-v4-flash-0731-fast[1m] |
 | `zai-pro` | zai/glm-5.3 (sub) | zai/glm-5.3-flash (sub) | zai/glm-5.3-flash (sub) | zai/glm-5.3-flash (sub) |
 | `cerebras` | cerebras/zai-glm-4.7 | cerebras/qwen-3-235b-a22b-instruct-2507 | cerebras/gpt-oss-120b | cerebras/llama-3.3-70b |

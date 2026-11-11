@@ -1,3 +1,5 @@
+<!-- 〚📁:e87c40bb-1151-5ddc-bb9c-2cca76429443〛 PROJ-FAQ :: Frequently asked questions and troubleshooting answers. -->
+
 # PROJ-FAQ.md — run-claude
 
 Anticipated why/when/compared-to-what questions. For *how to*, see [PROJ-HOWTO.md](PROJ-HOWTO.md); for *what it is*, see [PROJ-ARCH.md](PROJ-ARCH.md).

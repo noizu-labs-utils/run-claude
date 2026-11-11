@@ -1,3 +1,5 @@
+<!-- 〚📁:c72efe11-6ba7-5f39-97ac-ff39dfdebff4〛 PROJ-HOWTO :: Index of task-oriented how-to guides. -->
+
 # PROJ-HOWTO.md — run-claude
 
 Task-oriented guides for the things you'll actually do with `run-claude`. For *what it is*, see [PROJ-ARCH.md](PROJ-ARCH.md); for *where things live*, see [PROJ-LAYOUT.md](PROJ-LAYOUT.md).
@@ -160,6 +162,10 @@ Layer user config on top of built-ins without editing the package, including dis
 ### How to: keep my Claude subscription billing while trying other providers
 → *See [howto/use-claude-plan-passthrough.md](howto/use-claude-plan-passthrough.md)*
 Use the `claude-plan` profile so Claude-model calls forward with your own OAuth token (subscription billing) while other providers in the same profile still bill as API usage.
+
+### How to: wire a Stop-hook transcript grader (component-eval, default OFF)
+→ *See [howto/stop-hook-grading.md](howto/stop-hook-grading.md)*
+Grade each turn with the component-eval classifiers (jev `:choice` verdict, optional Alibaba 0-100 `:score` on component-work turns), append to a JSONL sink, and respect the `TOBOR_GRADING=1` recursion guard; includes the default-off `MODELS_ROUTING` flag and shadow-first rollout note.
 
 ## Sharp Edges
 

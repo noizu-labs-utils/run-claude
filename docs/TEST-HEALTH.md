@@ -1,3 +1,5 @@
+<!-- 〚📁:d3b785a5-d1c3-55dc-85e3-d5db8f80c703〛 TEST-HEALTH :: How to run and interpret the test suite health checks. -->
+
 # Test Health — run-claude
 _Last measured: 2026-10-07 · branch develop@ae17255_
 

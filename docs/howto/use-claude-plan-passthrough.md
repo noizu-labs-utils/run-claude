@@ -1,3 +1,5 @@
+<!-- 〚📁:2da518fb-90ee-5691-a96b-c685ec642796〛 use-claude-plan-passthrough :: Using Claude subscription-plan OAuth passthrough mode. -->
+
 ## How to: keep my Claude subscription billing while trying other providers
 
 **Goal:** use your Claude Pro/Max subscription for Claude models (no per-token API charges) while still having Cerebras/Z.AI models available to try in the same session.

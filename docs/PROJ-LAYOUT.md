@@ -60,9 +60,10 @@ run-claude/
 ├── scripts/                 # Utility scripts
 │   ├── run-litellm-local    #   Run LiteLLM locally
 │   └── run-litellm-proxy    #   Run LiteLLM as proxy
-├── templates/               # direnv templates
+├── templates/               # direnv + routing templates (force-included in wheel)
 │   ├── envrc.tmpl           #   .envrc template (auto-generated)
-│   └── envrc.user.tmpl      #   .envrc.user template (user-editable)
+│   ├── envrc.user.tmpl      #   .envrc.user template (user-editable)
+│   └── models-routing.yaml  #   Routing-table template (not loaded; MODELS_ROUTING-gated feature)
 ├── tests/                   # Test suite → [layout/run-claude-package.md](layout/run-claude-package.md)
 │   ├── test_cli.py          #   CLI command tests
 │   ├── test_profiles.py     #   Profile loading/fallthrough tests
@@ -83,7 +84,7 @@ run-claude/
 ├── AGENTS.md                # Multi-agent/Grok Build rules (kept aligned w/ CLAUDE.md)
 ├── CLAUDE.md                # Claude Code project instructions
 ├── Makefile                 # Build automation (test, install, coverage)
-├── profiles.yaml            # Profile definitions (35 built-in profiles: zai, alibaba, wafer, groq, …)
+├── profiles.yaml            # Profile definitions (33 built-in profiles: zai, alibaba, wafer, groq, …)
 ├── pyproject.toml           # Python project config (hatchling)
 ├── merge-notes.md           # Notes from branch merges (working notes)
 ├── uv.lock                  # Dependency lockfile

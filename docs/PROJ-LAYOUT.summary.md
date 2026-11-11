@@ -19,7 +19,6 @@ run-claude/
 ├── repos/                   # Gateway implementations (ex-litellm, go-litellm)
 ├── run_claude/              # Main Python package
 │   ├── callbacks/           #   Provider compatibility layer
-│   ├── defaults/            #   Built-in config files (models, profiles, hooks)
 │   ├── hooks/               #   Lifecycle hook system (chain, loader, builtins)
 │   ├── bin/go-litellm       #   Vendored Go gateway binary
 │   ├── cli.py               #   CLI entry point
@@ -36,7 +35,7 @@ run-claude/
 │   ├── opencode_cli.py      #   OpenCode CLI integration
 │   └── models.yaml          #   Base model definitions
 ├── scripts/                 # Utility scripts (proxy runners)
-├── templates/               # direnv templates
+├── templates/               # direnv + routing templates (envrc, envrc.user, models-routing)
 ├── tests/                   # Test suite (cli, profiles, keys, chat, callbacks, hooks,
 │                            #   front proxy, watchdog, proxy startup/liveness/logging, packaging)
 ├── web/                     # Landing site (Elixir Hologram)
@@ -45,6 +44,6 @@ run-claude/
 ├── AGENTS.md                # Multi-agent rules (kept aligned w/ CLAUDE.md)
 ├── CLAUDE.md                # Claude Code project instructions
 ├── Makefile                 # Build automation
-├── profiles.yaml            # Profile definitions (35 built-in profiles)
+├── profiles.yaml            # Profile definitions (33 built-in profiles)
 └── pyproject.toml           # Python project config
 ```

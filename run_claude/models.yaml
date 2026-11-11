@@ -7496,6 +7496,46 @@ model_list:
       input: [text]
       output: [text]
     supports_tools: true
+- model_name: "dory"
+  litellm_params:
+    model: openai/dory
+    api_base: https://inference.noizu.com/v1
+    api_key: os.environ/LITELLM_API_KEY
+    drop_params: true
+    additional_drop_params: ["context_management", "thinking"]
+  metadata:
+    provider: litellm
+    description: "NVIDIA Dory 1.0 4B via the shared LiteLLM gateway (inference.noizu.com)"
+    strengths: "Cluster-served vLLM; no local VRAM needed"
+    weaknesses: "Small 4B model; endpoint is Cloudflare-Access-gated for non-trusted egress"
+
+    pricing:
+      text:
+        in: 0
+        out: 0
+        cached_in:
+      audio:
+        in:
+        out:
+      image:
+        in:
+        out:
+      source: self-hosted
+    limits:
+      max_input_tokens:
+      max_output_tokens:
+      max_thinking_tokens:
+    thinking:
+      supported:
+      levels:
+      default_level:
+    tokens_per_second:
+    notes: "self-hosted vllm-dory (ns platform-ai, ClusterIP) fronted by go-litellm; auth LITELLM_API_KEY = dc auto litellm_master_key; context window/tools support unverified 2026-11-11 (deploy in flight)"
+    context_window:
+    modalities:
+      input: [text]
+      output: [text]
+    supports_tools: true
 - model_name: "local-large"
   litellm_params:
     model: ollama/llama3.3:70b

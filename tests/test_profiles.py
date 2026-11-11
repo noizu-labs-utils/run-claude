@@ -550,7 +550,7 @@ def test_profile_meta_from_data_env_passthrough_flat_and_nested():
     assert nested.env_passthrough is True
 
 
-def test_local_profile_maps_haiku_to_dory_via_litellm(monkeypatch, tmp_path):
+def test_local_profile_offers_dory_optin_not_slot(monkeypatch, tmp_path):
     from run_claude.profiles import load_model_definitions, load_profile
 
     _pin_builtin_profile_resolution(monkeypatch, tmp_path)
@@ -558,17 +558,50 @@ def test_local_profile_maps_haiku_to_dory_via_litellm(monkeypatch, tmp_path):
     try:
         profile = load_profile("local")
         assert profile is not None
-        # 2026-11-11: Dory 1.0 4B is the smallest local tier and is cluster-served,
-        # so the haiku slot routes to it through the shared LiteLLM gateway instead
-        # of localhost ollama (which the Mac may not have running).
-        assert profile.meta.haiku_model == "dory"
+        # 2026-11-11 (#80 follow-up): dory stays opt-in on the extended list —
+        # haiku keeps localhost local-small (user decision; slot mapping reverted).
+        assert profile.meta.haiku_model == "local-small"
+        assert profile.meta.opus_model == "local-large"
+        assert profile.meta.sonnet_model == "local-medium"
         assert "dory" in profile.meta.extended
         models = load_model_definitions(force_reload=True, quiet=True)
         entry = models["dory"]
         assert entry.litellm_params["model"] == "openai/dory"
         assert entry.litellm_params["api_base"] == "https://inference.noizu.com/v1"
-        # Credential by reference only — dc `auto litellm_master_key` exports as
-        # LITELLM_API_KEY; the value must never be inlined into the catalog.
+        # Credentials by reference only — dc `auto litellm_master_key` exports as
+        # LITELLM_API_KEY; CF Access service token via CF_LITELLM_CLIENT_ID/SECRET.
+        # Values must never be inlined into the catalog.
         assert entry.litellm_params["api_key"] == "os.environ/LITELLM_API_KEY"
+        headers = entry.litellm_params["extra_headers"]
+        assert headers["CF-Access-Client-Id"] == "os.environ/CF_LITELLM_CLIENT_ID"
+        assert headers["CF-Access-Client-Secret"] == "os.environ/CF_LITELLM_CLIENT_SECRET"
     finally:
         clear_caches()
+
+
+def test_hydrate_expands_nested_extra_headers(monkeypatch):
+    from run_claude.profiles import ModelDef, hydrate_model_def
+
+    monkeypatch.setenv("CF_LITELLM_CLIENT_ID", "test-client-id.access")
+    monkeypatch.setenv("CF_LITELLM_CLIENT_SECRET", "test-client-secret")
+    monkeypatch.delenv("CF_LITELLM_UNSET", raising=False)
+    defn = ModelDef(
+        model_name="dory",
+        litellm_params={
+            "extra_headers": {
+                "CF-Access-Client-Id": "os.environ/CF_LITELLM_CLIENT_ID",
+                "CF-Access-Client-Secret": "os.environ/CF_LITELLM_CLIENT_SECRET",
+                "X-Static": "passthrough",
+            },
+            "api_key": "os.environ/CF_LITELLM_UNSET",
+            "drop_params": True,
+        },
+    )
+    out = hydrate_model_def(defn)
+    headers = out.litellm_params["extra_headers"]
+    assert headers["CF-Access-Client-Id"] == "test-client-id.access"
+    assert headers["CF-Access-Client-Secret"] == "test-client-secret"
+    assert headers["X-Static"] == "passthrough"
+    # Unset vars keep the placeholder (existing convention).
+    assert out.litellm_params["api_key"] == "os.environ/CF_LITELLM_UNSET"
+    assert out.litellm_params["drop_params"] is True

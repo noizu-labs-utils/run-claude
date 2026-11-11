@@ -7503,6 +7503,9 @@ model_list:
     api_key: os.environ/LITELLM_API_KEY
     drop_params: true
     additional_drop_params: ["context_management", "thinking"]
+    extra_headers:
+      CF-Access-Client-Id: os.environ/CF_LITELLM_CLIENT_ID
+      CF-Access-Client-Secret: os.environ/CF_LITELLM_CLIENT_SECRET
   metadata:
     provider: litellm
     description: "NVIDIA Dory 1.0 4B via the shared LiteLLM gateway (inference.noizu.com)"

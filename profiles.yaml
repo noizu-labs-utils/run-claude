@@ -1092,7 +1092,7 @@ local:
   name: "Local/Self-Hosted"
   opus_model: "local-large"
   sonnet_model: "local-medium"
-  haiku_model: "dory"
+  haiku_model: "local-small"
   extended:
   - "dory"
 

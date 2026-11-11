@@ -7736,6 +7736,47 @@ model_list:
       input: [text]
       output: [text]
     supports_tools: true
+- model_name: "lmstudio/qwen3.8-27b"
+  litellm_params:
+    model: openai/qwen/qwen3.8-27b
+    api_base: http://localhost:3717/v1
+    api_key: fake-key
+    drop_params: true
+    max_tokens: 16384
+    additional_drop_params: ["context_management", "thinking"]
+  metadata:
+    provider: local
+    description: "Local LM Studio qwen3.8-27b (localhost:3717)"
+    strengths: "Free, private, no rate limits"
+    weaknesses: "Requires LM Studio running locally with the model loaded"
+
+    pricing:
+      text:
+        in: 0
+        out: 0
+        cached_in:
+      audio:
+        in:
+        out:
+      image:
+        in:
+        out:
+      source: free
+    limits:
+      max_input_tokens: 100000
+      max_output_tokens: 16384
+      max_thinking_tokens:
+    thinking:
+      supported:
+      levels:
+      default_level:
+    tokens_per_second:
+    notes: requires LM Studio running locally with the model loaded
+    context_window: 100000
+    modalities:
+      input: [text]
+      output: [text]
+    supports_tools: true
 - model_name: "local-coder"
   litellm_params:
     model: ollama/qwen2.5-coder:32b

@@ -47,7 +47,7 @@ graph LR
 | T-002 | Medium | Info disclosure | `front-proxy-auth-state.json` persists upstream OAuth/auth headers in plaintext; atomic write but **no chmod 0600** (unlike `.secrets`/`.env`) | Open |
 | T-003 | Low | Info disclosure | `request-log.jsonl` records method/path/query/model + header report per request; error log may include response bodies; default dir `/var/log/run-cluade` (sic) may be world-readable | Partial — override via `RUN_CLAUDE_REQUEST_LOG`; no prompt bodies in the success path |
 | T-004 | Low | Tampering / EoP | `templates/envrc.tmpl` evals `run-claude env "$AGENT_SHIM_PROFILE"` output; a hostile profile name in `.envrc.user` or injected CLI output executes arbitrary shell | Mitigated by trust model — `.envrc.user` is user-owned + gitignored; accepted (local trust) |
-| T-005 | Low | EoP | `hooks/loader.py:82` dynamically imports arbitrary Python modules named in `hooks.yaml` (incl. user override) | Mitigated by trust model — hook config is local user config; equivalent to editing any dotfile |
+| T-005 | Low | EoP | `hooks/loader.py:80` dynamically imports arbitrary Python modules named in `hooks.yaml` (incl. user override) | Mitigated by trust model — hook config is local user config; equivalent to editing any dotfile |
 | T-006 | Low | Spoofing | TimescaleDB connection uses `sslmode=disable` over localhost with env-var password | Accepted — loopback-only Docker container, legacy chain |
 | T-007 | Low | DoS | Loopback gateway has no rate limiting; a misbehaving local process can exhaust provider quota/keys | Accepted — single-user workstation |
 | T-008 | Medium | Info disclosure | Provider API keys transited via process env (`inject_secrets_into_env`) — visible to same-user process inspection (`ps`/`procfs` on Linux) | Partial — inherent to env-var hydration; secrets files themselves are 0600 |
@@ -71,3 +71,10 @@ The two open items worth fixing: generate-and-persist a random master key instea
 public default fallback (T-001), and `chmod 0600` on `front-proxy-auth-state.json`
 (T-002). The deployed footprint (static landing site) holds no secrets and is out of
 scope here; its perimeter is owned by the monorepo chart/ingress.
+
+The planned model-routing layer (`templates/models-routing.yaml`, gated by the
+`MODELS_ROUTING` env flag) is a **template only** — nothing loads it today, so it adds
+no attack surface or trust-boundary crossing until it ships. When it activates, its
+routing table carries cost/quality hints (not credentials); review it then for
+info-disclosure of provider cost data and for the routing decision path before enabling
+`on` mode.

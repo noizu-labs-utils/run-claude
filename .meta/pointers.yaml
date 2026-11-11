@@ -1,0 +1,98 @@
+---
+pointers:
+  2da518fb-90ee-5691-a96b-c685ec642796:
+    created_at: 2026-10-26T22:11:17.484362Z
+    description: Using Claude subscription-plan OAuth passthrough mode.
+    file_path: docs/howto/use-claude-plan-passthrough.md
+    function: use-claude-plan-passthrough
+    kind: file
+    line: 1
+    locations:
+      - file_path: docs/howto/use-claude-plan-passthrough.md
+        line: 1
+    token: 𓫇𓜾𓘨𓼦
+    updated_at: 2026-10-26T22:11:17.484362Z
+  3b67a422-eeb5-5e7a-8ddf-218251f31733:
+    created_at: 2026-10-26T22:11:17.484365Z
+    description: Condensed how-to index for agents.
+    file_path: docs/PROJ-HOWTO.summary.md
+    function: PROJ-HOWTO summary
+    kind: file
+    line: 1
+    locations:
+      - file_path: docs/PROJ-HOWTO.summary.md
+        line: 1
+    token: 𔂦𓊦𓺘𓗃
+    updated_at: 2026-10-26T22:11:17.484365Z
+  4f8efb43-74a1-50c0-89b4-26a47cf95dd8:
+    created_at: 2026-10-26T22:11:17.484368Z
+    description: 'Entry point: project purpose, prerequisites, installation, and CLI usage.'
+    file_path: README.md
+    function: run-claude README
+    kind: file
+    line: 1
+    locations:
+      - file_path: README.md
+        line: 1
+    token: 𔄫𔀯𓽁𓍈
+    updated_at: 2026-10-26T22:11:17.484368Z
+  994c3897-e234-5b65-b190-c2152107eda6:
+    created_at: 2026-10-26T22:11:17.484357Z
+    description: Diagnosing and clearing stuck proxy/state conditions.
+    file_path: docs/howto/troubleshoot-stuck-state.md
+    function: troubleshoot-stuck-state
+    kind: file
+    line: 1
+    locations:
+      - file_path: docs/howto/troubleshoot-stuck-state.md
+        line: 1
+    token: 𓑯𓶙𓟦𔌖
+    updated_at: 2026-10-26T22:11:17.484357Z
+  c72efe11-6ba7-5f39-97ac-ff39dfdebff4:
+    created_at: 2026-10-26T22:11:17.484345Z
+    description: Index of task-oriented how-to guides.
+    file_path: docs/PROJ-HOWTO.md
+    function: PROJ-HOWTO
+    kind: file
+    line: 1
+    locations:
+      - file_path: docs/PROJ-HOWTO.md
+        line: 1
+    token: 𓏊𓩟𓜕𓂤
+    updated_at: 2026-10-26T22:11:17.484345Z
+  d038231a-a177-5523-939d-bddbfae838a6:
+    created_at: 2026-10-26T22:11:17.484373Z
+    description: Watchdog daemon and proxy start/stop lifecycle guide.
+    file_path: docs/howto/watchdog-and-proxy-lifecycle.md
+    function: watchdog-and-proxy-lifecycle
+    kind: file
+    line: 1
+    locations:
+      - file_path: docs/howto/watchdog-and-proxy-lifecycle.md
+        line: 1
+    token: 𔈊𔅭𓯆𓠖
+    updated_at: 2026-10-26T22:11:17.484373Z
+  d3b785a5-d1c3-55dc-85e3-d5db8f80c703:
+    created_at: 2026-10-26T22:11:17.484377Z
+    description: How to run and interpret the test suite health checks.
+    file_path: docs/TEST-HEALTH.md
+    function: TEST-HEALTH
+    kind: file
+    line: 1
+    locations:
+      - file_path: docs/TEST-HEALTH.md
+        line: 1
+    token: 𔘏𓟝𔋛𓽃
+    updated_at: 2026-10-26T22:11:17.484377Z
+  e87c40bb-1151-5ddc-bb9c-2cca76429443:
+    created_at: 2026-10-26T22:11:17.484327Z
+    description: Frequently asked questions and troubleshooting answers.
+    file_path: docs/PROJ-FAQ.md
+    function: PROJ-FAQ
+    kind: file
+    line: 1
+    locations:
+      - file_path: docs/PROJ-FAQ.md
+        line: 1
+    token: 𓈑𓱎𓿶𓶳
+    updated_at: 2026-10-26T22:11:17.484327Z

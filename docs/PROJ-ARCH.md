@@ -58,6 +58,16 @@ graph TB
 
 In the legacy chain, the front proxy (`:4443`) is the stable endpoint agents point at. In **standard mode** everything forwards to LiteLLM with the master key. In **passthrough mode** (claude-plan profile) Anthropic models forward to `api.anthropic.com` with the caller's original OAuth auth — preserving Claude subscription-plan usage — while non-Anthropic models swap auth to the LiteLLM master key. Non-2xx upstream responses are logged to a dedicated error log. It also exposes `GET /api/claude_cli/bootstrap` (model options for the Claude CLI from LiteLLM `/model/info` + models.yaml metadata) and persists swapped auth headers in `front-proxy-auth-state.json`; per-request logs land in `request-log.jsonl` (override via `RUN_CLAUDE_REQUEST_LOG`). Data shapes: see [PROJ-SCHEMA.md](PROJ-SCHEMA.md).
 
+### Gateway model discovery (not used)
+
+Claude Code can populate `/model` from the gateway via `GET /v1/models` when `CLAUDE_CODE_ENABLE_GATEWAY_MODEL_DISCOVERY=1` ([gateway protocol docs](https://code.claude.com/docs/en/llm-gateway-protocol#model-discovery)). run-claude does not use it:
+
+- The client only sends the discovery request when `ANTHROPIC_AUTH_TOKEN`, `ANTHROPIC_API_KEY`, or `apiKeyHelper` resolves; run-claude sessions authenticate with claude.ai OAuth passthrough, so discovery is skipped.
+- Claude Code also drops any discovered id not containing `claude` or `anthropic`, which would hide `zai/*` and `alibaba/*` ids.
+- The picker is fed instead by `GET /api/claude_cli/bootstrap` (`additional_model_options`), served by go-litellm (and the legacy Python front proxy).
+- go-litellm's existing `GET /v1/models` is OpenAI-shaped and master-key-authed (a tooling endpoint) — not for Claude Code discovery; the legacy Python front proxy forwards `GET /v1/models` to api.anthropic.com.
+- Revisit only if run-claude ever exports a gateway credential (that would disable OAuth; `claude-*` passthrough would then need a gateway-held API key). Decision 2026-10-16.
+
 ## Self-Healing Watchdog
 
 `watchdog.py` runs as a detached (setsid) daemon polling the gateway process(es) every ~5s and restarting whichever is down or unhealthy. Intentional stops write a `stop.marker` sentinel in the state dir so the watchdog does not undo `run-claude proxy stop`; crashes and internal recovery stops never write it. The watchdog itself is respawned idempotently by `proxy start` and the shell-hook `enter` path.
@@ -82,7 +92,7 @@ The agent-facing endpoint stays `127.0.0.1:4443` in both modes. Default resoluti
 
 ## Ecosystem Fit (Noizu monorepo)
 
-run-claude lives at `Portfolio/Utilities/source/run-claude` in the Noizu Infra monorepo but is deliberately **not** part of the shell-utility toolchain: it does not source `share/k8-lib`, is not installed by `make install-utilities`, and has no `.infra-config.yaml` build target. It is a self-contained Python package (hatchling + uv) installed via its own `make install` (`uv tool install .`), exposing `run-claude`, `run-open-code`, and `run-litellm-proxy` console scripts. Its role in the ecosystem is developer-workstation model routing for the agent fleets that operate on this repo — profiles for wafer.ai, z.ai, Groq, Cerebras, Ollama-local, and mixed-provider setups let Claude Code / OpenCode sessions run against alternate providers per directory. Companion artifacts: an Elixir Hologram landing site (`web/`) deployed via the `helm/run-claude-landing` chart.
+run-claude lives at `Projects/run-claude` (a monorepo submodule, `noizu-labs-utils/run-claude`) in the Noizu Infra monorepo but is deliberately **not** part of the shell-utility toolchain: it does not source `share/k8-lib`, is not installed by `make install-utilities`, and has no `.infra-config.yaml` build target. It is a self-contained Python package (hatchling + uv) installed via its own `make install` (`uv tool install .`), exposing `run-claude`, `run-open-code`, and `run-litellm-proxy` console scripts. Its role in the ecosystem is developer-workstation model routing for the agent fleets that operate on this repo — profiles for wafer.ai, z.ai, Groq, Cerebras, Ollama-local, and mixed-provider setups let Claude Code / OpenCode sessions run against alternate providers per directory. Companion artifacts: an Elixir Hologram landing site (`web/`) deployed via the `helm/run-claude-landing` chart.
 
 ## Key Decisions
 

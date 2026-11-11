@@ -73,7 +73,7 @@ class TestEnvCommand:
         output = captured.out
 
         assert "ANTHROPIC_DEFAULT_FABLE_MODEL=cerebras/zai-glm-4.7" in output
-        assert "ANTHROPIC_DEFAULT_OPUS_MODEL=cerebras/qwen-3-235b-a22b-instruct-2507" in output
+        assert "ANTHROPIC_DEFAULT_OPUS_MODEL=cerebras/qwen-3.8-27b" in output
         assert "ANTHROPIC_DEFAULT_SONNET_MODEL=cerebras/gpt-oss-120b" in output
         assert "ANTHROPIC_DEFAULT_HAIKU_MODEL=cerebras/llama-3.3-70b" in output
 
@@ -375,13 +375,14 @@ class TestModelOverrides:
                           sonnet_model="wafer/sonnet", haiku_model="wafer/haiku")
         o = build_model_overrides(p)
         assert o["claude-fable-5-1"] == "wafer/fable"
+        assert o["claude-fable-5-2"] == "wafer/fable"
         assert o["claude-opus-5-5"] == "wafer/opus"
         assert o["claude-sonnet-5-5[1m]"] == "wafer/sonnet"
         assert o["claude-haiku-4-5"] == "wafer/haiku"
 
     def test_anthropic_profile_gets_no_overrides(self):
         from run_claude.agent_runner import build_model_overrides
-        p = self._profile(fable_model="claude-fable-5-1", opus_model="claude-opus-5",
+        p = self._profile(fable_model="claude-fable-5-2", opus_model="claude-opus-5",
                           sonnet_model="claude-sonnet-5", haiku_model="claude-haiku-4-5-20251001")
         assert build_model_overrides(p) == {}
 
@@ -407,7 +408,7 @@ class TestModelOverrides:
         data = json.loads(cmd[cmd.index("--settings") + 1])
         assert data["permissions"] == {"allow": ["Bash(ls)"]}
         assert data["modelOverrides"]["claude-opus-5-5"] == "mine/opus"  # user wins
-        assert data["modelOverrides"]["claude-fable-5-1"] == "wafer/opus"  # fable falls back to opus
+        assert data["modelOverrides"]["claude-fable-5-2"] == "wafer/opus"  # fable falls back to opus
 
     def test_inject_merges_user_settings_file_and_equals_form(self, tmp_path):
         import json

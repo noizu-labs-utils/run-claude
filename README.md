@@ -1,3 +1,5 @@
+<!-- 〚📁:4f8efb43-74a1-50c0-89b4-26a47cf95dd8〛 run-claude README :: Entry point: project purpose, prerequisites, installation, and CLI usage. -->
+
 # run-claude
 
 **Repo:** https://github.com/noizu/run-claude

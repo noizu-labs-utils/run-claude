@@ -74,6 +74,7 @@ def _catalog_context_window(model_name: str) -> int | None:
 # bypasses ANTHROPIC_DEFAULT_*_MODEL and the front proxy forwards to api.anthropic.com.
 # `modelOverrides` rewrites them to the profile's slot model. Add new CLI IDs here.
 BUILTIN_CLAUDE_MODEL_SLOTS: dict[str, str] = {
+    "claude-fable-5-2": "fable",
     "claude-fable-5-1": "fable",
     "claude-fable-5": "fable",
     "claude-opus-5-5": "opus",

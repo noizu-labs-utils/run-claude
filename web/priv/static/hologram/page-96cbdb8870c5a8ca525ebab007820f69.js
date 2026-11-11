@@ -185,15 +185,15 @@ claude`)])])])])]),t.tuple([t.atom("text"),t.bitstring(`
             `)]),t.tuple([t.atom("element"),t.bitstring("td"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("anthropic")])])]),t.tuple([t.atom("text"),t.bitstring(`
             `)]),t.tuple([t.atom("element"),t.bitstring("td"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("claude-fable-5-2")])])]),t.tuple([t.atom("text"),t.bitstring(`
             `)]),t.tuple([t.atom("element"),t.bitstring("td"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("claude-opus-5")])])]),t.tuple([t.atom("text"),t.bitstring(`
-            `)]),t.tuple([t.atom("element"),t.bitstring("td"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("claude-sonnet-5")])])]),t.tuple([t.atom("text"),t.bitstring(`
-            `)]),t.tuple([t.atom("element"),t.bitstring("td"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("claude-haiku-4-5-20251001")])])]),t.tuple([t.atom("text"),t.bitstring(`
+            `)]),t.tuple([t.atom("element"),t.bitstring("td"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("claude-sonnet-5-5")])])]),t.tuple([t.atom("text"),t.bitstring(`
+            `)]),t.tuple([t.atom("element"),t.bitstring("td"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("claude-haiku-5-5")])])]),t.tuple([t.atom("text"),t.bitstring(`
           `)])])]),t.tuple([t.atom("text"),t.bitstring(`
           `)]),t.tuple([t.atom("element"),t.bitstring("tr"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring(`
             `)]),t.tuple([t.atom("element"),t.bitstring("td"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("claude-plan ")]),t.tuple([t.atom("element"),t.bitstring("span"),t.list([t.tuple([t.bitstring("class"),t.list([t.tuple([t.atom("text"),t.bitstring("tag")])])])]),t.list([t.tuple([t.atom("text"),t.bitstring("OAuth")])])])])]),t.tuple([t.atom("text"),t.bitstring(`
             `)]),t.tuple([t.atom("element"),t.bitstring("td"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("claude-fable-5-2")])])]),t.tuple([t.atom("text"),t.bitstring(`
             `)]),t.tuple([t.atom("element"),t.bitstring("td"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("claude-opus-5")])])]),t.tuple([t.atom("text"),t.bitstring(`
-            `)]),t.tuple([t.atom("element"),t.bitstring("td"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("claude-sonnet-5")])])]),t.tuple([t.atom("text"),t.bitstring(`
-            `)]),t.tuple([t.atom("element"),t.bitstring("td"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("claude-haiku-4-5-20251001")])])]),t.tuple([t.atom("text"),t.bitstring(`
+            `)]),t.tuple([t.atom("element"),t.bitstring("td"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("claude-sonnet-5-5")])])]),t.tuple([t.atom("text"),t.bitstring(`
+            `)]),t.tuple([t.atom("element"),t.bitstring("td"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("claude-haiku-5-5")])])]),t.tuple([t.atom("text"),t.bitstring(`
           `)])])]),t.tuple([t.atom("text"),t.bitstring(`
           `)]),t.tuple([t.atom("element"),t.bitstring("tr"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring(`
             `)]),t.tuple([t.atom("element"),t.bitstring("td"),t.list([]),t.list([t.tuple([t.atom("text"),t.bitstring("wafer")])])]),t.tuple([t.atom("text"),t.bitstring(`

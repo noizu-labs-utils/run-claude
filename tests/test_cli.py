@@ -103,9 +103,28 @@ class TestEnvCommand:
         for line in output.strip().split("\n"):
             assert line.startswith("export "), f"Line missing export prefix: {line}"
 
-    def test_env_anthropic_passthrough_exports_endpoint_only(self, capsys):
-        """anthropic (env_passthrough) exports the endpoint but no model-pinning vars."""
+    def test_env_anthropic_pins_claude_slot_models(self, capsys):
+        """anthropic pins its claude-* slots so the /model picker follows the profile."""
         with patch("sys.argv", ["run-claude", "env", "anthropic"]):
+            result = main()
+        assert result == 0
+        output = capsys.readouterr().out
+
+        assert "ANTHROPIC_BASE_URL=" in output
+        assert "ANTHROPIC_DEFAULT_FABLE_MODEL=claude-fable-5-2" in output
+        assert "ANTHROPIC_DEFAULT_OPUS_MODEL=claude-opus-5-5" in output
+        assert "ANTHROPIC_DEFAULT_SONNET_MODEL=claude-sonnet-5-5" in output
+        assert "ANTHROPIC_DEFAULT_HAIKU_MODEL=claude-haiku-5-5" in output
+        assert "unset " not in output
+
+    def test_env_passthrough_exports_endpoint_only(self, capsys):
+        """An env_passthrough profile exports the endpoint but no model-pinning vars."""
+        import dataclasses
+        from run_claude import profiles as profiles_mod
+        real = profiles_mod.load_profile("anthropic")
+        fake = dataclasses.replace(real, meta=dataclasses.replace(real.meta, env_passthrough=True))
+        with patch("sys.argv", ["run-claude", "env", "anthropic"]), \
+             patch.object(profiles_mod, "load_profile", return_value=fake):
             result = main()
         assert result == 0
         output = capsys.readouterr().out

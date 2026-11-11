@@ -56,7 +56,9 @@ install-go-litellm:
 	@if [ ! -f repos/go-litellm/Makefile ]; then \
 		git submodule update --init repos/go-litellm; \
 	fi
-	$(MAKE) -C repos/go-litellm install
+	# -buildvcs=false: go-litellm is a nested submodule (its .git is a file) so Go's VCS
+	# stamping walks up to the monorepo root and `git status` there exits 128.
+	$(MAKE) -C repos/go-litellm GOFLAGS='-trimpath -buildvcs=false' install
 	@mkdir -p run_claude/bin
 	@cp repos/go-litellm/bin/go-litellm run_claude/bin/go-litellm
 	@chmod +x run_claude/bin/go-litellm

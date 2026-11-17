@@ -840,6 +840,23 @@ qwen:
   - "qwen-lm"
   - "zai-api/glm-5.3-flashx"
 
+# Alibaba Model Studio pay-as-you-go (DashScope) — PAID lane, not the token plan.
+# Key + endpoint are env-provided by name only (never inlined): DASHSCOPE_API_KEY
+# and DASHSCOPE_ANTHROPIC_BASE_URL (workspace-qualified Model Studio Anthropic-
+# compatible endpoint: https://WORKSPACEID.ap-southeast-1.maas.aliyuncs.com/apps/
+# anthropic, Singapore region; compose from dc auto.dashscope_workspace_id).
+# Populated 2026-11-17; models kept under $1/M output tokens.
+alibaba-paid:
+  name: "Alibaba Paid (DashScope)"
+  fable_model: "alibaba-paid/deepseek-v4.1-flash"
+  opus_model: "alibaba-paid/deepseek-v4.1-flash"
+  sonnet_model: "alibaba-paid/qwen3.8-flash"
+  haiku_model: "alibaba-paid/qwen3.6-flash"
+  extended:
+  - "alibaba-paid/qwen3.8-flash"
+  - "alibaba-paid/qwen3.6-flash"
+  - "alibaba-paid/deepseek-v4.1-flash"
+
 # Alibaba Token Plan — all-DeepSeek ladder
 # Tiers (2026-10):
 #   fable  = deepseek-v4-pro-0813  (GA snapshot, night 50% off)

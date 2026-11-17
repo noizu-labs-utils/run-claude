@@ -5061,6 +5061,138 @@ model_list:
       input: [text, image]
       output: [text]
     supports_tools: true
+- model_name: "alibaba-paid/qwen3.8-flash"
+  litellm_params:
+    model: anthropic/qwen3.8-flash
+    api_key: os.environ/DASHSCOPE_API_KEY
+    api_base: os.environ/DASHSCOPE_ANTHROPIC_BASE_URL
+    drop_params: false
+    additional_drop_params: ["context_management", "thinking"]
+    reasoning_effort: "low"
+  metadata:
+    provider: alibaba
+    description: "Alibaba Qwen 3.8 Flash via Model Studio pay-as-you-go (DashScope) Anthropic API"
+    strengths: "Fast Qwen 3.8, 1M context, vision; paid lane independent of token-plan quota"
+    weaknesses: "Less depth than Qwen 3.8 Max / DeepSeek V4 Pro"
+
+    pricing:
+      text:
+        in: 0.11
+        out: 0.6
+        cached_in:
+      audio:
+        in:
+        out:
+      image:
+        in:
+        out:
+      source: model-studio pay-as-you-go
+    limits:
+      max_input_tokens: 131072
+      max_output_tokens: 32768
+      max_thinking_tokens: 32768
+    thinking:
+      supported: true
+      levels:
+      default_level: "low"
+    tokens_per_second: 60
+    notes: pay-as-you-go DashScope; needs DASHSCOPE_API_KEY and
+      DASHSCOPE_ANTHROPIC_BASE_URL (workspace-qualified Model Studio endpoint,
+      WORKSPACEID.ap-southeast-1.maas.aliyuncs.com/apps/anthropic, Singapore
+      region) in the proxy env; distinct from the alibaba/* token-plan lane
+    context_window: 131072
+    modalities:
+      input: [text, image, audio, video]
+      output: [text]
+    supports_tools: true
+- model_name: "alibaba-paid/qwen3.6-flash"
+  litellm_params:
+    model: anthropic/qwen3.6-flash
+    api_key: os.environ/DASHSCOPE_API_KEY
+    api_base: os.environ/DASHSCOPE_ANTHROPIC_BASE_URL
+    drop_params: false
+    additional_drop_params: ["context_management", "thinking"]
+    reasoning_effort: "low"
+  metadata:
+    provider: alibaba
+    description: "Alibaba Qwen 3.6 Flash via Model Studio pay-as-you-go (DashScope) Anthropic API"
+    strengths: "Fast, cheap, vision, 1M context; paid lane independent of token-plan quota"
+    weaknesses: "Least depth of the Qwen chat set"
+
+    pricing:
+      text:
+        in: 0.09
+        out: 0.5
+        cached_in:
+      audio:
+        in:
+        out:
+      image:
+        in:
+        out:
+      source: model-studio pay-as-you-go
+    limits:
+      max_input_tokens: 131072
+      max_output_tokens: 32768
+      max_thinking_tokens: 32768
+    thinking:
+      supported: true
+      levels:
+      default_level: "low"
+    tokens_per_second: 60
+    notes: pay-as-you-go DashScope; needs DASHSCOPE_API_KEY and
+      DASHSCOPE_ANTHROPIC_BASE_URL (workspace-qualified Model Studio endpoint,
+      WORKSPACEID.ap-southeast-1.maas.aliyuncs.com/apps/anthropic, Singapore
+      region) in the proxy env; distinct from the alibaba/* token-plan lane
+    context_window: 131072
+    modalities:
+      input: [text, image]
+      output: [text]
+    supports_tools: true
+- model_name: "alibaba-paid/deepseek-v4.1-flash"
+  litellm_params:
+    model: anthropic/deepseek-v4.1-flash
+    api_key: os.environ/DASHSCOPE_API_KEY
+    api_base: os.environ/DASHSCOPE_ANTHROPIC_BASE_URL
+    drop_params: false
+    additional_drop_params: ["context_management", "thinking"]
+    reasoning_effort: "low"
+  metadata:
+    provider: alibaba
+    description: "DeepSeek V4.1 Flash via Alibaba Model Studio pay-as-you-go (DashScope) Anthropic API"
+    strengths: "Cheapest qualifier, fast 1M reasoning; paid lane independent of token-plan quota"
+    weaknesses: "Text-only"
+
+    pricing:
+      text:
+        in: 0.14
+        out: 0.28
+        cached_in:
+      audio:
+        in:
+        out:
+      image:
+        in:
+        out:
+      source: model-studio pay-as-you-go
+    limits:
+      max_input_tokens: 131072
+      max_output_tokens: 65536
+      max_thinking_tokens: 32768
+    thinking:
+      supported: true
+      levels:
+      default_level: "low"
+    tokens_per_second: 50
+    notes: pay-as-you-go DashScope; needs DASHSCOPE_API_KEY and
+      DASHSCOPE_ANTHROPIC_BASE_URL (workspace-qualified Model Studio endpoint,
+      WORKSPACEID.ap-southeast-1.maas.aliyuncs.com/apps/anthropic, Singapore
+      region) in the proxy env; distinct from the alibaba/* token-plan lane
+    context_window: 131072
+    modalities:
+      input: [text]
+      output: [text]
+    supports_tools: true
 - model_name: "alibaba/deepseek-v4-pro"
   litellm_params:
     model: anthropic/deepseek-v4-pro

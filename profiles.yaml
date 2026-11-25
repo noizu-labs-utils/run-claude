@@ -293,7 +293,7 @@ zai-pro:
   sonnet_model: "zai/glm-5.3-flash (sub, high)"
   haiku_model: "zai/glm-5.3-flash (sub, low)"
   fable_model: "zai/glm-5.4 (sub, max)"
-  extended:
+  extended: &zai-pro-extended
   - "claude-fable-5-2"
   - "claude-fable-5-2[1m]"
   - "zai/glm-5.3 (sub, max)"
@@ -432,7 +432,7 @@ zai-alt: &zai-alt-profile
   sonnet_model: "zai-alt/glm-5.3-flash (sub, high)"
   haiku_model: "zai-alt/glm-5.3-flash (sub, low)"
   fable_model: "zai-alt/glm-5.4 (sub, max)"
-  extended:
+  extended: &zai-alt-extended
   - "claude-fable-5-2"
   - "claude-fable-5-2[1m]"
   - "zai/glm-5.3-flash[1m]"
@@ -565,6 +565,23 @@ zai-alt: &zai-alt-profile
   - "wafer/deepseek-v4-flash-0423[1m]"
   - "wafer/deepseek-v4-flash-0731-fast"
   - "wafer/deepseek-v4-flash-0731-fast[1m]"
+# zai4-pro / zai4-alt mirror zai-pro / zai-alt with the opus, sonnet and fable
+# tiers on glm-5.4; haiku stays on glm-5.3-flash because there is no 5.4 flash
+# (INFRAS-040). Enabled lists are shared with the sibling profiles via anchors.
+zai4-pro:
+  name: "Zai Subscription (GLM 5.4)"
+  opus_model: "zai/glm-5.4 (sub, max)"
+  sonnet_model: "zai/glm-5.4 (sub, high)"
+  haiku_model: "zai/glm-5.3-flash (sub, low)"
+  fable_model: "zai/glm-5.4 (sub, max)"
+  extended: *zai-pro-extended
+zai4-alt:
+  name: "Zai Subscription (Alt, GLM 5.4)"
+  opus_model: "zai-alt/glm-5.4 (sub, max)"
+  sonnet_model: "zai-alt/glm-5.4 (sub, high)"
+  haiku_model: "zai-alt/glm-5.3-flash (sub, low)"
+  fable_model: "zai-alt/glm-5.4 (sub, max)"
+  extended: *zai-alt-extended
 zai-pro-alt: *zai-alt-profile
 
 # Z.AI Subscription - formerly the FlashX variant.

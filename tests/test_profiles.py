@@ -452,6 +452,70 @@ def test_zai_alt_x_profile_exists_without_flashx():
     _assert_no_flashx_refs("zai-alt-x")
 
 
+def test_zai4_profiles_mirror_siblings_on_glm_5_4(monkeypatch, tmp_path):
+    # INFRAS-040: zai4-pro / zai4-alt bind opus, sonnet and fable to glm-5.4;
+    # haiku stays on glm-5.3-flash (there is no 5.4 flash). The enabled lists
+    # are shared with the sibling profiles via YAML anchors.
+    _pin_builtin_profile_resolution(monkeypatch, tmp_path)
+    clear_caches()
+    try:
+        assert "zai4-pro" in list_profiles()
+        assert "zai4-alt" in list_profiles()
+
+        pro = inspect_profile("zai4-pro")
+        alt = inspect_profile("zai4-alt")
+        assert pro is not None and alt is not None
+        assert pro.display_name == "Zai Subscription (GLM 5.4)"
+        assert alt.display_name == "Zai Subscription (Alt, GLM 5.4)"
+
+        assert pro.tiers["opus"].model_name == "zai/glm-5.4 (sub, max)"
+        assert pro.tiers["sonnet"].model_name == "zai/glm-5.4 (sub, high)"
+        assert pro.tiers["haiku"].model_name == "zai/glm-5.3-flash (sub, low)"
+        assert pro.tiers["fable"].model_name == "zai/glm-5.4 (sub, max)"
+
+        assert alt.tiers["opus"].model_name == "zai-alt/glm-5.4 (sub, max)"
+        assert alt.tiers["sonnet"].model_name == "zai-alt/glm-5.4 (sub, high)"
+        assert alt.tiers["haiku"].model_name == "zai-alt/glm-5.3-flash (sub, low)"
+        assert alt.tiers["fable"].model_name == "zai-alt/glm-5.4 (sub, max)"
+
+        sibling_pro = inspect_profile("zai-pro")
+        sibling_alt = inspect_profile("zai-alt")
+        assert sibling_pro is not None and sibling_alt is not None
+
+        # inspect_profile subtracts each profile's own tier ids from its
+        # extended view, so sibling equality is asserted on the raw YAML
+        # lists (load_profile) and on tiers ∪ extended.
+        from run_claude.profiles import load_profile
+
+        slots = ("opus", "sonnet", "haiku", "fable")
+        assert sorted(load_profile("zai4-pro").meta.extended) == sorted(
+            load_profile("zai-pro").meta.extended
+        )
+        assert sorted(load_profile("zai4-alt").meta.extended) == sorted(
+            load_profile("zai-alt").meta.extended
+        )
+
+        pro_enabled = {item.model_name for item in pro.extended} | {pro.tiers[t].model_name for t in slots}
+        alt_enabled = {item.model_name for item in alt.extended} | {alt.tiers[t].model_name for t in slots}
+        sibling_pro_enabled = (
+            {item.model_name for item in sibling_pro.extended}
+            | {sibling_pro.tiers[t].model_name for t in slots}
+        )
+        sibling_alt_enabled = (
+            {item.model_name for item in sibling_alt.extended}
+            | {sibling_alt.tiers[t].model_name for t in slots}
+        )
+        assert pro_enabled == sibling_pro_enabled
+        assert alt_enabled == sibling_alt_enabled
+
+        # Every tier id of each profile is enabled in its profile's list.
+        for tier in slots:
+            assert pro.tiers[tier].model_name in pro_enabled
+            assert alt.tiers[tier].model_name in alt_enabled
+    finally:
+        clear_caches()
+
+
 def _pin_builtin_profile_resolution(monkeypatch, tmp_path):
     """Hermetic: pin resolution to the built-in catalog (see test_inspect_wafer_tiers)."""
     monkeypatch.setattr(

@@ -1,6 +1,7 @@
 # Changelog — utilities/agent/run-claude
 
 ## 2026-11-25
+- Follow-up: `glm-5.4 (sub, high)` and `(sub, high)[1m]` (zai, zai-alt) added to the `extended` lists of every profile enabling the `(sub, max)` twin, so the glm-5.4 fable stubs (`npl-*-glm-fable*`, `npl-*-glm`, `*-1m`) route.
 - GLM 5.4 for the non-flash Z.AI tier: catalog gains `glm-5.4` twins (upstream `anthropic/glm-5.4` / `openai/glm-5.4`) of every non-flash `glm-5.3` entry (`zai/*` incl. `(sub[, max|high|low])` and `[1m]`, `zai-oa/glm-5.3`, `alibaba/glm-5.3[1m]`; `zai-alt/*` and `zai-oa-alt/*` derive via `FAMILY_CLONES`). `fable_model` (and zai-max/zai-fast opus) in `zai-pro`, `zai-alt`, `zai-pro-x`, `zai-alt-x`, `zai-oa`, `zai-max`, `zai-fast`, `fast-glm` now point at `glm-5.4`; glm-5.3 non-flash ids stay in the catalog and `extended` lists so pinned sessions keep resolving; flash (`glm-5.3-flash`, `-flashx`) unchanged. `ultra`/`cheap` aliases still on 5.3.
 
 ## 2026-11-17

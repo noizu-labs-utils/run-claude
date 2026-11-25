@@ -251,9 +251,9 @@ class TestProfilesCommand:
         assert result == 0
         output = capsys.readouterr().out
         assert "opus:   zai/glm-5.3-flash (sub, max)" in output
-        assert "fable:  zai/glm-5.3" in output
+        assert "fable:  zai/glm-5.4" in output
         assert "anthropic/glm-5.3-flash" in output
-        assert "anthropic/glm-5.3" in output
+        assert "anthropic/glm-5.4" in output
         assert "ZAI_SUB_KEY" in output
         assert "ZAI_SUB_KEY_TYNA" in output
         assert "zai-alt/glm-5.3-flash" in output
@@ -279,9 +279,9 @@ class TestProfilesCommand:
         assert result == 0
         output = capsys.readouterr().out
         assert "opus:   zai-alt/glm-5.3-flash" in output
-        assert "fable:  zai-alt/glm-5.3" in output
+        assert "fable:  zai-alt/glm-5.4" in output
         assert "anthropic/glm-5.3-flash" in output
-        assert "anthropic/glm-5.3" in output
+        assert "anthropic/glm-5.4" in output
         assert "ZAI_SUB_KEY_TYNA" in output
         assert "zai-alt/glm-5.3-flash[1m]" in output
 

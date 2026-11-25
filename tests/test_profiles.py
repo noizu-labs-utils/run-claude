@@ -148,10 +148,10 @@ def test_inspect_zai_pro_instances(monkeypatch, tmp_path):
     try:
         inspection = inspect_profile("zai-pro")
         assert inspection is not None
-        assert inspection.tiers["fable"].internal_name == "anthropic/glm-5.3"
+        assert inspection.tiers["fable"].internal_name == "anthropic/glm-5.4"
         # Effort ladder (2026-10): fable = glm-5.3 at max; opus = glm-5.3-flash at
         # max, sonnet at high (FlashX is not subscribed); haiku = flash at low.
-        assert inspection.tiers["fable"].model_name == "zai/glm-5.3 (sub, max)"
+        assert inspection.tiers["fable"].model_name == "zai/glm-5.4 (sub, max)"
         assert inspection.tiers["opus"].model_name == "zai/glm-5.3-flash (sub, max)"
         assert inspection.tiers["opus"].internal_name == "anthropic/glm-5.3-flash"
         assert inspection.tiers["opus"].key_env == "ZAI_SUB_KEY"
@@ -190,11 +190,11 @@ def test_inspect_zai_pro_alt_defaults_to_tyna(monkeypatch, tmp_path):
         # Effort ladder (2026-10): mirrors zai-pro — sonnet = flash at high.
         assert inspection.tiers["sonnet"].model_name == "zai-alt/glm-5.3-flash (sub, high)"
         assert inspection.tiers["haiku"].model_name == "zai-alt/glm-5.3-flash (sub, low)"
-        assert inspection.tiers["fable"].model_name == "zai-alt/glm-5.3 (sub, max)"
+        assert inspection.tiers["fable"].model_name == "zai-alt/glm-5.4 (sub, max)"
         assert inspection.tiers["opus"].internal_name == "anthropic/glm-5.3-flash"
         assert inspection.tiers["sonnet"].internal_name == "anthropic/glm-5.3-flash"
         assert inspection.tiers["haiku"].internal_name == "anthropic/glm-5.3-flash"
-        assert inspection.tiers["fable"].internal_name == "anthropic/glm-5.3"
+        assert inspection.tiers["fable"].internal_name == "anthropic/glm-5.4"
         assert inspection.tiers["opus"].key_env == "ZAI_SUB_KEY_TYNA"
         assert inspection.tiers["opus"].instance == "tyna"
 
@@ -443,7 +443,7 @@ def test_zai_alt_x_profile_exists_without_flashx():
     assert inspection.tiers["sonnet"].model_name == "zai-alt/glm-5.3-flash"
     assert inspection.tiers["opus"].internal_name == "anthropic/glm-5.3-flash"
     assert inspection.tiers["haiku"].model_name == "zai-alt/glm-5.3-flash"
-    assert inspection.tiers["fable"].model_name == "zai-alt/glm-5.3"
+    assert inspection.tiers["fable"].model_name == "zai-alt/glm-5.4"
 
     extra_names = {item.model_name for item in inspection.extended}
     assert "zai-alt/glm-5.3-flash[1m]" in extra_names

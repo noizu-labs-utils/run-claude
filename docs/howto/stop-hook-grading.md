@@ -9,7 +9,7 @@
 1. **Extract the last turn** from the session transcript (`transcript_path` arrives in the Stop hook's stdin JSON): the newest user instruction, the model response, and any tool calls/result blocks. Tool-result echoes are not user turns.
 2. **Render** the turn as a model message. If the turn contains **no tool calls**, append a user message `Grade.` and then the jev response as a model entry — the classifier conversation always ends on a model entry, so a plain text-only turn is padded with the literal `Grade.` prompt before grading.
 3. **jev `:choice`** grades the rendered turn: `continuation | topic-switch | new-task | more-context-needed`.
-4. **Component-work turns also get an Alibaba `:score`** — `tobor-grade --score` invokes `decision-model-preview` (0-100; the SystemOne adapter's inferred `:alibaba_rounded_hundredths` policy applies automatically — do not re-implement it).
+4. **Component-work turns also get an Alibaba `:score`** — `tobor-grade --score` invokes `decision-model` (GA id since 2026-11-26; the retired `decision-model-preview` id is still recognised by the SystemOne adapter) (0-100; the adapter's inferred `:alibaba_rounded_hundredths` policy applies automatically — do not re-implement it). Each grader call sends at most 6,000 characters of rendered transcript — the extraction must never feed the grader a whole session or a dataset.
 5. **Walk-back**: a `more-context-needed` verdict walks the transcript back one real user turn and re-grades, capped at 5 attempts; the first turn is never dropped.
 6. **Sink**: one JSONL line per run — `{component?, verdict, score?, transcript_path, walkback_used, timestamp}` — appended to `jsonl:<path>`.
 
@@ -27,7 +27,7 @@ TOBOR_GRADING=1 tobor-grade \
 # exit 0 graded · 1 grading failure · 2 usage · 3 recursion guard
 ```
 
-For the score lane add `--score`. Register the script as a Claude Code Stop hook in `settings.json` (`hooks.Stop`); keep the command short and point it at a stable script path — the hook body above is the whole contract.
+For the score lane add `--score` (bounded at 6,000 characters of rendered input per call by genai's `ToborGrade.input_cap_chars/0`). Register the script as a Claude Code Stop hook in `settings.json` (`hooks.Stop`); keep the command short and point it at a stable script path — the hook body above is the whole contract.
 
 ### Turning routing on (later)
 

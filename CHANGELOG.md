@@ -1,5 +1,8 @@
 # Changelog — utilities/agent/run-claude
 
+## 2026-11-26
+- `docs/howto/stop-hook-grading.md`: the Alibaba score lane default is the GA `decision-model` id (owner word 2026-11-26; `decision-model-preview` is retired but still recognised by the genai SystemOne adapter) and the howto now bounds the grader input at 6,000 characters of rendered transcript per call.
+
 ## 2026-11-25
 - New `zai4-pro` / `zai4-alt` profiles (INFRAS-040): mirror `zai-pro` / `zai-alt` with the opus, sonnet and fable tiers on `glm-5.4` (`(sub, max)` / `(sub, high)` / `(sub, max)`); haiku stays on `glm-5.3-flash (sub, low)` because there is no 5.4 flash. Enabled (`extended`) lists are shared with the sibling profiles via YAML anchors (`&zai-pro-extended` / `&zai-alt-extended`) instead of a 250-line copy; no reader/writer of `profiles.yaml` lacks anchor support (`cli.py` writes only template constants, both loaders are real YAML parsers) and a whole-profile alias (`zai-pro-alt: *zai-alt-profile`) was already in use. No existing profile's tiers changed; no file holds the profile-name list as data (the `keys.py` / model-explorer tuples are model-family→key mappings, unchanged).
 - Follow-up: `glm-5.4 (sub, high)` and `(sub, high)[1m]` (zai, zai-alt) added to the `extended` lists of every profile enabling the `(sub, max)` twin, so the glm-5.4 fable stubs (`npl-*-glm-fable*`, `npl-*-glm`, `*-1m`) route.
